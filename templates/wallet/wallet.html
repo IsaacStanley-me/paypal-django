@@ -1,0 +1,496 @@
+{% load static %} {% block content %}
+<style>
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wallet-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  .wallet-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .wallet-header h1 {
+    color: #003087;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .wallet-header p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  .balance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .balance-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .balance-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+  }
+
+  .balance-card.reward::before {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  }
+
+  .balance-card h3 {
+    color: #003087;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .balance-card.reward h3 {
+    color: #ff6b35;
+  }
+
+  .balance-amount {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #111;
+    margin: 20px 0;
+  }
+
+  .balance-card.reward .balance-amount {
+    color: #ff6b35;
+  }
+
+  .balance-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+    color: white;
+    text-decoration: none;
+  }
+
+  .btn-secondary {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+    color: white;
+    text-decoration: none;
+  }
+
+  .cards-section {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .section-header h2 {
+    color: #003087;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .card-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card-list:hover {
+    border-color: #0070ba;
+    background: #f8f9ff;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .card-list img {
+    height: 40px;
+    width: 60px;
+    object-fit: contain;
+  }
+
+  .card-details h4 {
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .card-details p {
+    margin: 5px 0 0 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .no-cards {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+
+  .no-cards i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #ccc;
+  }
+
+  /* Popup Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 450px;
+    max-width: 90vw;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .modal-content h3 {
+    color: #0070ba;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+  }
+
+  .close-btn:hover {
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #e1e5e9;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: #0070ba;
+    box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .wallet-container {
+      padding: 20px 15px;
+    }
+
+    .balance-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .balance-amount {
+      font-size: 2.5rem;
+    }
+
+    .balance-actions {
+      flex-direction: column;
+    }
+
+    .section-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<!-- Ensure Font Awesome is available for icons like the back arrow and home -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  .navbar {
+    background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .navbar .navbar-brand,
+  .navbar .nav-link {
+    color: #fff !important;
+  }
+  .navbar .navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
+  .navbar .nav-link i { margin-right: 0.25rem; }
+  /* Layout helpers in case Bootstrap CSS isn't present here */
+  .navbar .container-fluid { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; }
+  .navbar .navbar-nav { display: flex; align-items: center; gap: 1rem; }
+  .navbar .nav-link { text-decoration: none; }
+</style>
+
+<!-- Navbar (match bank accounts header) -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+      <i class="fas fa-arrow-left me-2"></i>
+      Wallet
+    </a>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+        <i class="fas fa-home me-1"></i> Dashboard
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="wallet-container">
+  <!-- WALLET HEADER -->
+  <div class="wallet-header">
+    <h1><i class="fas fa-wallet me-3"></i>My Wallet</h1>
+    <p>Manage your balances and payment methods</p>
+  </div>
+
+  <!-- BALANCE CARDS -->
+  <div class="balance-grid">
+    <div class="balance-card">
+      <h3><i class="fas fa-credit-card"></i>PayPal Balance</h3>
+      <div class="balance-amount">${{ wallet.paypal_balance|default:"0.00" }}</div>
+      <div class="balance-actions">
+        <a href="{% url 'transactions:withdraw_user' %}" class="btn-primary">
+          <i class="fas fa-paper-plane"></i>Send Money
+        </a>
+        <button class="btn-secondary" id="addMoneyWalletBtn">
+          <i class="fas fa-plus"></i>Add Money
+        </button>
+      </div>
+    </div>
+
+    <div class="balance-card reward">
+      <h3><i class="fas fa-gift"></i>Reward Balance</h3>
+      <div class="balance-amount">${{ wallet.reward_balance|default:"0.00" }}</div>
+      <div class="balance-actions">
+        <a href="{% url 'transactions:withdraw_user' %}" class="btn-primary">
+          <i class="fas fa-paper-plane"></i>Send Money
+        </a>
+        <a href="{% url 'rewards:dashboard' %}" class="btn-secondary">
+          <i class="fas fa-gift"></i>Earn Rewards
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINKED CARDS SECTION -->
+  <div class="cards-section">
+    <div class="section-header">
+      <h2><i class="fas fa-credit-card me-2"></i>Linked Cards</h2>
+      <button class="btn-primary" id="openModalBtn">
+        <i class="fas fa-plus"></i>Link New Card
+      </button>
+    </div>
+
+    {% if cards %}
+      {% for card in cards %}
+      <a href="{% url 'wallet:card_detail' card.pk %}" class="card-list">
+        <div class="card-info">
+          {% if card.card_type == 'Visa' %}
+          <img src="{% static 'images/visa.png' %}" alt="Visa" />
+          {% elif card.card_type == 'MasterCard' %}
+          <img src="{% static 'images/mastercard.png' %}" alt="MasterCard" />
+          {% elif card.card_type == 'Verve' %}
+          <img src="{% static 'images/verve.png' %}" alt="Verve" />
+          {% endif %}
+          <div class="card-details">
+            <h4>{{ card.card_type }} {{ card.masked_number }}</h4>
+            <p>Expires {{ card.expiry_date }}</p>
+          </div>
+        </div>
+        <i class="fas fa-chevron-right text-muted"></i>
+      </a>
+      {% endfor %}
+    {% else %}
+    <div class="no-cards">
+      <i class="fas fa-credit-card"></i>
+      <h4>No cards linked yet</h4>
+      <p>Link a card to make payments easier</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- MODAL POPUP -->
+<div class="modal" id="addCardModal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModalBtn">&times;</span>
+    <h3><i class="fas fa-credit-card me-2"></i>Link New Card</h3>
+    <form method="POST" action="{% url 'wallet:add_card' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_card_type">Card Type</label>
+        {{ form.card_type }}
+      </div>
+      <div class="form-group">
+        <label for="id_card_number">Card Number</label>
+        {{ form.card_number }}
+      </div>
+      <div class="form-group">
+        <label for="id_expiry_date">Expiry Date</label>
+        {{ form.expiry_date }}
+      </div>
+      <div class="form-group">
+        <label for="id_street">Billing Address</label>
+        {{ form.street }}
+      </div>
+      <button type="submit" class="btn-primary" style="width: 100%">
+        <i class="fas fa-plus me-2"></i>Add Card
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Open and close modal logic
+  document.getElementById("openModalBtn").onclick = function () {
+    document.getElementById("addCardModal").style.display = "flex";
+  };
+
+  document.getElementById("closeModalBtn").onclick = function () {
+    document.getElementById("addCardModal").style.display = "none";
+  };
+
+  window.onclick = function (event) {
+    const modal = document.getElementById("addCardModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+<script>
+  // Wallet Add Money: prompt and redirect to chat page
+  (function(){
+    const btn = document.getElementById('addMoneyWalletBtn');
+    if (btn) {
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        const ok = confirm('To add money, you must talk to the admin. Press OK to open chat now.');
+        if (ok) {
+          window.location.href = "{% url 'accounts:chat_page' %}?topic=add_money";
+        }
+      });
+    }
+  })();
+</script>
+
+{% endblock %}

@@ -1,0 +1,372 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Contact Management - Admin" %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .admin-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .admin-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .admin-body {
+            padding: 2rem;
+        }
+        
+        .contact-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #0070ba;
+        }
+        
+        .contact-item.pending {
+            border-left-color: #ffc107;
+        }
+        
+        .contact-item.in-progress {
+            border-left-color: #17a2b8;
+        }
+        
+        .contact-item.resolved {
+            border-left-color: #28a745;
+        }
+        
+        .contact-item.closed {
+            border-left-color: #6c757d;
+        }
+        
+        .contact-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info h5 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .contact-info p {
+            margin: 0.25rem 0 0 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-in-progress {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-resolved {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-closed {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .contact-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .contact-message {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #e1e5e9;
+        }
+        
+        .admin-response {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0070ba;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+            
+            .admin-header {
+                padding: 1.5rem;
+            }
+            
+            .admin-body {
+                padding: 1.5rem;
+            }
+            
+            .contact-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+                <i class="fas fa-arrow-left me-2"></i>
+                {% trans "Contact Management" %}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                    <i class="fas fa-home me-1"></i> {% trans "Dashboard" %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="admin-card">
+            <div class="admin-header">
+                <h1><i class="fas fa-headset me-2"></i>{% trans "Contact Management" %}</h1>
+                <p>{% trans "Manage customer support requests and live chat sessions" %}</p>
+            </div>
+            
+            <div class="admin-body">
+                <!-- Statistics -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ contact_requests.count }}</div>
+                        <div class="stat-label">{% trans "Total Requests" %}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ contact_requests|length }}</div>
+                        <div class="stat-label">{% trans "Pending" %}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ contact_requests|length }}</div>
+                        <div class="stat-label">{% trans "In Progress" %}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ contact_requests|length }}</div>
+                        <div class="stat-label">{% trans "Resolved" %}</div>
+                    </div>
+                </div>
+                
+                <!-- Contact Requests -->
+                <h3><i class="fas fa-list me-2"></i>{% trans "Contact Requests" %}</h3>
+                
+                {% if contact_requests %}
+                    {% for contact in contact_requests %}
+                    <div class="contact-item {{ contact.status }}">
+                        <div class="contact-header">
+                            <div class="contact-info">
+                                <h5>{{ contact.first_name }} {{ contact.last_name }}</h5>
+                                <p><i class="fas fa-envelope me-1"></i>{{ contact.email }}</p>
+                                <p><i class="fas fa-clock me-1"></i>{{ contact.created_at|date:"M d, Y H:i" }}</p>
+                                {% if contact.assigned_to %}
+                                <p><i class="fas fa-user me-1"></i>Assigned to: {{ contact.assigned_to.first_name }} {{ contact.assigned_to.last_name }}</p>
+                                {% endif %}
+                            </div>
+                            <span class="status-badge status-{{ contact.status }}">{{ contact.get_status_display }}</span>
+                        </div>
+                        
+                        <div class="contact-message">
+                            <h6><i class="fas fa-tag me-1"></i>{{ contact.subject }}</h6>
+                            <p>{{ contact.message }}</p>
+                        </div>
+                        
+                        {% if contact.admin_response %}
+                        <div class="admin-response">
+                            <h6><i class="fas fa-reply me-1"></i>{% trans "Admin Response" %}</h6>
+                            <p>{{ contact.admin_response }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="contact-actions">
+                            {% if contact.status == 'pending' %}
+                            <form method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="contact_id" value="{{ contact.id }}">
+                                <input type="hidden" name="action" value="assign">
+                                <select name="assigned_to" class="form-select form-select-sm" style="width: auto; display: inline-block;">
+                                    <option value="">{% trans "Assign to..." %}</option>
+                                    {% for staff in staff_users %}
+                                    <option value="{{ staff.id }}">{{ staff.first_name }} {{ staff.last_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-user-plus me-1"></i>{% trans "Assign" %}
+                                </button>
+                            </form>
+                            {% endif %}
+                            
+                            {% if contact.status == 'in_progress' %}
+                            <button type="button" class="btn btn-success btn-sm resolve-btn" data-contact-id="{{ contact.id }}">
+                                <i class="fas fa-check me-1"></i>{% trans "Resolve" %}
+                            </button>
+                            {% endif %}
+                            
+                            {% if contact.status == 'resolved' %}
+                            <form method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="contact_id" value="{{ contact.id }}">
+                                <input type="hidden" name="action" value="close">
+                                <button type="submit" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-times me-1"></i>{% trans "Close" %}
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-inbox text-muted" style="font-size: 3rem;"></i>
+                    <h4 class="mt-3 text-muted">{% trans "No Contact Requests" %}</h4>
+                    <p class="text-muted">{% trans "No contact requests have been submitted yet." %}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Resolve Modal -->
+    <div class="modal fade" id="resolveModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{% trans "Resolve Contact Request" %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" id="resolveForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="resolve">
+                    <input type="hidden" name="contact_id" id="resolveContactId">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="adminResponse" class="form-label">{% trans "Admin Response" %}</label>
+                            <textarea class="form-control" id="adminResponse" name="admin_response" rows="4" placeholder="Enter your response to the customer..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                        <button type="submit" class="btn btn-success">{% trans "Mark as Resolved" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openResolveModal(contactId) {
+            document.getElementById('resolveContactId').value = contactId;
+            const modal = new bootstrap.Modal(document.getElementById('resolveModal'));
+            modal.show();
+        }
+        // Attach click handlers without inline JS to avoid parser errors on template expressions
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelectorAll('.resolve-btn').forEach(function(btn){
+                btn.addEventListener('click', function(){
+                    var id = this.getAttribute('data-contact-id');
+                    if (id) { openResolveModal(id); }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+

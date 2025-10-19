@@ -1,0 +1,532 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - PayPal</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .paypal-header {
+            background-color: #003087;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .paypal-logo {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .paypal-logo .pay {
+            color: #003087;
+        }
+        
+        .paypal-logo .pal {
+            color: #0070ba;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .country-language-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .country-language-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .country-language-header h1 {
+            color: #003087;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .country-language-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .country-language-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .form-group select:focus {
+            outline: none;
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .account-type-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .account-type-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .account-type-header h2 {
+            color: #003087;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-type-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .account-type-card {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .account-type-card:hover {
+            border-color: #0070ba;
+            box-shadow: 0 4px 15px rgba(0, 112, 186, 0.15);
+        }
+        
+        .account-type-card.selected {
+            border-color: #0070ba;
+            background-color: #f0f8ff;
+        }
+        
+        .account-type-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .account-type-card h3 {
+            color: #003087;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .account-type-card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .account-type-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+        
+        .account-type-features li {
+            padding: 0.3rem 0;
+            color: #333;
+        }
+        
+        .account-type-features li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .continue-btn {
+            background-color: #0070ba;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .continue-btn:hover {
+            background-color: #005ea6;
+        }
+        
+        .continue-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .login-link a {
+            color: #0070ba;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .language-preview {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="paypal-header">
+        <div class="paypal-logo">
+            <span class="pay">Pay</span><span class="pal">Pal</span>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="country-language-section">
+            <div class="country-language-header">
+                <h1>{{ t.create_account }}</h1>
+                <p>{{ t.select_country_language }}</p>
+            </div>
+            
+            <div class="country-language-grid">
+                <div class="form-group">
+                    <label for="country">{{ t.country_region }}</label>
+                    <select id="country" name="country" onchange="updateLanguage()">
+                        <option value="US">🇺🇸 United States</option>
+                        <option value="CA">🇨🇦 Canada</option>
+                        <option value="GB">🇬🇧 United Kingdom</option>
+                        <option value="DE">🇩🇪 Germany</option>
+                        <option value="FR">🇫🇷 France</option>
+                        <option value="ES">🇪🇸 Spain</option>
+                        <option value="IT">🇮🇹 Italy</option>
+                        <option value="AU">🇦🇺 Australia</option>
+                        <option value="JP">🇯🇵 Japan</option>
+                        <option value="BR">🇧🇷 Brazil</option>
+                        <option value="MX">🇲🇽 Mexico</option>
+                        <option value="IN">🇮🇳 India</option>
+                        <option value="CN">🇨🇳 China</option>
+                        <option value="NL">🇳🇱 Netherlands</option>
+                        <option value="BE">🇧🇪 Belgium</option>
+                        <option value="CH">🇨🇭 Switzerland</option>
+                        <option value="AT">🇦🇹 Austria</option>
+                        <option value="SE">🇸🇪 Sweden</option>
+                        <option value="NO">🇳🇴 Norway</option>
+                        <option value="DK">🇩🇰 Denmark</option>
+                        <option value="FI">🇫🇮 Finland</option>
+                        <option value="PL">🇵🇱 Poland</option>
+                        <option value="RU">🇷🇺 Russia</option>
+                        <option value="KR">🇰🇷 South Korea</option>
+                        <option value="SG">🇸🇬 Singapore</option>
+                        <option value="HK">🇭🇰 Hong Kong</option>
+                        <option value="TW">🇹🇼 Taiwan</option>
+                        <option value="TH">🇹🇭 Thailand</option>
+                        <option value="MY">🇲🇾 Malaysia</option>
+                        <option value="ID">🇮🇩 Indonesia</option>
+                        <option value="PH">🇵🇭 Philippines</option>
+                        <option value="VN">🇻🇳 Vietnam</option>
+                        <option value="AR">🇦🇷 Argentina</option>
+                        <option value="CL">🇨🇱 Chile</option>
+                        <option value="CO">🇨🇴 Colombia</option>
+                        <option value="PE">🇵🇪 Peru</option>
+                        <option value="ZA">🇿🇦 South Africa</option>
+                        <option value="EG">🇪🇬 Egypt</option>
+                        <option value="NG">🇳🇬 Nigeria</option>
+                        <option value="KE">🇰🇪 Kenya</option>
+                        <option value="IL">🇮🇱 Israel</option>
+                        <option value="AE">🇦🇪 UAE</option>
+                        <option value="SA">🇸🇦 Saudi Arabia</option>
+                        <option value="TR">🇹🇷 Turkey</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="language-preview" id="languagePreview">
+                <strong>{{ t.selected }}:</strong> United States
+            </div>
+        </div>
+        
+        <div class="account-type-section">
+            <div class="account-type-header">
+                <h2>{{ t.choose_account_type }}</h2>
+                <p>{{ t.select_account_needs }}</p>
+            </div>
+            
+            <form method="POST" id="accountTypeForm">
+                {% csrf_token %}
+                <div class="account-type-cards">
+                    <div class="account-type-card" data-type="personal" onclick="selectAccountType('personal')">
+                        <div class="account-type-icon">👤</div>
+                        <h3>{{ t.personal_account }}</h3>
+                        <p>{{ t.personal_description }}</p>
+                        <ul class="account-type-features">
+                            <li>{{ t.send_receive_money }}</li>
+                            <li>{{ t.shop_online_securely }}</li>
+                            <li>{{ t.split_bills_friends }}</li>
+                            <li>{{ t.no_monthly_fees }}</li>
+                        </ul>
+                        <input type="radio" name="account_type" value="personal" style="display: none;">
+                    </div>
+                    
+                    <div class="account-type-card" data-type="business" onclick="selectAccountType('business')">
+                        <div class="account-type-icon">🏢</div>
+                        <h3>{{ t.business_account }}</h3>
+                        <p>{{ t.business_description }}</p>
+                        <ul class="account-type-features">
+                            <li>{{ t.accept_payments_online }}</li>
+                            <li>{{ t.invoice_customers }}</li>
+                            <li>{{ t.track_business_expenses }}</li>
+                            <li>{{ t.advanced_reporting }}</li>
+                        </ul>
+                        <input type="radio" name="account_type" value="business" style="display: none;">
+                    </div>
+                </div>
+                
+                <button type="submit" class="continue-btn" id="continueBtn" disabled>{{ t.continue }}</button>
+            </form>
+            
+            <div class="login-link">
+                <p>{{ t.already_have_account }} <a href="{% url 'accounts:login' %}">{{ t.log_in }}</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const countryLanguageMap = {
+            'US': { language: 'English', code: 'en' },
+            'CA': { language: 'English', code: 'en' },
+            'GB': { language: 'English', code: 'en' },
+            'DE': { language: 'Deutsch', code: 'de' },
+            'FR': { language: 'Français', code: 'fr' },
+            'ES': { language: 'Español', code: 'es' },
+            'IT': { language: 'Italiano', code: 'it' },
+            'AU': { language: 'English', code: 'en' },
+            'JP': { language: '日本語', code: 'ja' },
+            'BR': { language: 'Português', code: 'pt' },
+            'MX': { language: 'Español', code: 'es' },
+            'IN': { language: 'English', code: 'en' },
+            'CN': { language: '中文', code: 'zh' },
+            'NL': { language: 'Nederlands', code: 'nl' },
+            'BE': { language: 'Nederlands', code: 'nl' },
+            'CH': { language: 'Deutsch', code: 'de' },
+            'AT': { language: 'Deutsch', code: 'de' },
+            'SE': { language: 'Svenska', code: 'sv' },
+            'NO': { language: 'Norsk', code: 'no' },
+            'DK': { language: 'Dansk', code: 'da' },
+            'FI': { language: 'Suomi', code: 'fi' },
+            'PL': { language: 'Polski', code: 'pl' },
+            'RU': { language: 'Русский', code: 'ru' },
+            'KR': { language: '한국어', code: 'ko' },
+            'SG': { language: 'English', code: 'en' },
+            'HK': { language: 'English', code: 'en' },
+            'TW': { language: '中文', code: 'zh' },
+            'TH': { language: 'ไทย', code: 'th' },
+            'MY': { language: 'English', code: 'en' },
+            'ID': { language: 'Bahasa Indonesia', code: 'id' },
+            'PH': { language: 'English', code: 'en' },
+            'VN': { language: 'Tiếng Việt', code: 'vi' },
+            'AR': { language: 'Español', code: 'es' },
+            'CL': { language: 'Español', code: 'es' },
+            'CO': { language: 'Español', code: 'es' },
+            'PE': { language: 'Español', code: 'es' },
+            'ZA': { language: 'English', code: 'en' },
+            'EG': { language: 'العربية', code: 'ar' },
+            'NG': { language: 'English', code: 'en' },
+            'KE': { language: 'English', code: 'en' },
+            'IL': { language: 'עברית', code: 'he' },
+            'AE': { language: 'العربية', code: 'ar' },
+            'SA': { language: 'العربية', code: 'ar' },
+            'TR': { language: 'Türkçe', code: 'tr' }
+        };
+        
+        const countryNames = {
+            'US': 'United States',
+            'CA': 'Canada',
+            'GB': 'United Kingdom',
+            'DE': 'Germany',
+            'FR': 'France',
+            'ES': 'Spain',
+            'IT': 'Italy',
+            'AU': 'Australia',
+            'JP': 'Japan',
+            'BR': 'Brazil',
+            'MX': 'Mexico',
+            'IN': 'India',
+            'CN': 'China',
+            'NL': 'Netherlands',
+            'BE': 'Belgium',
+            'CH': 'Switzerland',
+            'AT': 'Austria',
+            'SE': 'Sweden',
+            'NO': 'Norway',
+            'DK': 'Denmark',
+            'FI': 'Finland',
+            'PL': 'Poland',
+            'RU': 'Russia',
+            'KR': 'South Korea',
+            'SG': 'Singapore',
+            'HK': 'Hong Kong',
+            'TW': 'Taiwan',
+            'TH': 'Thailand',
+            'MY': 'Malaysia',
+            'ID': 'Indonesia',
+            'PH': 'Philippines',
+            'VN': 'Vietnam',
+            'AR': 'Argentina',
+            'CL': 'Chile',
+            'CO': 'Colombia',
+            'PE': 'Peru',
+            'ZA': 'South Africa',
+            'EG': 'Egypt',
+            'NG': 'Nigeria',
+            'KE': 'Kenya',
+            'IL': 'Israel',
+            'AE': 'UAE',
+            'SA': 'Saudi Arabia',
+            'TR': 'Turkey'
+        };
+        
+        function updateLanguage() {
+            const countrySelect = document.getElementById('country');
+            const languagePreview = document.getElementById('languagePreview');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            const selectedCountry = countrySelect.value;
+            const languageInfo = countryLanguageMap[selectedCountry];
+            const countryName = countryNames[selectedCountry];
+            
+            // Update preview
+            languagePreview.innerHTML = `<strong>{{ t.selected }}:</strong> ${countryName}`;
+            
+            // Check if account type is also selected
+            const selectedRadio = document.querySelector('input[name="account_type"]:checked');
+            if (selectedRadio) {
+                continueBtn.disabled = false;
+            }
+        }
+        
+        function selectAccountType(type) {
+            const cards = document.querySelectorAll('.account-type-card');
+            const continueBtn = document.getElementById('continueBtn');
+            const countrySelect = document.getElementById('country');
+            
+            // Remove selected class from all cards
+            cards.forEach(c => c.classList.remove('selected'));
+            
+            // Add selected class to clicked card
+            const selectedCard = document.querySelector(`[data-type="${type}"]`);
+            selectedCard.classList.add('selected');
+            
+            // Check the radio button
+            const radio = selectedCard.querySelector('input[type="radio"]');
+            radio.checked = true;
+            
+            // Check if all required fields are filled
+            const country = countrySelect.value;
+            
+            if (country) {
+                continueBtn.disabled = false;
+            } else {
+                continueBtn.disabled = true;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('accountTypeForm');
+            const continueBtn = document.getElementById('continueBtn');
+            const countrySelect = document.getElementById('country');
+            
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                const selectedRadio = form.querySelector('input[name="account_type"]:checked');
+                const country = countrySelect.value;
+                
+                if (!selectedRadio) {
+                    e.preventDefault();
+                    alert('Please select an account type');
+                    return false;
+                }
+                
+                if (!country) {
+                    e.preventDefault();
+                    alert('Please select a country');
+                    return false;
+                }
+                
+                // Form is valid, let it submit naturally
+                console.log('Form submitting with:', { account_type: selectedRadio.value, country });
+            });
+            
+            // Enable continue button only when all fields are filled
+            function checkFormCompletion() {
+                const selectedRadio = form.querySelector('input[name="account_type"]:checked');
+                const country = countrySelect.value;
+                
+                if (selectedRadio && country) {
+                    continueBtn.disabled = false;
+                } else {
+                    continueBtn.disabled = true;
+                }
+            }
+            
+            // Check form completion on any change
+            form.addEventListener('change', checkFormCompletion);
+            countrySelect.addEventListener('change', checkFormCompletion);
+        });
+    </script>
+</body>
+</html>

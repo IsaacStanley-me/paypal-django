@@ -1,0 +1,210 @@
+{% load static %}
+{% load i18n %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #003087 0%, #0070ba 100%); box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+            <i class="fas fa-paypal me-2"></i>
+            {% trans "PayPal" %}
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                        <i class="fas fa-home me-1"></i> {% trans "Dashboard" %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'transactions:withdraw_user' %}">
+                        <i class="fas fa-paper-plane me-1"></i> {% trans "Send Money" %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'transactions:withdraw_bank' %}">
+                        <i class="fas fa-university me-1"></i> {% trans "Withdraw" %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'transactions:transaction_history' %}">
+                        <i class="fas fa-history me-1"></i> {% trans "History" %}
+                    </a>
+                </li>
+            </ul>
+            
+            <ul class="navbar-nav">
+                
+                <!-- Notifications -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell me-1"></i>
+                        <span class="badge bg-danger" id="notificationCount">0</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="min-width: 300px;">
+                        <li><h6 class="dropdown-header">{% trans "Notifications" %}</h6></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li id="notificationsList">
+                            <div class="text-center p-3">
+                                <i class="fas fa-bell-slash text-muted"></i>
+                                <p class="text-muted mb-0">{% trans "No new notifications" %}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Profile Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+                        <div class="profile-avatar me-2">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="Profile" class="profile-img">
+                            {% else %}
+                                <div class="profile-initials" data-bg="{{ user.get_avatar_color }}">
+                                    {{ user.get_initials }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <span class="d-none d-md-inline">{{ user.first_name|default:user.email }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <div class="dropdown-header d-flex align-items-center">
+                                <div class="profile-avatar me-2">
+                                    {% if user.profile_picture %}
+                                        <img src="{{ user.profile_picture.url }}" alt="Profile" class="profile-img">
+                                    {% else %}
+                                        <div class="profile-initials" data-bg="{{ user.get_avatar_color }}">
+                                            {{ user.get_initials }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ user.first_name }} {{ user.last_name }}</div>
+                                    <small class="text-muted">{{ user.email }}</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'wallet:dashboard' %}">
+                                <i class="fas fa-wallet me-2"></i> {% trans "My Wallet" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'accounts:settings' %}">
+                                <i class="fas fa-cog me-2"></i> {% trans "Settings" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'accounts:security' %}">
+                                <i class="fas fa-shield-alt me-2"></i> {% trans "Security" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-question-circle me-2"></i> {% trans "Help" %}
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                                <i class="fas fa-sign-out-alt me-2"></i> {% trans "Logout" %}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<style>
+.profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-initials {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.dropdown-header .profile-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+.dropdown-header .profile-initials {
+    font-size: 1rem;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: white !important;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item i {
+    width: 16px;
+    text-align: center;
+}
+
+#notificationCount {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+}
+
+@media (max-width: 768px) {
+    .navbar-nav .nav-link span {
+        display: none;
+    }
+    
+    .profile-avatar {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .profile-initials {
+        font-size: 0.7rem;
+    }
+}
+</style>
+

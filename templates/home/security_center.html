@@ -1,0 +1,479 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Security Center - PayPal" %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .main-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .security-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .security-header {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .security-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .security-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin: 1rem 0 0 0;
+        }
+        
+        .security-body {
+            padding: 3rem 2rem;
+        }
+        
+        .security-overview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .security-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .score-info h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.5rem;
+        }
+        
+        .score-info p {
+            margin: 0.5rem 0 0 0;
+            color: #666;
+        }
+        
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: #dc3545;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-icon.encryption {
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            color: white;
+        }
+        
+        .feature-icon.monitoring {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        
+        .feature-icon.authentication {
+            background: linear-gradient(135deg, #ffc107 0%, #ff8c00 100%);
+            color: white;
+        }
+        
+        .feature-icon.privacy {
+            background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+            color: white;
+        }
+        
+        .feature-card h3 {
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-feature {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-feature:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .security-tips {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .security-tips h3 {
+            color: #856404;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .tips-list li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .tip-icon {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        
+        .tip-content h4 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .tip-content p {
+            margin: 0;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .security-actions {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .security-actions h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-action {
+            background: white;
+            color: #0070ba;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+            color: #0070ba;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+            
+            .security-header {
+                padding: 2rem 1rem;
+            }
+            
+            .security-header h1 {
+                font-size: 2rem;
+            }
+            
+            .security-body {
+                padding: 2rem 1rem;
+            }
+            
+            .security-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .security-score {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+                <i class="fas fa-arrow-left me-2"></i>
+                {% trans "Security Center" %}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                    <i class="fas fa-home me-1"></i> {% trans "Home" %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="security-card">
+            <div class="security-header">
+                <h1><i class="fas fa-shield-alt me-2"></i>{% trans "Security Center" %}</h1>
+                <p>{% trans "Your account security is our top priority" %}</p>
+            </div>
+            
+            <div class="security-body">
+                <!-- Security Overview -->
+                <div class="security-overview">
+                    <div class="security-score">
+                        <div class="score-circle">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="score-info">
+                            <h3>{% trans "Security Score: Excellent" %}</h3>
+                            <p>{% trans "Your account is well protected with multiple security layers" %}</p>
+                        </div>
+                    </div>
+                    <p>{% trans "We continuously monitor your account for suspicious activity and use advanced encryption to protect your data." %}</p>
+                </div>
+                
+                <!-- Security Features -->
+                <div class="security-features">
+                    <div class="feature-card">
+                        <div class="feature-icon encryption">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>{% trans "Bank-Level Encryption" %}</h3>
+                        <p>{% trans "All your financial data is protected with 256-bit SSL encryption, the same standard used by banks worldwide." %}</p>
+                        <a href="#" class="btn-feature">{% trans "Learn More" %}</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon monitoring">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>{% trans "24/7 Fraud Monitoring" %}</h3>
+                        <p>{% trans "Our advanced AI systems monitor your account around the clock to detect and prevent fraudulent transactions." %}</p>
+                        <a href="#" class="btn-feature">{% trans "View Activity" %}</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon authentication">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <h3>{% trans "Two-Factor Authentication" %}</h3>
+                        <p>{% trans "Add an extra layer of security with SMS codes, authenticator apps, or biometric verification." %}</p>
+                        <a href="#" class="btn-feature">{% trans "Enable 2FA" %}</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon privacy">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <h3>{% trans "Privacy Protection" %}</h3>
+                        <p>{% trans "We never share your personal information with third parties without your explicit consent." %}</p>
+                        <a href="#" class="btn-feature">{% trans "Privacy Policy" %}</a>
+                    </div>
+                </div>
+                
+                <!-- Security Tips -->
+                <div class="security-tips">
+                    <h3><i class="fas fa-lightbulb"></i>{% trans "Security Best Practices" %}</h3>
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <div class="tip-content">
+                                <h4>{% trans "Use Strong Passwords" %}</h4>
+                                <p>{% trans "Create unique passwords with a mix of letters, numbers, and symbols. Never reuse passwords across different accounts." %}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <div class="tip-content">
+                                <h4>{% trans "Enable Two-Factor Authentication" %}</h4>
+                                <p>{% trans "Add an extra layer of security by requiring a second form of verification when logging in." %}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <div class="tip-content">
+                                <h4>{% trans "Monitor Your Account Regularly" %}</h4>
+                                <p>{% trans "Check your transaction history frequently and report any suspicious activity immediately." %}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <div class="tip-content">
+                                <h4>{% trans "Keep Your Contact Information Updated" %}</h4>
+                                <p>{% trans "Ensure we can reach you quickly if we detect unusual activity on your account." %}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <div class="tip-content">
+                                <h4>{% trans "Be Wary of Phishing Attempts" %}</h4>
+                                <p>{% trans "Never click on suspicious links or provide personal information in response to unsolicited emails or calls." %}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Security Actions -->
+                <div class="security-actions">
+                    <h3>{% trans "Take Action to Secure Your Account" %}</h3>
+                    <p>{% trans "Strengthen your account security with these quick actions" %}</p>
+                    <div class="action-buttons">
+                        <a href="#" class="btn-action">
+                            <i class="fas fa-key"></i>
+                            {% trans "Change Password" %}
+                        </a>
+                        <a href="#" class="btn-action">
+                            <i class="fas fa-mobile-alt"></i>
+                            {% trans "Enable 2FA" %}
+                        </a>
+                        <a href="#" class="btn-action">
+                            <i class="fas fa-bell"></i>
+                            {% trans "Security Alerts" %}
+                        </a>
+                        <a href="#" class="btn-action">
+                            <i class="fas fa-history"></i>
+                            {% trans "Login History" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add click handlers for security actions
+        document.querySelectorAll('.btn-feature, .btn-action').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const action = this.textContent.trim();
+                alert(`${action} feature would be implemented here. In a real application, this would navigate to the appropriate security settings page.`);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+

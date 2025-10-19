@@ -1,0 +1,504 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Security Center - PayPal" %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .security-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .security-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .security-header {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .security-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        .security-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .security-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .security-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .security-item:last-child {
+            border-bottom: none;
+        }
+        
+        .security-info h5 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .security-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .security-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-enabled {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-disabled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #0070ba;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .activity-login {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .activity-logout {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .activity-transaction {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .activity-security {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .activity-info h6 {
+            margin: 0 0 0.25rem 0;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .activity-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .activity-time {
+            margin-left: auto;
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+        }
+        
+        .btn-outline-primary {
+            border-color: #0070ba;
+            color: #0070ba;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #0070ba;
+            border-color: #0070ba;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+                <i class="fas fa-arrow-left me-2"></i>
+                {% trans "Security Center" %}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                    <i class="fas fa-home me-1"></i> {% trans "Dashboard" %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="security-container">
+        <!-- Security Header -->
+        <div class="security-card">
+            <div class="security-header">
+                <h1><i class="fas fa-shield-alt me-2"></i>{% trans "Security Center" %}</h1>
+                <p>{% trans "Manage your account security settings and monitor activity" %}</p>
+            </div>
+        </div>
+
+        <!-- Security Settings -->
+        <div class="security-card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="fas fa-cog me-2"></i>{% trans "Security Settings" %}</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="security-item">
+                    <div class="security-info">
+                        <h5>{% trans "Password" %}</h5>
+                        <p>{% trans "Last changed: Never" %}</p>
+                    </div>
+                    <div class="security-status">
+                        <span class="status-badge status-enabled">{% trans "Strong" %}</span>
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'accounts:change_password' %}">{% trans "Change" %}</a>
+                    </div>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h5>{% trans "Two-Factor Authentication" %}</h5>
+                        <p>{% trans "Add an extra layer of security to your account" %}</p>
+                    </div>
+                    <div class="security-status">
+                        <span id="twofaStatus" class="status-badge status-disabled">{% trans "Disabled" %}</span>
+                        <button id="twofaToggle" class="btn btn-outline-primary btn-sm" type="button">{% trans "Enable" %}</button>
+                    </div>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h5>{% trans "Phone Verification" %}</h5>
+                        <p>{% blocktrans %}Phone: {{ user.phone|default:"Not set" }}{% endblocktrans %}</p>
+                    </div>
+                    <div class="security-status">
+                        <span class="status-badge {% if user.phone_verified %}status-enabled{% else %}status-pending{% endif %}">
+                            {% if user.phone_verified %}{% trans "Verified" %}{% else %}{% trans "Pending" %}{% endif %}
+                        </span>
+                        {% if not user.phone_verified %}
+                        <form action="{% url 'accounts:verify_phone_quick' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-primary btn-sm" type="submit">{% trans "Verify" %}</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h5>{% trans "Email Notifications" %}</h5>
+                        <p>{% trans "Get notified about security events" %}</p>
+                    </div>
+                    <div class="security-status">
+                        <span class="status-badge status-enabled">Enabled</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h5>{% trans "SMS Notifications" %}</h5>
+                        <p>{% trans "Get notified via SMS about important events" %}</p>
+                    </div>
+                    <div class="security-status">
+                        <span class="status-badge status-enabled">Enabled</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="security-item">
+                    <div class="security-info">
+                        <h5>{% trans "Login Alerts" %}</h5>
+                        <p>{% trans "Get notified when someone logs into your account" %}</p>
+                    </div>
+                    <div class="security-status">
+                        <span class="status-badge status-enabled">Enabled</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="security-card">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-history me-2"></i>{% trans "Recent Activity" %}</h5>
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'accounts:security_activity' %}">{% trans "View All" %}</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="activity-item">
+                    <div class="activity-icon activity-login">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h6>{% trans "Successful Login" %}</h6>
+                        <p>{% trans "Logged in from Chrome on Windows" %}</p>
+                    </div>
+                    <div class="activity-time">2 minutes ago</div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon activity-transaction">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h6>{% trans "Transaction Completed" %}</h6>
+                        <p>{% trans "Sent $50.00 to john@example.com" %}</p>
+                    </div>
+                    <div class="activity-time">1 hour ago</div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon activity-security">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h6>{% trans "Password Changed" %}</h6>
+                        <p>{% trans "Password was updated successfully" %}</p>
+                    </div>
+                    <div class="activity-time">2 days ago</div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon activity-login">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h6>{% trans "Mobile Login" %}</h6>
+                        <p>{% trans "Logged in from PayPal Mobile App" %}</p>
+                    </div>
+                    <div class="activity-time">3 days ago</div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon activity-transaction">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h6>{% trans "Card Added" %}</h6>
+                        <p>{% trans "New Visa card ending in 1234 was added" %}</p>
+                    </div>
+                    <div class="activity-time">1 week ago</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Tips -->
+        <div class="security-card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>{% trans "Security Tips" %}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6>{% trans "Use a Strong Password" %}</h6>
+                                <p class="text-muted mb-0">{% trans "Use a combination of letters, numbers, and symbols" %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6>{% trans "Enable Two-Factor Authentication" %}</h6>
+                                <p class="text-muted mb-0">{% trans "Add an extra layer of security to your account" %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6>{% trans "Keep Your Contact Info Updated" %}</h6>
+                                <p class="text-muted mb-0">{% trans "Make sure we can reach you about your account" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6>{% trans "Monitor Your Account Regularly" %}</h6>
+                                <p class="text-muted mb-0">{% trans "Check your transaction history frequently" %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6>{% trans "Log Out When Done" %}</h6>
+                                <p class="text-muted mb-0">{% trans "Always log out from shared computers" %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6>{% trans "Report Suspicious Activity" %}</h6>
+                                <p class="text-muted mb-0">{% trans "Contact us immediately if you notice anything unusual" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var statusEl = document.getElementById('twofaStatus');
+        var toggleBtn = document.getElementById('twofaToggle');
+        if (!statusEl || !toggleBtn) return;
+        toggleBtn.addEventListener('click', function(){
+          var isEnabled = statusEl.classList.contains('status-enabled');
+          if (isEnabled) {
+            statusEl.classList.remove('status-enabled');
+            statusEl.classList.add('status-disabled');
+            statusEl.textContent = "{% trans 'Disabled' %}";
+            toggleBtn.textContent = "{% trans 'Enable' %}";
+          } else {
+            statusEl.classList.remove('status-disabled');
+            statusEl.classList.add('status-enabled');
+            statusEl.textContent = "{% trans 'Enabled' %}";
+            toggleBtn.textContent = "{% trans 'Disable' %}";
+          }
+        });
+      });
+    </script>
+    
+    <!-- Include Footer -->
+    {% include 'partials/footer.html' %}
+</body>
+</html>
+

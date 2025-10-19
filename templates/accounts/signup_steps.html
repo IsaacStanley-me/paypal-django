@@ -1,0 +1,298 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Create Account - PayPal" %}</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <style>
+        .signup-steps-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #e1e5e9;
+            z-index: 1;
+        }
+        
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background-color: #0070ba;
+            z-index: 2;
+            transition: width 0.3s ease;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e1e5e9;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active .step-circle {
+            background-color: #0070ba;
+            color: white;
+        }
+        
+        .step.completed .step-circle {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .step.completed .step-circle::after {
+            content: '✓';
+            font-size: 1.2rem;
+        }
+        
+        .step-label {
+            font-size: 0.875rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .step.active .step-label {
+            color: #0070ba;
+            font-weight: 600;
+        }
+        
+        .step-content {
+            display: none;
+        }
+        
+        .step-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background-color: #f7f9fc;
+            color: #333;
+            border: 2px solid #e1e5e9;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e1e5e9;
+        }
+        
+        .btn-primary {
+            background-color: #0070ba;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #005ea6;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        .help-text {
+            color: #666;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-steps-container">
+            <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal Logo" class="logo">
+            
+            <div class="progress-bar">
+                <div class="progress-line" data-progress="{{ progress_width|default:0 }}"></div>
+                <div class="step {% if current_step >= 1 %}active{% endif %} {% if current_step > 1 %}completed{% endif %}">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">{% trans "Account Info" %}</div>
+                </div>
+                <div class="step {% if current_step >= 2 %}active{% endif %} {% if current_step > 2 %}completed{% endif %}">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">{% trans "Phone Verify" %}</div>
+                </div>
+                <div class="step {% if current_step >= 3 %}active{% endif %} {% if current_step > 3 %}completed{% endif %}">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">{% trans "Complete" %}</div>
+                </div>
+            </div>
+            
+            <form method="POST" id="signupForm">
+                {% csrf_token %}
+                
+                <!-- Step 1: Account Information -->
+                <div class="step-content {% if current_step == 1 %}active{% endif %}" id="step1">
+                    <h2>{% trans "Tell us about yourself" %}</h2>
+                    <p>{% trans "We'll use this information to set up your account" %}</p>
+                    
+                    <div class="form-group">
+                        <label for="id_email">{% trans "Email address" %}</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error-message">{{ form.email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_username">{% trans "Username" %}</label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="error-message">{{ form.username.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_first_name">{% trans "First name" %}</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="error-message">{{ form.first_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">{% trans "Last name" %}</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="error-message">{{ form.last_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_phone">{% trans "Phone number" %}</label>
+                        {{ form.phone }}
+                        {% if form.phone.help_text %}
+                            <div class="help-text">{{ form.phone.help_text }}</div>
+                        {% endif %}
+                        {% if form.phone.errors %}
+                            <div class="error-message">{{ form.phone.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_password1">{% trans "Create a password" %}</label>
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <div class="error-message">{{ form.password1.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_password2">{% trans "Confirm your password" %}</label>
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <div class="error-message">{{ form.password2.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="window.history.back()">{% trans "Back" %}</button>
+                        <button type="submit" class="btn btn-primary">{% trans "Continue" %}</button>
+                    </div>
+                </div>
+            </form>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <script>
+      (function(){
+        var el = document.querySelector('.progress-line');
+        if (el) {
+          var p = parseFloat(el.getAttribute('data-progress'));
+          if (!isNaN(p)) { el.style.width = p + '%'; }
+        }
+      })();
+    </script>
+</body>
+</html>
+
+

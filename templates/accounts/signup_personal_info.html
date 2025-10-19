@@ -1,0 +1,443 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Create Account - PayPal" %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .paypal-header {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .paypal-logo {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .paypal-logo .pay {
+            color: #003087;
+        }
+        
+        .paypal-logo .pal {
+            color: #0070ba;
+        }
+        
+        .main-container {
+            max-width: 500px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 0 0.5rem;
+                margin: 0.5rem auto;
+            }
+            
+            .signup-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 0 0.25rem;
+                margin: 0.25rem auto;
+            }
+            
+            .signup-card {
+                padding: 1.5rem 1rem;
+            }
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .signup-header {
+            margin-bottom: 2rem;
+        }
+        
+        .signup-header h1 {
+            color: #003087;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signup-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .date-input-group {
+            position: relative;
+        }
+        
+        .date-input-group .form-control { padding-right: 3rem; max-width: 100%; }
+        
+        .date-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+        }
+        
+        .age-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: #856404;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .continue-btn {
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+        }
+        
+        .continue-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: #0070ba;
+            border: 2px solid #0070ba;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+        
+        .back-btn:hover {
+            background: #0070ba;
+            color: white;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .login-link a {
+            color: #0070ba;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e1e5e9;
+            border-radius: 2px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="paypal-header">
+        <div class="paypal-logo">
+            <span class="pay">Pay</span><span class="pal">Pal</span>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="signup-card">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%;"></div>
+            </div>
+            
+            <div class="signup-header">
+                <h1>{% trans "Personal information" %}</h1>
+                <p>{% trans "Tell us about yourself" %}</p>
+            </div>
+            
+            <form method="POST" id="personalInfoForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="nationality" class="form-label">{% trans "Nationality" %}</label>
+                    <select id="nationality" name="nationality" class="form-control" required>
+                        <option value="">{% trans "Select your nationality" %}</option>
+                        {% for code, data in countries_data.items %}
+                        <option value="{{ code }}">{{ data.flag }} {{ data.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="error-message" id="nationalityError">{% trans "Please select your nationality" %}</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name" class="form-label">{% trans "First name" %}</label>
+                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="{% trans "Enter your first name" %}" required>
+                        <div class="error-message" id="firstNameError">{% trans "Please enter your first name" %}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name" class="form-label">{% trans "Last name" %}</label>
+                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="{% trans "Enter your last name" %}" required>
+                        <div class="error-message" id="lastNameError">{% trans "Please enter your last name" %}</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date_of_birth" class="form-label">{% trans "Date of birth" %}</label>
+                    <div class="date-input-group">
+                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" required placeholder="YYYY-MM-DD" onfocus="this.showPicker && this.showPicker()">
+                        <i class="fas fa-calendar-alt date-icon"></i>
+                    </div>
+                    <div class="age-warning" id="ageWarning">
+                        <i class="fas fa-exclamation-triangle me-1"></i>
+                        {% trans "You must be at least 16 years old to create a PayPal account." %}
+                    </div>
+                    <div class="error-message" id="dateOfBirthError">{% trans "Please enter a valid date of birth" %}</div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <button type="button" class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left me-1"></i> {% trans "Back" %}
+                    </button>
+                    <button type="submit" class="continue-btn" id="submitBtn">
+                        {% trans "Continue" %} <i class="fas fa-arrow-right ms-1"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="login-link">
+                <p>{% trans "Already have an account?" %} <a href="{% url 'accounts:login' %}">{% trans "Log In" %}</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(fieldId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function hideError(fieldId) {
+            const errorElement = document.getElementById(fieldId);
+            errorElement.style.display = 'none';
+        }
+        
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+        
+        function validateAge() {
+            const dateOfBirth = document.getElementById('date_of_birth').value;
+            const ageWarning = document.getElementById('ageWarning');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (dateOfBirth) {
+                const age = calculateAge(dateOfBirth);
+                
+                if (age < 16) {
+                    ageWarning.style.display = 'block';
+                    submitBtn.disabled = true;
+                    return false;
+                } else {
+                    ageWarning.style.display = 'none';
+                    submitBtn.disabled = false;
+                    return true;
+                }
+            }
+            
+            return true;
+        }
+        
+        function validateForm() {
+            const firstName = document.getElementById('first_name').value.trim();
+            const lastName = document.getElementById('last_name').value.trim();
+            const nationality = document.getElementById('nationality').value;
+            const dateOfBirth = document.getElementById('date_of_birth').value;
+            
+            let isValid = true;
+            
+            // Validate first name
+            if (!firstName) {
+                showError('firstNameError', '{% trans "Please enter your first name" %}');
+                isValid = false;
+            } else {
+                hideError('firstNameError');
+            }
+            
+            // Validate last name
+            if (!lastName) {
+                showError('lastNameError', '{% trans "Please enter your last name" %}');
+                isValid = false;
+            } else {
+                hideError('lastNameError');
+            }
+            
+            // Validate nationality
+            if (!nationality) {
+                showError('nationalityError', '{% trans "Please select your nationality" %}');
+                isValid = false;
+            } else {
+                hideError('nationalityError');
+            }
+            
+            // Validate date of birth
+            if (!dateOfBirth) {
+                showError('dateOfBirthError', '{% trans "Please enter your date of birth" %}');
+                isValid = false;
+            } else if (!validateAge()) {
+                showError('dateOfBirthError', '{% trans "You must be at least 16 years old" %}');
+                isValid = false;
+            } else {
+                hideError('dateOfBirthError');
+            }
+            
+            return isValid;
+        }
+        
+        document.getElementById('date_of_birth').addEventListener('change', validateAge);
+        
+        document.getElementById('personalInfoForm').addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+            }
+        });
+        
+        // Real-time validation
+        document.getElementById('first_name').addEventListener('input', function() {
+            if (this.value.trim()) {
+                hideError('firstNameError');
+            }
+        });
+        
+        document.getElementById('last_name').addEventListener('input', function() {
+            if (this.value.trim()) {
+                hideError('lastNameError');
+            }
+        });
+        
+        document.getElementById('nationality').addEventListener('change', function() {
+            if (this.value) {
+                hideError('nationalityError');
+            }
+        });
+    </script>
+</body>
+{% include 'partials/loader.html' %}
+</html>

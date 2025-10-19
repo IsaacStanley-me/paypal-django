@@ -1,0 +1,44 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block content_title %}<h1>{% trans "Transactions Grouped by User" %}</h1>{% endblock %}
+{% block content %}
+  <div id="content-main">
+    <form method="get" class="module" style="margin-bottom: 1rem; padding: 1rem; background: #fff;">
+      <input type="text" name="q" value="{{ query }}" placeholder="Search username or email" style="width: 320px; padding: .5rem;">
+      <button type="submit" class="button">{% trans "Search" %}</button>
+      <a href="{{ request.path }}" class="button">{% trans "Clear" %}</a>
+    </form>
+
+    <div class="module">
+      <table class="adminlist" style="width:100%;">
+        <thead>
+          <tr>
+            <th>{% trans "User" %}</th>
+            <th style="text-align:center;">{% trans "Total" %}</th>
+            <th style="text-align:center;">{% trans "Pending" %}</th>
+            <th style="text-align:center;">{% trans "Completed" %}</th>
+            <th style="text-align:right;">{% trans "Actions" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in grouped %}
+            <tr class="row{% cycle '1' '2' %}">
+              <td>
+                <strong>{{ row.user__username|default:row.user__email }}</strong><br>
+                <small class="quiet">{{ row.user__email }}</small>
+              </td>
+              <td style="text-align:center;">{{ row.total }}</td>
+              <td style="text-align:center;">{{ row.pending }}</td>
+              <td style="text-align:center;">{{ row.completed }}</td>
+              <td style="text-align:right;">
+                <a class="button" href="{% url 'admin:transactions_grouped_by_user_detail' row.user_id %}">{% trans "View Transactions" %}</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="quiet" style="text-align:center; padding: 1rem;">{% trans "No results" %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

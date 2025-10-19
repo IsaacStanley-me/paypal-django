@@ -1,0 +1,306 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Create Account - PayPal" %}</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: block; /* override external signup.css body flex */
+        }
+        
+        .signup-top-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+            margin: 8px 0 8px;
+        }
+        .signup-top-logo img {
+            height: 220px;
+            display: block;
+            margin: 0 auto;
+            float: none;
+        }
+        
+        .main-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 1rem 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 0.5rem;
+                margin: 0.5rem auto;
+            }
+            
+            .signup-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .account-type-cards {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .signup-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .signup-header p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 0.25rem;
+                margin: 0.25rem auto;
+            }
+            
+            .signup-card {
+                padding: 1rem 0.75rem;
+            }
+            
+            .signup-header h1 {
+                font-size: 1.6rem;
+            }
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem; /* reduce padding to fit at 100% */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .signup-header {
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            padding: 0 1rem;
+        }
+        
+        .signup-header h1 {
+            color: #003087;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            word-wrap: break-word;
+            text-align: center;
+        }
+        
+        .signup-header p {
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .account-type-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .account-type-card {
+            border: 3px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .account-type-card:hover {
+            border-color: #0070ba;
+            box-shadow: 0 8px 25px rgba(0, 112, 186, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .account-type-card.selected {
+            border-color: #0070ba;
+            background-color: #f0f8ff;
+        }
+        
+        .account-type-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .account-type-card h3 {
+            color: #003087;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .account-type-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .account-type-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        
+        .account-type-features li {
+            padding: 0.5rem 0;
+            color: #333;
+        }
+        
+        .account-type-features li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .continue-btn {
+            background-color: #0070ba;
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .continue-btn:hover {
+            background-color: #005ea6;
+        }
+        
+        .continue-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .login-link a {
+            color: #0070ba;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-top-logo">
+        <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal Logo">
+    </div>
+
+    <div class="signup-header">
+        <h1>{% trans "Create your PayPal account" %}</h1>
+        <p>{% trans "Choose the account type that's right for you" %}</p>
+    </div>
+
+    <div class="main-container">
+        <div class="signup-card">
+            
+            <form method="POST" id="accountTypeForm">
+                {% csrf_token %}
+                <div class="account-type-cards">
+                    <div class="account-type-card" data-type="personal" onclick="selectAccountType('personal')">
+                        <div class="account-type-icon">👤</div>
+                        <h3>{% trans "Personal Account" %}</h3>
+                        <p>{% trans "For individuals who want to send and receive money" %}</p>
+                        <ul class="account-type-features">
+                            <li>{% trans "Send and receive money" %}</li>
+                            <li>{% trans "Shop online securely" %}</li>
+                            <li>{% trans "Split bills with friends" %}</li>
+                            <li>{% trans "No monthly fees" %}</li>
+                        </ul>
+                        <input type="radio" name="account_type" value="personal" style="display: none;">
+                    </div>
+                    
+                    <div class="account-type-card" data-type="business" onclick="selectAccountType('business')">
+                        <div class="account-type-icon">🏢</div>
+                        <h3>{% trans "Business Account" %}</h3>
+                        <p>{% trans "For businesses that want to accept payments" %}</p>
+                        <ul class="account-type-features">
+                            <li>{% trans "Accept payments online" %}</li>
+                            <li>{% trans "Invoice customers" %}</li>
+                            <li>{% trans "Track business expenses" %}</li>
+                            <li>{% trans "Advanced reporting" %}</li>
+                        </ul>
+                        <input type="radio" name="account_type" value="business" style="display: none;">
+                    </div>
+                </div>
+                
+                <button type="submit" class="continue-btn" id="continueBtn" disabled>{% trans "Continue" %}</button>
+            </form>
+            
+            <div class="login-link">
+                <p>{% trans "Already have an account?" %} <a href="{% url 'accounts:login' %}">{% trans "Log In" %}</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectAccountType(type) {
+            const cards = document.querySelectorAll('.account-type-card');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            // Remove selected class from all cards
+            cards.forEach(c => c.classList.remove('selected'));
+            
+            // Add selected class to clicked card
+            const selectedCard = document.querySelector(`[data-type="${type}"]`);
+            selectedCard.classList.add('selected');
+            
+            // Check the radio button
+            const radio = selectedCard.querySelector('input[type="radio"]');
+            radio.checked = true;
+            
+            // Enable continue button
+            continueBtn.disabled = false;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('accountTypeForm');
+            
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                const selectedRadio = form.querySelector('input[name="account_type"]:checked');
+                if (!selectedRadio) {
+                    e.preventDefault();
+                    alert('{% trans "Please select an account type" %}');
+                    return false;
+                }
+            });
+        });
+    </script>
+    {% include 'partials/loader.html' %}
+</body>
+</html>
+
+

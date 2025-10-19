@@ -1,0 +1,111 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% trans "PayPal Sandbox" %}</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}?v=7">
+    <link rel="icon" type="image/png" href="{% static 'images/paypal-logo.png' %}">
+  </head>
+  <body>
+    <header class="top-logo">
+      <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal Logo" />
+      <div class="top-sub">
+        <p>{% trans "Join millions of people using PayPal — simple, secure, worldwide." %}</p>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>{% trans "Welcome to PayPal Sandbox" %}</h1>
+        <p>{% trans "Securely send, receive, and manage payments online." %}</p>
+        <div class="buttons">
+          <a href="{% url 'accounts:signup_step1' %}" class="btn btn-primary">{% trans "Get Started" %}</a>
+          <a href="{% url 'accounts:login' %}" class="btn btn-outline">{% trans "Login" %}</a>
+        </div>
+      </div>
+    </section>
+    <main>
+      <section class="section features">
+        <div class="container">
+          <h2>{% trans "Do more with PayPal" %}</h2>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="icon">💸</div>
+              <h3>{% trans "Send & Receive" %}</h3>
+              <p>{% trans "Move money securely to friends, family, and businesses worldwide." %}</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">🛒</div>
+              <h3>{% trans "Checkout Faster" %}</h3>
+              <p>{% trans "Pay quickly at millions of stores without sharing your full card details." %}</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">🛡️</div>
+              <h3>{% trans "Buyer Protection" %}</h3>
+              <p>{% trans "Eligible purchases are covered when things don't go as planned." %}</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">🌍</div>
+              <h3>{% trans "Global Coverage" %}</h3>
+              <p>{% trans "Use PayPal across borders with multi-currency support." %}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section partners">
+        <div class="container">
+          <h2>{% trans "Trusted by leading networks" %}</h2>
+          <div class="logos">
+            <img src="{% static 'images/visa.png' %}" alt="Visa" />
+            <img src="{% static 'images/mastercard.png' %}" alt="Mastercard" />
+            <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta">
+        <div class="container">
+          <h2>{% trans "Ready to get started?" %}</h2>
+          <p>{% trans "Create an account in minutes and start sending and receiving payments." %}</p>
+          <div class="buttons">
+            <a href="{% url 'accounts:signup_step1' %}" class="btn btn-primary">{% trans "Create Account" %}</a>
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline">{% trans "Log In" %}</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Sidebar menu -->
+    <div class="sidebar">
+      <ul>
+        <li><a href="/wallet/dashboard/">🏠 Dashboard</a></li>
+        <li><a href="/accounts/profile/">👤 Profile</a></li>
+        <li><a href="/wallet/">💰 Wallet</a></li>
+        <li><a href="/Reward/">🎁 Rewards</a></li>
+        <li><a href="/accounts/logout/">🚪 Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- Overlay for when sidebar is open -->
+    <div class="overlay"></div>
+
+    <script>
+      const hamburger = document.querySelector(".hamburger");
+      const sidebar = document.querySelector(".sidebar");
+      const overlay = document.querySelector(".overlay");
+      if (hamburger && sidebar && overlay) {
+        hamburger.addEventListener("click", () => {
+          sidebar.classList.toggle("open");
+          overlay.classList.toggle("show");
+        });
+        overlay.addEventListener("click", () => {
+          sidebar.classList.remove("open");
+          overlay.classList.remove("show");
+        });
+      }
+    </script>
+  </body>
+</html>

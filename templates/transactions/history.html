@@ -1,0 +1,371 @@
+{% load static %}
+{% load currency %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Transaction History - PayPal" %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            color: #1e1e1e;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 30px 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #0070ba;
+        }
+
+        .balance {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e4e4e4;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: #333;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status {
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background-color: #fff7e6;
+            color: #b58900;
+        }
+
+        .status-success {
+            background-color: #e6f7e9;
+            color: #0f9d58;
+        }
+
+        .status-declined {
+            background-color: #fdecea;
+            color: #d93025;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #0070ba;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-back:hover {
+            background-color: #005ea6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #003087 0%, #0070ba 100%);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+                <i class="fas fa-arrow-left me-2"></i>
+                {% trans "Transaction History" %}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                    <i class="fas fa-home me-1"></i> {% trans "Dashboard" %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-filter me-2"></i>{% trans "Filters" %}</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="GET" id="filterForm">
+                            <div class="mb-3">
+                                <label class="form-label">{% trans "Date Range" %}</label>
+                                <select class="form-select" name="date_range">
+                                    <option value="">{% trans "All Time" %}</option>
+                                    <option value="today">{% trans "Today" %}</option>
+                                    <option value="week">{% trans "This Week" %}</option>
+                                    <option value="month">{% trans "This Month" %}</option>
+                                    <option value="year">{% trans "This Year" %}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">{% trans "Transaction Type" %}</label>
+                                <select class="form-select" name="tx_type">
+                                    <option value="">{% trans "All Types" %}</option>
+                                    <option value="SEND">{% trans "Send Money" %}</option>
+                                    <option value="RECEIVE">{% trans "Receive Money" %}</option>
+                                    <option value="WITHDRAW">{% trans "Withdraw" %}</option>
+                                    <option value="DEPOSIT">{% trans "Deposit" %}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">{% trans "Status" %}</label>
+                                <select class="form-select" name="status">
+                                    <option value="">{% trans "All Statuses" %}</option>
+                                    <option value="PENDING">{% trans "Pending" %}</option>
+                                    <option value="COMPLETED">{% trans "Completed" %}</option>
+                                    <option value="DECLINED">{% trans "Declined" %}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">{% trans "Amount Range" %}</label>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="number" class="form-control" name="min_amount" placeholder="{% trans "Min" %}">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="number" class="form-control" name="max_amount" placeholder="{% trans "Max" %}">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search me-1"></i> {% trans "Apply Filters" %}
+                            </button>
+                            <a href="{% url 'transactions:transaction_history' %}" class="btn btn-outline-secondary w-100 mt-2">
+                                <i class="fas fa-times me-1"></i> {% trans "Clear Filters" %}
+                            </a>
+                        </form>
+                    </div>
+                </div>
+        </div>
+
+            <!-- Transaction List -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-list me-2"></i>{% trans "Transactions" %}
+                            <span class="badge bg-secondary ms-2">{{ transactions|length }}</span>
+                        </h5>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="exportTransactions()">
+                                <i class="fas fa-download me-1"></i> {% trans "Export" %}
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="printTransactions()">
+                                <i class="fas fa-print me-1"></i> {% trans "Print" %}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+        {% if transactions %}
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>{% trans "Date & Time" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Amount" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Description" %}</th>
+                                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tx in transactions %}
+                    <tr>
+                                        <td>
+                                            <div>
+                                                <strong>{{ tx.created_at|date:"M d, Y" }}</strong>
+                                                <br>
+                                                <small class="text-muted">{{ tx.created_at|time:"H:i" }}</small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">
+                                                <i class="fas fa-{% if tx.tx_type == 'SEND' %}arrow-up{% elif tx.tx_type == 'RECEIVE' %}arrow-down{% elif tx.tx_type == 'WITHDRAW' %}minus{% else %}plus{% endif %} me-1"></i>
+                                                {{ tx.tx_type }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="fw-bold {% if tx.tx_type == 'SEND' or tx.tx_type == 'WITHDRAW' %}text-danger{% else %}text-success{% endif %}">
+                                                {% if tx.tx_type == 'SEND' or tx.tx_type == 'WITHDRAW' %}-{% else %}+{% endif %}{% money tx.amount %}
+                                            </span>
+                                        </td>
+                        <td>
+                            {% if tx.status == 'PENDING' %}
+                                                <span class="badge bg-warning">
+                                                    <i class="fas fa-clock me-1"></i>{% trans "Pending" %}
+                                                </span>
+                                            {% elif tx.status == 'COMPLETED' %}
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-check me-1"></i>{% trans "Completed" %}
+                                                </span>
+                            {% elif tx.status == 'DECLINED' %}
+                                                <span class="badge bg-danger">
+                                                    <i class="fas fa-times me-1"></i>{% trans "Declined" %}
+                                                </span>
+                            {% else %}
+                                                <span class="badge bg-secondary">{{ tx.status }}</span>
+                            {% endif %}
+                        </td>
+                                        <td>
+                                            <span class="text-truncate d-inline-block" style="max-width: 200px;" title="{{ tx.description|default:'No description' }}">
+                                                {{ tx.description|default:"—" }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a href="{% url 'transactions:transaction_detail' tx.id %}" class="btn btn-outline-primary" title="{% trans "View Details" %}">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                {% if tx.tx_type == 'REQUEST' and tx.status == 'PENDING' and tx.user == request.user %}
+                                                <a href="{% url 'transactions:accept_money_request' tx.id %}" class="btn btn-outline-success" title="{% trans 'Accept Request' %}" data-confirm="{% trans 'Accept this money request?' %}" onclick="return confirm(this.getAttribute('data-confirm'))">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                                <a href="{% url 'transactions:decline_money_request' tx.id %}" class="btn btn-outline-danger" title="{% trans 'Decline Request' %}" data-confirm="{% trans 'Decline this money request?' %}" onclick="return confirm(this.getAttribute('data-confirm'))">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-receipt text-muted" style="font-size: 4rem;"></i>
+                            <h4 class="mt-3 text-muted">{% trans "No Transactions Found" %}</h4>
+                            <p class="text-muted">{% trans "You haven't made any transactions yet." %}</p>
+                            <a href="{% url 'wallet:dashboard' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i> {% trans "Make Your First Transaction" %}
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Detail Modal -->
+    <div class="modal fade" id="transactionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{% trans "Transaction Details" %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="transactionDetails">
+                    <!-- Transaction details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function viewTransaction(txId) {
+            // In a real app, you'd fetch transaction details via AJAX
+            document.getElementById('transactionDetails').innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+                    <p class="mt-2">Loading transaction details...</p>
+                </div>
+            `;
+            new bootstrap.Modal(document.getElementById('transactionModal')).show();
+        }
+        
+        function approveTransaction(txId) {
+            if (confirm('Are you sure you want to approve this transaction?')) {
+                // In a real app, you'd make an AJAX request
+                alert('Transaction approved!');
+                location.reload();
+            }
+        }
+        
+        function declineTransaction(txId) {
+            if (confirm('Are you sure you want to decline this transaction?')) {
+                // In a real app, you'd make an AJAX request
+                alert('Transaction declined!');
+                location.reload();
+            }
+        }
+        
+        function exportTransactions() {
+            // In a real app, you'd generate and download a CSV/PDF
+            alert('Export functionality would be implemented here');
+        }
+        
+        function printTransactions() {
+            window.print();
+        }
+    </script>
+    
+    <!-- Include Footer -->
+    {% include 'partials/footer.html' %}
+</body>
+</html>

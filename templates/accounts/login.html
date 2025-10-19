@@ -1,0 +1,94 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% trans "Login - PayPal Sandbox" %}</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <img
+          src="{% static 'images/paypal-logo.png' %}"
+          alt="PayPal Logo"
+          class="logo"
+        />
+
+        <h2>{% trans "Login to Your Account" %}</h2>
+        {% if messages %}
+        <div class="alert" role="alert" style="margin: 10px 0 0; color: #b00020; background: #fdecec; border: 1px solid #f5c2c7; border-radius: 8px; padding: 10px 12px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% if form and form.non_field_errors %}
+        <div class="alert" role="alert" style="margin: 10px 0 0; color: #b00020; background: #fdecec; border: 1px solid #f5c2c7; border-radius: 8px; padding: 10px 12px;">
+          <ul style="margin: 0; padding-left: 18px;">
+            {% for err in form.non_field_errors %}
+              <li>{{ err }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% if invalid_credentials %}
+        <div class="alert" role="alert" style="margin: 10px 0 0; color: #b00020; background: #fdecec; border: 1px solid #f5c2c7; border-radius: 8px; padding: 10px 12px;">
+          {% trans "Invalid email or password." %}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+          {% csrf_token %}
+          <p>
+            <label for="id_username">{% trans "Email" %}</label>
+            <input type="email" name="username" id="id_username" required />
+          </p>
+          <p>
+            <label for="id_password">{% trans "Password" %}</label>
+            <div class="password-wrapper" style="position: relative; display: block;">
+              <input type="password" name="password" id="id_password" required style="padding-right: 2.25rem;" />
+              <button type="button" id="togglePwd" aria-label="Show password" style="border: none; background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; position: absolute; right: 8px; top: 50%; transform: translateY(-50%);">
+                <svg class="eye-on" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.8 21.8 0 0 1 5.06-6.94"/><path d="M1 1l22 22"/><path d="M10.58 10.58a3 3 0 0 0 4.24 4.24"/></svg>
+              </button>
+            </div>
+          </p>
+          <button type="submit" class="login-btn">{% trans "Log In" %}</button>
+        </form>
+        <p class="signup-link">
+          {% trans "Don't have an account?" %}
+          <a href="{% url 'accounts:signup_step1' %}">{% trans "Sign Up" %}</a>
+        </p>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var pwd = document.getElementById('id_password');
+        var btn = document.getElementById('togglePwd');
+        if(!pwd || !btn) return;
+        var eyeOn = function(){ return btn.querySelector('.eye-on'); };
+        var eyeOff = function(){ return btn.querySelector('.eye-off'); };
+        var toggle = function(){
+          if(pwd.type === 'password'){
+            pwd.type = 'text';
+            btn.setAttribute('aria-label', 'Hide password');
+            if(eyeOn()) eyeOn().style.display = 'none';
+            if(eyeOff()) eyeOff().style.display = '';
+          } else {
+            pwd.type = 'password';
+            btn.setAttribute('aria-label', 'Show password');
+            if(eyeOn()) eyeOn().style.display = '';
+            if(eyeOff()) eyeOff().style.display = 'none';
+          }
+        };
+        btn.addEventListener('click', toggle);
+      });
+    </script>
+    {% include 'partials/loader.html' %}
+  </body>
+</html>

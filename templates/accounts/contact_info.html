@@ -1,0 +1,216 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Contact Information - PayPal" %}</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .paypal-header {
+            background-color: #003087;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .paypal-logo {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .paypal-logo .pay {
+            color: #003087;
+        }
+        
+        .paypal-logo .pal {
+            color: #0070ba;
+        }
+        
+        .main-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .signup-header h1 {
+            color: #003087;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signup-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background-color: #f7f9fc;
+            color: #333;
+            border: 2px solid #e1e5e9;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e1e5e9;
+        }
+        
+        .btn-primary {
+            background-color: #0070ba;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #005ea6;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        .help-text {
+            color: #666;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #e1e5e9;
+            margin: 0 0.5rem;
+        }
+        
+        .progress-dot.active {
+            background-color: #0070ba;
+        }
+        
+        .progress-dot.completed {
+            background-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="paypal-header">
+        <div class="paypal-logo">
+            <span class="pay">Pay</span><span class="pal">Pal</span>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="signup-card">
+            <div class="progress-indicator">
+                <div class="progress-dot completed"></div>
+                <div class="progress-dot completed"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+            
+            <div class="signup-header">
+                <h1>{% trans "Contact Information" %}</h1>
+                <p>{% trans "We'll use this to verify your identity and send you important updates" %}</p>
+            </div>
+            
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_phone">{% trans "Phone number" %}</label>
+                    {{ form.phone }}
+                    {% if form.phone.help_text %}
+                        <div class="help-text">{{ form.phone.help_text }}</div>
+                    {% endif %}
+                    {% if form.phone.errors %}
+                        <div class="error-message">{{ form.phone.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">{% trans "Back" %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Continue" %}</button>
+                </div>
+            </form>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
+

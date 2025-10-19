@@ -1,0 +1,47 @@
+<div id="notif-dropdown" class="notif-dropdown" style="position:absolute;right:10px;top:56px;background:white;box-shadow:0 6px 18px rgba(0,0,0,0.12);display:none;width:320px;border-radius:8px;z-index:50;padding:8px">
+  <div style="font-weight:bold;padding:8px;border-bottom:1px solid #eee">Notifications</div>
+  <div id="notif-list" style="max-height:300px;overflow:auto;padding:8px">
+    <div class="empty">Loading…</div>
+  </div>
+  <div style="text-align:center;padding:8px;border-top:1px solid #eee"><a href="{% url 'transactions:notifications_page' %}">See all</a></div>
+</div>
+<script>
+async function loadNotifs(){
+  try{
+    const res = await fetch('/transactions/notifications/list/');
+    const data = await res.json();
+    const list = document.getElementById('notif-list');
+    list.innerHTML = '';
+    if(!data.notifications.length) list.innerHTML = '<div class="empty">No notifications</div>';
+    for(const n of data.notifications){
+      const el = document.createElement('div');
+      el.style.padding='8px'; el.style.borderBottom='1px solid #f2f2f2';
+      el.innerHTML = `
+        <div style="font-size:14px">${n.message}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:6px;flex-wrap:wrap">
+          <div style="font-size:11px;color:#888">${n.created_at}</div>
+          <div style="display:flex;gap:6px;align-items:center;margin-left:auto">
+            ${n.accept_url ? `<a href="${n.accept_url}" class="btn btn-sm btn-success">Accept</a>` : ''}
+            ${n.decline_url ? `<a href="${n.decline_url}" class="btn btn-sm btn-outline-danger">Decline</a>` : ''}
+            ${n.url ? `<a href="${n.url}" class="btn btn-sm btn-primary">Chat now</a>` : ''}
+          </div>
+        </div>`;
+      el.onclick = async function(e){
+        // Don't override when clicking the button itself
+        if(e.target && e.target.tagName === 'A') return;
+        await fetch('/transactions/notifications/read/'+n.id+'/');
+        el.style.opacity=0.6;
+        if(n.url){ window.location.href = n.url; }
+      };
+      list.appendChild(el);
+    }
+  }catch(e){
+    console.error(e);
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var bell = document.querySelector('.bell');
+  var dd = document.getElementById('notif-dropdown');
+  if(bell){ bell.addEventListener('click', function(e){ if(dd.style.display==='none'||!dd.style.display) { dd.style.display='block'; loadNotifs(); } else dd.style.display='none'; }); }
+});
+</script>

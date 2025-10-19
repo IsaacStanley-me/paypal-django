@@ -1,0 +1,649 @@
+{% load static %}
+{% load currency %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer to User - PayPal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .main-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .transfer-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .transfer-header {
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .transfer-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .transfer-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .transfer-body {
+            padding: 2rem;
+        }
+        
+        .balance-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .balance-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .balance-row:last-child {
+            margin-bottom: 0;
+            padding-top: 1rem;
+            border-top: 1px solid #dee2e6;
+            font-weight: 600;
+        }
+        
+        .balance-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .balance-amount {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-section h3 {
+            color: #003087;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-section h3 i {
+            margin-right: 0.5rem;
+            color: #0070ba;
+        }
+        
+        .form-control {
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group .form-control {
+            padding-left: 2.5rem;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            z-index: 5;
+        }
+        
+        .amount-input {
+            position: relative;
+        }
+        
+        .amount-input .form-control {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .amount-input .currency-symbol {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .balance-selection {
+            background: #f0f8ff;
+            border: 2px solid #0070ba;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .balance-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .balance-option:hover {
+            border-color: #0070ba;
+            background: #f0f8ff;
+        }
+        
+        .balance-option.selected {
+            border-color: #0070ba;
+            background: #e6f3ff;
+        }
+        
+        .balance-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .balance-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .balance-name {
+            font-weight: 600;
+            color: #003087;
+        }
+        
+        .balance-available {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .insufficient-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: #856404;
+            display: none;
+        }
+        
+        .insufficient-notice i {
+            color: #ffc107;
+            margin-right: 0.5rem;
+        }
+        
+        .request-friend-notice {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: #0c5460;
+            display: none;
+        }
+        
+        .request-friend-notice i {
+            color: #17a2b8;
+            margin-right: 0.5rem;
+        }
+        
+        .btn-transfer {
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-transfer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+        }
+        
+        .btn-request {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-request:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .security-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #856404;
+        }
+        
+        .security-notice i {
+            color: #ffc107;
+            margin-right: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+            
+            .transfer-header {
+                padding: 1.5rem;
+            }
+            
+            .transfer-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .transfer-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'transactions:withdraw' %}">
+                <i class="fas fa-arrow-left me-2"></i>
+                Transfer to User
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                    <i class="fas fa-home me-1"></i> Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="transfer-card">
+            <div class="transfer-header">
+                <h1><i class="fas fa-user-friends me-2"></i>Transfer to User</h1>
+                <p>Send money to another PayPal user instantly</p>
+            </div>
+            
+            <div class="transfer-body">
+                <!-- Balance Display -->
+                <div class="balance-section">
+                    <div class="balance-row">
+                        <span class="balance-label">PayPal Balance</span>
+                        <span class="balance-amount">{% money wallet.paypal_balance %}</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">Reward Balance</span>
+                        <span class="balance-amount">{% money wallet.reward_balance %}</span>
+                    </div>
+                </div>
+                
+                <form method="POST" id="transferForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="selected_balance" id="selectedBalanceInput" value="paypal">
+                    
+                    <!-- Recipient Section -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i>Who are you sending money to?</h3>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" class="form-control" name="email" placeholder="Enter recipient email address" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Amount Section -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-dollar-sign"></i>How much do you want to send?</h3>
+                        <div class="amount-input">
+                            <span class="currency-symbol">{% currency_symbol %}</span>
+                            <input type="number" class="form-control" name="amount" placeholder="0.00" step="0.01" min="0.01" required>
+                        </div>
+                        
+                        <!-- Currency Converter -->
+                        <div class="currency-converter" id="currencyConverter" style="background: #f0f8ff; border: 2px solid #0070ba; border-radius: 12px; padding: 1.5rem; margin-top: 1rem; display: none;">
+                            <div class="currency-selector" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <div class="currency-flag" style="width: 32px; height: 24px; border-radius: 4px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">🇺🇸</div>
+                                <div class="currency-dropdown" style="position: relative;">
+                                    <div class="currency-btn" onclick="toggleCurrencyDropdown()" style="background: white; border: 2px solid #e1e5e9; border-radius: 8px; padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span id="selectedCurrency">USD - US Dollar</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="currency-options" id="currencyOptions" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #e1e5e9; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 10; display: none; max-height: 200px; overflow-y: auto;">
+                                        <div class="currency-option" onclick="selectCurrency('USD', '🇺🇸', 'US Dollar', 1)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇺🇸</span>
+                                            <span>USD - US Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('EUR', '🇪🇺', 'Euro', 0.85)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇪🇺</span>
+                                            <span>EUR - Euro</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('GBP', '🇬🇧', 'British Pound', 0.73)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇬🇧</span>
+                                            <span>GBP - British Pound</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('CAD', '🇨🇦', 'Canadian Dollar', 1.25)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇨🇦</span>
+                                            <span>CAD - Canadian Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('AUD', '🇦🇺', 'Australian Dollar', 1.35)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇦🇺</span>
+                                            <span>AUD - Australian Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('JPY', '🇯🇵', 'Japanese Yen', 110)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇯🇵</span>
+                                            <span>JPY - Japanese Yen</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('CHF', '🇨🇭', 'Swiss Franc', 0.92)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇨🇭</span>
+                                            <span>CHF - Swiss Franc</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('CNY', '🇨🇳', 'Chinese Yuan', 6.45)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇨🇳</span>
+                                            <span>CNY - Chinese Yuan</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('INR', '🇮🇳', 'Indian Rupee', 75.5)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇮🇳</span>
+                                            <span>INR - Indian Rupee</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('BRL', '🇧🇷', 'Brazilian Real', 5.2)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇧🇷</span>
+                                            <span>BRL - Brazilian Real</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('MXN', '🇲🇽', 'Mexican Peso', 20.1)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇲🇽</span>
+                                            <span>MXN - Mexican Peso</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('KRW', '🇰🇷', 'South Korean Won', 1180)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇰🇷</span>
+                                            <span>KRW - South Korean Won</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('SGD', '🇸🇬', 'Singapore Dollar', 1.35)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇸🇬</span>
+                                            <span>SGD - Singapore Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('HKD', '🇭🇰', 'Hong Kong Dollar', 7.8)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇭🇰</span>
+                                            <span>HKD - Hong Kong Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('NZD', '🇳🇿', 'New Zealand Dollar', 1.42)" style="padding: 0.75rem 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                            <span>🇳🇿</span>
+                                            <span>NZD - New Zealand Dollar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="converted-amount" style="text-align: center; padding: 1rem; background: white; border-radius: 8px; border: 1px solid #e1e5e9;">
+                                <div class="converted-label" style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Amount in <span id="convertedCurrencyName">US Dollar</span></div>
+                                <div class="converted-value" id="convertedAmount" style="font-size: 1.5rem; font-weight: 600; color: #0070ba;">{% currency_symbol %}0.00</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Balance Selection (shown after amount is entered) -->
+                        <div class="balance-selection" id="balanceSelection">
+                            <h4 style="color: #003087; margin-bottom: 1rem;">Select balance to transfer with:</h4>
+                            <div class="balance-option" data-balance="paypal" data-amount="{{ wallet.paypal_balance|default:'0.00' }}">
+                                <div class="balance-info">
+                                    <div class="balance-name">PayPal Balance</div>
+                                    <div class="balance-available">Available: {% money wallet.paypal_balance %}</div>
+                                </div>
+                                <div class="balance-amount">{% money wallet.paypal_balance %}</div>
+                            </div>
+                            <div class="balance-option" data-balance="reward" data-amount="{{ wallet.reward_balance|default:'0.00' }}">
+                                <div class="balance-info">
+                                    <div class="balance-name">Reward Balance</div>
+                                    <div class="balance-available">Available: {% money wallet.reward_balance %}</div>
+                                </div>
+                                <div class="balance-amount">{% money wallet.reward_balance %}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Insufficient Balance Notice -->
+                        <div class="insufficient-notice" id="insufficientNotice">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Insufficient Balance:</strong> You don't have enough funds in the selected balance. Please select a different balance or reduce the amount.
+                        </div>
+                        
+                        <!-- Request from Friend Notice -->
+                        <div class="request-friend-notice" id="requestFriendNotice">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <strong>Not Enough Balance:</strong> You don't have sufficient funds for this transaction. 
+                            <a href="{% url 'transactions:request_money' %}" class="btn-request">
+                                <i class="fas fa-paper-plane me-1"></i>Request from Friend
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Notice -->
+                    <div class="security-notice">
+                        <i class="fas fa-shield-alt"></i>
+                        <strong>Secure Transfer:</strong> This transfer is processed instantly and securely. The recipient will receive a notification and the money will be available immediately.
+                    </div>
+                    
+                    <button type="submit" class="btn-transfer mt-3" id="transferBtn">
+                        <i class="fas fa-paper-plane me-2"></i>Send Money
+                    </button>
+                </form>
+            </div>
+            </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let selectedBalance = null;
+        let transferAmount = 0;
+        let currentCurrency = { code: 'USD', flag: '🇺🇸', name: 'US Dollar', rate: 1 };
+        
+        // Show balance selection when amount is entered
+        document.querySelector('input[name="amount"]').addEventListener('input', function() {
+            const amount = parseFloat(this.value) || 0;
+            transferAmount = amount;
+            
+            if (amount > 0) {
+                document.getElementById('balanceSelection').style.display = 'block';
+                document.getElementById('currencyConverter').style.display = 'block';
+                updateConvertedAmount();
+                checkBalances();
+            } else {
+                document.getElementById('balanceSelection').style.display = 'none';
+                document.getElementById('currencyConverter').style.display = 'none';
+                hideNotices();
+            }
+        });
+        
+        function toggleCurrencyDropdown() {
+            const dropdown = document.getElementById('currencyOptions');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function selectCurrency(code, flag, name, rate) {
+            currentCurrency = { code, flag, name, rate };
+            document.getElementById('selectedCurrency').textContent = `${code} - ${name}`;
+            document.querySelector('.currency-flag').textContent = flag;
+            document.getElementById('convertedCurrencyName').textContent = name;
+            document.getElementById('currencyOptions').style.display = 'none';
+            updateConvertedAmount();
+        }
+        
+        function updateConvertedAmount() {
+            if (transferAmount > 0) {
+                const converted = transferAmount * currentCurrency.rate;
+                const formatted = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: currentCurrency.code
+                }).format(converted);
+                document.getElementById('convertedAmount').textContent = formatted;
+            }
+        }
+        
+        // Close currency dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.currency-dropdown')) {
+                document.getElementById('currencyOptions').style.display = 'none';
+            }
+        });
+        
+        // Handle balance selection
+        document.querySelectorAll('.balance-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.balance-option').forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                selectedBalance = this.dataset.balance;
+                
+                // Update hidden input
+                document.getElementById('selectedBalanceInput').value = selectedBalance;
+                
+                checkSelectedBalance();
+            });
+        });
+        
+        function checkBalances() {
+            const paypalBalance = parseFloat(document.querySelector('[data-balance="paypal"]').dataset.amount) || 0;
+            const rewardBalance = parseFloat(document.querySelector('[data-balance="reward"]').dataset.amount) || 0;
+            
+            // Hide insufficient notices initially
+            hideNotices();
+            
+            // Check if any balance has enough funds
+            if (transferAmount <= paypalBalance || transferAmount <= rewardBalance) {
+                // At least one balance has enough funds
+                return;
+            } else {
+                // No balance has enough funds
+                showRequestFriendNotice();
+            }
+        }
+        
+        function checkSelectedBalance() {
+            if (!selectedBalance) return;
+            
+            const selectedOption = document.querySelector(`[data-balance="${selectedBalance}"]`);
+            const availableAmount = parseFloat(selectedOption.dataset.amount) || 0;
+            
+            hideNotices();
+            
+            if (transferAmount > availableAmount) {
+                if (selectedBalance === 'paypal') {
+                    // Suggest using reward balance
+                    showInsufficientNotice('PayPal Balance', 'Reward Balance');
+                } else {
+                    // Suggest using PayPal balance
+                    showInsufficientNotice('Reward Balance', 'PayPal Balance');
+                }
+            }
+        }
+        
+        function showInsufficientNotice(currentBalance, suggestedBalance) {
+            document.getElementById('insufficientNotice').style.display = 'block';
+            document.getElementById('insufficientNotice').innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Insufficient ${currentBalance}:</strong> You don't have enough funds in ${currentBalance}. 
+                <a href="#" onclick="selectBalance('${suggestedBalance.toLowerCase().replace(' ', '')}')" style="color: #0070ba; text-decoration: underline;">Use ${suggestedBalance}</a> instead.
+            `;
+        }
+        
+        function showRequestFriendNotice() {
+            document.getElementById('requestFriendNotice').style.display = 'block';
+        }
+        
+        function hideNotices() {
+            document.getElementById('insufficientNotice').style.display = 'none';
+            document.getElementById('requestFriendNotice').style.display = 'none';
+        }
+        
+        function selectBalance(balanceType) {
+            const option = document.querySelector(`[data-balance="${balanceType}"]`);
+            if (option) {
+                option.click();
+            }
+        }
+        
+        // Form submission validation
+        document.getElementById('transferForm').addEventListener('submit', function(e) {
+            if (!selectedBalance) {
+                e.preventDefault();
+                alert('Please select a balance to transfer with.');
+                return;
+            }
+            
+            const selectedOption = document.querySelector(`[data-balance="${selectedBalance}"]`);
+            const availableAmount = parseFloat(selectedOption.dataset.amount) || 0;
+            
+            if (transferAmount > availableAmount) {
+                e.preventDefault();
+                alert('Insufficient balance for this transaction.');
+                return;
+            }
+        });
+    </script>
+</body>
+</html>

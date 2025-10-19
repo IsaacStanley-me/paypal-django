@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - PayPal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .paypal-header {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .paypal-logo {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .paypal-logo .pay {
+            color: #003087;
+        }
+        
+        .paypal-logo .pal {
+            color: #0070ba;
+        }
+        
+        .main-container {
+            max-width: 500px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 0 0.5rem;
+                margin: 0.5rem auto;
+            }
+            
+            .signup-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .verification-inputs {
+                gap: 0.25rem;
+            }
+            
+            .verification-input {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 0 0.25rem;
+                margin: 0.25rem auto;
+            }
+            
+            .signup-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .verification-inputs {
+                gap: 0.2rem;
+            }
+            
+            .verification-input {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .signup-header {
+            margin-bottom: 2rem;
+        }
+        
+        .signup-header h1 {
+            color: #003087;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signup-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .verification-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .verification-info h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .verification-code {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .verification-code .code {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1976d2;
+            letter-spacing: 0.2em;
+        }
+        
+        .verification-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .verification-input {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .verification-input:focus {
+            outline: none;
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .verification-input.filled {
+            border-color: #4caf50;
+            background-color: #e8f5e8;
+        }
+        
+        .verification-input.error {
+            border-color: #f44336;
+            background-color: #ffebee;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .continue-btn {
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+        }
+        
+        .continue-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: #0070ba;
+            border: 2px solid #0070ba;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+        
+        .back-btn:hover {
+            background: #0070ba;
+            color: white;
+        }
+        
+        .resend-btn {
+            background: transparent;
+            color: #0070ba;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 1rem;
+        }
+        
+        .resend-btn:hover {
+            background: #f0f8ff;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .login-link a {
+            color: #0070ba;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e1e5e9;
+            border-radius: 2px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .success-message {
+            color: #4caf50;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="paypal-header">
+        <div class="paypal-logo">
+            <span class="pay">Pay</span><span class="pal">Pal</span>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="signup-card">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 50%;"></div>
+            </div>
+            
+            <div class="signup-header">
+                <h1>Verify your phone number</h1>
+                <p>We sent a verification code to {{ phone_display }}</p>
+            </div>
+            
+            <div class="verification-info">
+                <h3>For Verification to verify use this number:</h3>
+                <div class="verification-code">
+                    <div class="code">{{ verification_code }}</div>
+                </div>
+            </div>
+            
+            <form method="POST" id="verificationForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="verification-inputs">
+                        <input type="text" class="verification-input" maxlength="1" data-index="0">
+                        <input type="text" class="verification-input" maxlength="1" data-index="1">
+                        <input type="text" class="verification-input" maxlength="1" data-index="2">
+                        <input type="text" class="verification-input" maxlength="1" data-index="3">
+                        <input type="text" class="verification-input" maxlength="1" data-index="4">
+                        <input type="text" class="verification-input" maxlength="1" data-index="5">
+                    </div>
+                    <input type="hidden" id="verification_code" name="verification_code" value="">
+                    <div class="error-message" id="verificationError">Please enter the correct verification code</div>
+                    <div class="success-message" id="verificationSuccess">Verification code is correct!</div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <button type="button" class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left me-1"></i> Back
+                    </button>
+                    <button type="submit" class="continue-btn" id="submitBtn" disabled>
+                        Continue <i class="fas fa-arrow-right ms-1"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <button type="button" class="resend-btn" onclick="resendCode()">
+                Didn't receive the code? Resend
+            </button>
+            
+            <div class="login-link">
+                <p>Already have an account? <a href="{% url 'accounts:login' %}">Log In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const verificationCode = '{{ verification_code }}';
+        const inputs = document.querySelectorAll('.verification-input');
+        const submitBtn = document.getElementById('submitBtn');
+        const hiddenInput = document.getElementById('verification_code');
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        function resendCode() {
+            // In a real app, you'd make an AJAX request to resend the code
+            alert('Verification code resent!');
+        }
+        
+        function showError(message) {
+            const errorElement = document.getElementById('verificationError');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            document.getElementById('verificationSuccess').style.display = 'none';
+        }
+        
+        function hideError() {
+            document.getElementById('verificationError').style.display = 'none';
+        }
+        
+        function showSuccess() {
+            const successElement = document.getElementById('verificationSuccess');
+            successElement.style.display = 'block';
+            document.getElementById('verificationError').style.display = 'none';
+        }
+        
+        function checkVerificationCode() {
+            const enteredCode = Array.from(inputs).map(input => input.value).join('');
+            hiddenInput.value = enteredCode;
+            
+            if (enteredCode.length === 6) {
+                if (enteredCode === verificationCode) {
+                    showSuccess();
+                    submitBtn.disabled = false;
+                    inputs.forEach(input => {
+                        input.classList.remove('error');
+                        input.classList.add('filled');
+                    });
+                } else {
+                    showError('Please enter the correct verification code');
+                    inputs.forEach(input => {
+                        input.classList.add('error');
+                        input.classList.remove('filled');
+                    });
+                    submitBtn.disabled = true;
+                }
+            } else {
+                hideError();
+                submitBtn.disabled = true;
+                inputs.forEach(input => {
+                    input.classList.remove('error', 'filled');
+                });
+            }
+        }
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                const value = e.target.value;
+                
+                // Only allow numbers
+                if (!/^\d$/.test(value)) {
+                    e.target.value = '';
+                    return;
+                }
+                
+                // Move to next input
+                if (value && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                
+                checkVerificationCode();
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                // Handle backspace
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+            
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text');
+                const numbers = pastedData.replace(/\D/g, '').slice(0, 6);
+                
+                numbers.split('').forEach((num, i) => {
+                    if (inputs[i]) {
+                        inputs[i].value = num;
+                    }
+                });
+                
+                checkVerificationCode();
+            });
+        });
+        
+        document.getElementById('verificationForm').addEventListener('submit', function(e) {
+            const enteredCode = Array.from(inputs).map(input => input.value).join('');
+            
+            if (enteredCode !== verificationCode) {
+                e.preventDefault();
+                showError('Please enter the correct verification code');
+                return;
+            }
+        });
+    </script>
+</body>
+{% include 'partials/loader.html' %}
+</html>

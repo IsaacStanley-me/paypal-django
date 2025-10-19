@@ -1,0 +1,305 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Create Account - PayPal" %}</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .paypal-header {
+            background-color: #003087;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .paypal-logo {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .paypal-logo .pay {
+            color: #003087;
+        }
+        
+        .paypal-logo .pal {
+            color: #0070ba;
+        }
+        
+        .main-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .signup-header h1 {
+            color: #003087;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signup-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .password-requirements {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .password-requirements h4 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        .password-requirements ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        
+        .password-requirements li {
+            margin-bottom: 0.25rem;
+            color: #666;
+        }
+        
+        .continue-btn {
+            background-color: #0070ba;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        
+        .continue-btn:hover {
+            background-color: #005ea6;
+        }
+        
+        .back-btn {
+            background-color: #f7f9fc;
+            color: #333;
+            border: 2px solid #e1e5e9;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .back-btn:hover {
+            background-color: #e1e5e9;
+        }
+        
+        .help-text {
+            color: #666;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        .hidden-fields {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="paypal-header">
+        <div class="paypal-logo">
+            <span class="pay">Pay</span><span class="pal">Pal</span>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="signup-card">
+            <a href="{% url 'accounts:signup_country' %}" class="back-btn">← {% trans "Back" %}</a>
+            
+            <div class="signup-header">
+                <h1>{% trans "Create your account" %}</h1>
+                <p>{% blocktrans %}Fill in your details to complete your {{ account_type }} account{% endblocktrans %}</p>
+            </div>
+            
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Hidden fields for session data -->
+                <div class="hidden-fields">
+                    <input type="hidden" name="account_type" value="{{ account_type }}">
+                    <input type="hidden" name="country" value="{{ country }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_email">{% trans "Email address" %}</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error-message">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_username">{% trans "Username" %}</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="error-message">{{ form.username.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_first_name">{% trans "First name" %}</label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <div class="error-message">{{ form.first_name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_last_name">{% trans "Last name" %}</label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <div class="error-message">{{ form.last_name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_phone">{% trans "Phone number" %}</label>
+                    {{ form.phone }}
+                    {% if form.phone.help_text %}
+                        <div class="help-text">{{ form.phone.help_text }}</div>
+                    {% endif %}
+                    {% if form.phone.errors %}
+                        <div class="error-message">{{ form.phone.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_date_of_birth">{% trans "Date of birth (optional)" %}</label>
+                    {{ form.date_of_birth }}
+                    {% if form.date_of_birth.errors %}
+                        <div class="error-message">{{ form.date_of_birth.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_address">{% trans "Address (optional)" %}</label>
+                    {{ form.address }}
+                    {% if form.address.errors %}
+                        <div class="error-message">{{ form.address.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password1">{% trans "Create a password" %}</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="error-message">{{ form.password1.errors.0 }}</div>
+                    {% endif %}
+                    
+                    <div class="password-requirements">
+                        <h4>{% trans "Password requirements:" %}</h4>
+                        <ul>
+                            <li>{% trans "At least 8 characters long" %}</li>
+                            <li>{% trans "Contains both letters and numbers" %}</li>
+                            <li>{% trans "Not your name or email" %}</li>
+                            <li>{% trans "Not a common password" %}</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password2">{% trans "Confirm your password" %}</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="error-message">{{ form.password2.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="continue-btn">{% trans "Create Account" %}</button>
+            </form>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    {% include 'partials/loader.html' %}
+</body>
+</html>
+
+

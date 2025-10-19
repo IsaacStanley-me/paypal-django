@@ -1,0 +1,2700 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-15 19:07+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: .\templates\accounts\admin_chat_management.html:8
+msgid "Chat Management - Admin"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:188
+#: .\templates\accounts\admin_chat_management.html:201
+#: .\templates\wallet\dashboard.html:675
+msgid "Chat Management"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:192
+#: .\templates\accounts\admin_contact_management.html:209
+#: .\templates\accounts\security.html:245
+#: .\templates\accounts\settings.html:246 .\templates\partials\header.html:18
+msgid "Dashboard"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:202
+msgid "Manage live chat sessions and assign agents"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:207
+msgid "Create New Chat"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:212
+msgid "Customer"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:214
+msgid "Select customer..."
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:221
+msgid "Assign Agent (optional)"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:223
+msgid "Select agent..."
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:230
+msgid "Subject"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:231
+msgid "Live Chat"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:234
+#: .\templates\accounts\admin_chat_management.html:284
+msgid "Initial Message"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:235
+msgid "Describe the purpose of this chat..."
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:239
+msgid "Create Chat"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:249
+msgid "Total Chats"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:253
+#: .\templates\accounts\admin_contact_management.html:231
+#: .\templates\accounts\security.html:298
+#: .\templates\accounts\settings.html:381 .\templates\wallet\dashboard.html:770
+msgid "Pending"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:257
+msgid "Active"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:261
+msgid "Closed"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:266
+msgid "Chat Sessions"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:295
+msgid "Select Agent..."
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:301
+msgid "Assign Agent"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:311
+msgid "Reassign Customer..."
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:317
+msgid "Reassign User"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:323
+msgid "Join Chat"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:330
+msgid "Close Chat"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:340
+msgid "No Chat Sessions"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:341
+msgid "No chat sessions have been created yet."
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:8
+msgid "Contact Management - Admin"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:205
+#: .\templates\accounts\admin_contact_management.html:218
+msgid "Contact Management"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:219
+msgid "Manage customer support requests and live chat sessions"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:227
+msgid "Total Requests"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:235
+msgid "In Progress"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:239
+msgid "Resolved"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:244
+msgid "Contact Requests"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:268
+#: .\templates\accounts\admin_contact_management.html:335
+msgid "Admin Response"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:280
+msgid "Assign to..."
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:286
+msgid "Assign"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:293
+msgid "Resolve"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:303
+msgid "Close"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:313
+msgid "No Contact Requests"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:314
+msgid "No contact requests have been submitted yet."
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:326
+msgid "Resolve Contact Request"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:340
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\accounts\admin_contact_management.html:341
+msgid "Mark as Resolved"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:8
+msgid "Basic Information - PayPal"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:186
+#: .\templates\accounts\signup_personal_info.html:259
+#: .\templates\accounts\signup_steps.html:207
+msgid "Tell us about yourself"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:187
+#: .\templates\accounts\signup_steps.html:208
+msgid "We'll use this information to set up your account"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:194
+#: .\templates\accounts\signup_details.html:205
+#: .\templates\accounts\signup_email.html:222
+#: .\templates\accounts\signup_steps.html:211
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1920
+msgid "Email address"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:202
+#: .\templates\accounts\signup_details.html:213
+#: .\templates\accounts\signup_steps.html:219
+msgid "Username"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:211
+#: .\templates\accounts\signup_details.html:222
+#: .\templates\accounts\signup_personal_info.html:277
+#: .\templates\accounts\signup_steps.html:228
+msgid "First name"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:218
+#: .\templates\accounts\signup_details.html:229
+#: .\templates\accounts\signup_personal_info.html:282
+#: .\templates\accounts\signup_steps.html:235
+msgid "Last name"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:227
+#: .\templates\accounts\contact_info.html:199
+#: .\templates\accounts\create_password.html:238
+#: .\templates\accounts\signup_address.html:303
+#: .\templates\accounts\signup_business_info.html:305
+#: .\templates\accounts\signup_country_new.html:288
+#: .\templates\accounts\signup_details.html:187
+#: .\templates\accounts\signup_email.html:235
+#: .\templates\accounts\signup_password.html:361
+#: .\templates\accounts\signup_personal_info.html:303
+#: .\templates\accounts\signup_phone.html:300
+#: .\templates\accounts\signup_steps.html:271
+msgid "Back"
+msgstr ""
+
+#: .\templates\accounts\basic_info.html:228
+#: .\templates\accounts\contact_info.html:200
+#: .\templates\accounts\create_password.html:239
+#: .\templates\accounts\signup_country_new.html:291
+#: .\templates\accounts\signup_email.html:238
+#: .\templates\accounts\signup_password.html:364
+#: .\templates\accounts\signup_personal_info.html:306
+#: .\templates\accounts\signup_phone.html:303
+#: .\templates\accounts\signup_step1.html:259
+#: .\templates\accounts\signup_steps.html:272
+msgid "Continue"
+msgstr ""
+
+#: .\templates\accounts\contact_info.html:8
+msgid "Contact Information - PayPal"
+msgstr ""
+
+#: .\templates\accounts\contact_info.html:180
+msgid "Contact Information"
+msgstr ""
+
+#: .\templates\accounts\contact_info.html:181
+msgid "We'll use this to verify your identity and send you important updates"
+msgstr ""
+
+#: .\templates\accounts\contact_info.html:188
+#: .\templates\accounts\signup_details.html:238
+#: .\templates\accounts\signup_phone.html:283
+#: .\templates\accounts\signup_steps.html:244
+msgid "Phone number"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:8
+msgid "Create Password - PayPal"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:204
+msgid "Create a secure password"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:205
+#: .\templates\accounts\signup_password.html:301
+msgid "Choose a strong password to protect your account"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:212
+#: .\templates\accounts\signup_details.html:265
+#: .\templates\accounts\signup_password.html:300
+#: .\templates\accounts\signup_steps.html:255
+msgid "Create a password"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:219
+#: .\templates\accounts\signup_details.html:272
+msgid "Password requirements:"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:221
+#: .\templates\accounts\signup_details.html:274
+#: .\templates\accounts\signup_password.html:332
+msgid "At least 8 characters long"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:222
+#: .\templates\accounts\signup_details.html:275
+msgid "Contains both letters and numbers"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:223
+#: .\templates\accounts\signup_details.html:276
+msgid "Not your name or email"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:224
+#: .\templates\accounts\signup_details.html:277
+msgid "Not a common password"
+msgstr ""
+
+#: .\templates\accounts\create_password.html:230
+#: .\templates\accounts\signup_details.html:283
+#: .\templates\accounts\signup_password.html:320
+#: .\templates\accounts\signup_steps.html:263
+msgid "Confirm your password"
+msgstr ""
+
+#: .\templates\accounts\login.html:8
+msgid "Login - PayPal Sandbox"
+msgstr ""
+
+#: .\templates\accounts\login.html:18 .\templates\accounts\settings.html:496
+#: .\templates\partials\header.html:42 .\templates\partials\header.html:71
+msgid "Language"
+msgstr ""
+
+#: .\templates\accounts\login.html:44
+msgid "Login to Your Account"
+msgstr ""
+
+#: .\templates\accounts\login.html:47 .\templates\accounts\signup.html:66
+#: .\templates\accounts\signup_address.html:312
+#: .\templates\accounts\signup_business_info.html:314
+#: .\templates\accounts\signup_email.html:244
+#: .\templates\accounts\signup_password.html:370
+#: .\templates\accounts\signup_personal_info.html:312
+#: .\templates\accounts\signup_phone.html:309
+#: .\templates\accounts\signup_step1.html:263
+msgid "Log In"
+msgstr ""
+
+#: .\templates\accounts\login.html:50
+msgid "Don't have an account?"
+msgstr ""
+
+#: .\templates\accounts\login.html:51 .\templates\accounts\signup.html:62
+msgid "Sign Up"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:8
+msgid "Phone Verification - PayPal Sandbox"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:126
+#: .\templates\accounts\signup_steps.html:190
+msgid "Account Info"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:130
+#: .\templates\accounts\signup_steps.html:194
+msgid "Phone Verify"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:134
+#: .\templates\accounts\signup_steps.html:198
+msgid "Complete"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:139
+msgid "Verify Your Phone Number"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:140
+#, python-format
+msgid ""
+"We sent a verification code to <span class=\"phone-display\">%(phone)s</span>"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:159
+msgid "Verify Phone"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:163
+msgid "For testing:"
+msgstr ""
+
+#: .\templates\accounts\phone_verification.html:163
+msgid "Use code 111111 or 222222"
+msgstr ""
+
+#: .\templates\accounts\security.html:8
+msgid "Security Center - PayPal"
+msgstr ""
+
+#: .\templates\accounts\security.html:241
+#: .\templates\accounts\security.html:255
+msgid "Security Center"
+msgstr ""
+
+#: .\templates\accounts\security.html:256
+msgid "Manage your account security settings and monitor activity"
+msgstr ""
+
+#: .\templates\accounts\security.html:263
+#: .\templates\accounts\settings.html:365
+msgid "Security Settings"
+msgstr ""
+
+#: .\templates\accounts\security.html:268
+#: .\templates\accounts\settings.html:369
+#: .\templates\accounts\signup_password.html:307
+msgid "Password"
+msgstr ""
+
+#: .\templates\accounts\security.html:269
+#: .\templates\accounts\settings.html:370
+msgid "Last changed: Never"
+msgstr ""
+
+#: .\templates\accounts\security.html:272
+#: .\templates\accounts\signup_password.html:465
+msgid "Strong"
+msgstr ""
+
+#: .\templates\accounts\security.html:273
+#: .\templates\accounts\settings.html:372
+#: .\venv\Lib\site-packages\django\forms\widgets.py:529
+msgid "Change"
+msgstr ""
+
+#: .\templates\accounts\security.html:279
+#: .\templates\accounts\settings.html:387
+msgid "Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\accounts\security.html:280
+#: .\templates\accounts\security.html:432
+msgid "Add an extra layer of security to your account"
+msgstr ""
+
+#: .\templates\accounts\security.html:283
+msgid "Disabled"
+msgstr ""
+
+#: .\templates\accounts\security.html:293
+#: .\templates\accounts\settings.html:377
+msgid "Phone Verification"
+msgstr ""
+
+#: .\templates\accounts\security.html:294
+#: .\templates\accounts\settings.html:378
+#, python-format
+msgid "Phone: %(user.phone|default:\"Not set\")s"
+msgstr ""
+
+#: .\templates\accounts\security.html:298
+#: .\templates\accounts\settings.html:381 .\templates\wallet\dashboard.html:734
+#: .\templates\wallet\dashboard.html:770
+msgid "Verified"
+msgstr ""
+
+#: .\templates\accounts\security.html:306
+#: .\templates\accounts\settings.html:408
+msgid "Email Notifications"
+msgstr ""
+
+#: .\templates\accounts\security.html:307
+#: .\templates\accounts\settings.html:442
+msgid "Get notified about security events"
+msgstr ""
+
+#: .\templates\accounts\security.html:320
+#: .\templates\accounts\settings.html:419
+msgid "SMS Notifications"
+msgstr ""
+
+#: .\templates\accounts\security.html:321
+msgid "Get notified via SMS about important events"
+msgstr ""
+
+#: .\templates\accounts\security.html:334
+msgid "Login Alerts"
+msgstr ""
+
+#: .\templates\accounts\security.html:335
+msgid "Get notified when someone logs into your account"
+msgstr ""
+
+#: .\templates\accounts\security.html:351
+msgid "Recent Activity"
+msgstr ""
+
+#: .\templates\accounts\security.html:352 .\templates\wallet\dashboard.html:686
+msgid "View All"
+msgstr ""
+
+#: .\templates\accounts\security.html:360
+msgid "Successful Login"
+msgstr ""
+
+#: .\templates\accounts\security.html:361
+msgid "Logged in from Chrome on Windows"
+msgstr ""
+
+#: .\templates\accounts\security.html:371
+msgid "Transaction Completed"
+msgstr ""
+
+#: .\templates\accounts\security.html:372
+msgid "Sent $50.00 to john@example.com"
+msgstr ""
+
+#: .\templates\accounts\security.html:382
+msgid "Password Changed"
+msgstr ""
+
+#: .\templates\accounts\security.html:383
+msgid "Password was updated successfully"
+msgstr ""
+
+#: .\templates\accounts\security.html:393
+msgid "Mobile Login"
+msgstr ""
+
+#: .\templates\accounts\security.html:394
+msgid "Logged in from PayPal Mobile App"
+msgstr ""
+
+#: .\templates\accounts\security.html:404
+msgid "Card Added"
+msgstr ""
+
+#: .\templates\accounts\security.html:405
+msgid "New Visa card ending in 1234 was added"
+msgstr ""
+
+#: .\templates\accounts\security.html:415
+msgid "Security Tips"
+msgstr ""
+
+#: .\templates\accounts\security.html:423
+msgid "Use a Strong Password"
+msgstr ""
+
+#: .\templates\accounts\security.html:424
+msgid "Use a combination of letters, numbers, and symbols"
+msgstr ""
+
+#: .\templates\accounts\security.html:431
+msgid "Enable Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\accounts\security.html:439
+msgid "Keep Your Contact Info Updated"
+msgstr ""
+
+#: .\templates\accounts\security.html:440
+msgid "Make sure we can reach you about your account"
+msgstr ""
+
+#: .\templates\accounts\security.html:449
+msgid "Monitor Your Account Regularly"
+msgstr ""
+
+#: .\templates\accounts\security.html:450
+msgid "Check your transaction history frequently"
+msgstr ""
+
+#: .\templates\accounts\security.html:457
+msgid "Log Out When Done"
+msgstr ""
+
+#: .\templates\accounts\security.html:458
+msgid "Always log out from shared computers"
+msgstr ""
+
+#: .\templates\accounts\security.html:465
+msgid "Report Suspicious Activity"
+msgstr ""
+
+#: .\templates\accounts\security.html:466
+msgid "Contact us immediately if you notice anything unusual"
+msgstr ""
+
+#: .\templates\accounts\settings.html:8
+msgid "Account Settings - PayPal"
+msgstr ""
+
+#: .\templates\accounts\settings.html:242
+msgid "Account Settings"
+msgstr ""
+
+#: .\templates\accounts\settings.html:260
+msgid "Profile"
+msgstr ""
+
+#: .\templates\accounts\settings.html:265 .\templates\partials\header.html:160
+msgid "Security"
+msgstr ""
+
+#: .\templates\accounts\settings.html:270 .\templates\partials\header.html:104
+msgid "Notifications"
+msgstr ""
+
+#: .\templates\accounts\settings.html:275
+msgid "Privacy"
+msgstr ""
+
+#: .\templates\accounts\settings.html:280
+msgid "Preferences"
+msgstr ""
+
+#: .\templates\accounts\settings.html:293
+msgid "Profile Information"
+msgstr ""
+
+#: .\templates\accounts\settings.html:297
+msgid "Profile Picture"
+msgstr ""
+
+#: .\templates\accounts\settings.html:310
+msgid "Change Photo"
+msgstr ""
+
+#: .\templates\accounts\settings.html:313
+msgid "JPG, PNG or GIF. Max size 5MB."
+msgstr ""
+
+#: .\templates\accounts\settings.html:324
+msgid "First Name"
+msgstr ""
+
+#: .\templates\accounts\settings.html:330
+msgid "Last Name"
+msgstr ""
+
+#: .\templates\accounts\settings.html:337
+msgid "Email Address"
+msgstr ""
+
+#: .\templates\accounts\settings.html:339
+msgid "Email cannot be changed"
+msgstr ""
+
+#: .\templates\accounts\settings.html:343
+msgid "Phone Number"
+msgstr ""
+
+#: .\templates\accounts\settings.html:348
+msgid "Date of Birth"
+msgstr ""
+
+#: .\templates\accounts\settings.html:353
+msgid "Address"
+msgstr ""
+
+#: .\templates\accounts\settings.html:358
+msgid "Save Changes"
+msgstr ""
+
+#: .\templates\accounts\settings.html:388
+msgid "Add an extra layer of security"
+msgstr ""
+
+#: .\templates\accounts\settings.html:390
+msgid "Enable"
+msgstr ""
+
+#: .\templates\accounts\settings.html:395
+msgid "Login Activity"
+msgstr ""
+
+#: .\templates\accounts\settings.html:396
+msgid "View recent login attempts"
+msgstr ""
+
+#: .\templates\accounts\settings.html:398
+msgid "View"
+msgstr ""
+
+#: .\templates\accounts\settings.html:404
+msgid "Notification Preferences"
+msgstr ""
+
+#: .\templates\accounts\settings.html:409
+msgid "Receive updates via email"
+msgstr ""
+
+#: .\templates\accounts\settings.html:420
+msgid "Receive updates via SMS"
+msgstr ""
+
+#: .\templates\accounts\settings.html:430
+msgid "Transaction Alerts"
+msgstr ""
+
+#: .\templates\accounts\settings.html:431
+msgid "Get notified about transactions"
+msgstr ""
+
+#: .\templates\accounts\settings.html:441
+msgid "Security Alerts"
+msgstr ""
+
+#: .\templates\accounts\settings.html:453
+msgid "Privacy Settings"
+msgstr ""
+
+#: .\templates\accounts\settings.html:457
+msgid "Profile Visibility"
+msgstr ""
+
+#: .\templates\accounts\settings.html:458
+msgid "Control who can see your profile"
+msgstr ""
+
+#: .\templates\accounts\settings.html:461
+msgid "Public"
+msgstr ""
+
+#: .\templates\accounts\settings.html:462
+msgid "Friends Only"
+msgstr ""
+
+#: .\templates\accounts\settings.html:463
+msgid "Private"
+msgstr ""
+
+#: .\templates\accounts\settings.html:469
+msgid "Data Sharing"
+msgstr ""
+
+#: .\templates\accounts\settings.html:470
+msgid "Allow data sharing with partners"
+msgstr ""
+
+#: .\templates\accounts\settings.html:480
+msgid "Analytics"
+msgstr ""
+
+#: .\templates\accounts\settings.html:481
+msgid "Help improve our services"
+msgstr ""
+
+#: .\templates\accounts\settings.html:492
+msgid "Account Preferences"
+msgstr ""
+
+#: .\templates\accounts\settings.html:510
+msgid "Currency"
+msgstr ""
+
+#: .\templates\accounts\settings.html:522
+msgid "Time Zone"
+msgstr ""
+
+#: .\templates\accounts\settings.html:532
+msgid "Save Preferences"
+msgstr ""
+
+#: .\templates\accounts\signup.html:8
+msgid "Sign Up - PayPal Sandbox"
+msgstr ""
+
+#: .\templates\accounts\signup.html:16
+msgid "Create Your PayPal Account"
+msgstr ""
+
+#: .\templates\accounts\signup.html:66
+#: .\templates\accounts\signup_address.html:312
+#: .\templates\accounts\signup_business_info.html:314
+#: .\templates\accounts\signup_email.html:244
+#: .\templates\accounts\signup_password.html:370
+#: .\templates\accounts\signup_personal_info.html:312
+#: .\templates\accounts\signup_phone.html:309
+#: .\templates\accounts\signup_step1.html:263
+msgid "Already have an account?"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:8
+#: .\templates\accounts\signup_business_info.html:8
+#: .\templates\accounts\signup_country_new.html:8
+#: .\templates\accounts\signup_details.html:8
+#: .\templates\accounts\signup_email.html:8
+#: .\templates\accounts\signup_password.html:8
+#: .\templates\accounts\signup_personal_info.html:8
+#: .\templates\accounts\signup_phone.html:8
+#: .\templates\accounts\signup_step1.html:8
+#: .\templates\accounts\signup_steps.html:8
+msgid "Create Account - PayPal"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:257
+msgid "Address information"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:258
+msgid "Where should we send your mail?"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:264
+msgid "Address line 1"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:265
+msgid "Street address, P.O. box, company name"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:266
+#: .\templates\accounts\signup_address.html:344
+msgid "Please enter your address"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:270
+msgid "Address line 2 (Optional)"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:276
+msgid "City"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:277
+msgid "Enter city"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:278
+#: .\templates\accounts\signup_address.html:352
+msgid "Please enter your city"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:281
+msgid "Postal code"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:282
+msgid "Enter postal code"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:283
+#: .\templates\accounts\signup_address.html:360
+msgid "Please enter your postal code"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:288
+msgid "State/Province/Region"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:289
+msgid "Enter state or province"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:290
+#: .\templates\accounts\signup_address.html:368
+msgid "Please enter your state or province"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:296
+#: .\templates\accounts\signup_business_info.html:298
+msgid "I agree to the"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:296
+msgid "PayPal User Agreement"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:296
+#: .\templates\accounts\signup_business_info.html:298
+#: .\venv\Lib\site-packages\django\db\models\base.py:1600
+#: .\venv\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:296
+#: .\templates\accounts\signup_business_info.html:298
+msgid "Privacy Policy"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:297
+#: .\templates\accounts\signup_business_info.html:299
+msgid ""
+"I also agree to receive important account-related communications via email "
+"and SMS."
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:306
+#: .\templates\accounts\signup_business_info.html:308
+msgid "Agree and Create Account"
+msgstr ""
+
+#: .\templates\accounts\signup_address.html:376
+#: .\templates\accounts\signup_business_info.html:378
+msgid "Please agree to the terms and conditions to continue"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:252
+msgid "Business information"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:253
+msgid "Tell us about your business"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:259
+msgid "Business name"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:261
+#: .\templates\accounts\signup_business_info.html:346
+msgid "Please enter your business name"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:265
+msgid "Business type"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:267
+msgid "Select business type"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:268
+msgid "Sole Proprietorship"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:269
+msgid "Partnership"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:270
+msgid "Corporation"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:271
+msgid "Limited Liability Company (LLC)"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:272
+msgid "Non-profit Organization"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:273
+msgid "Other"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:275
+#: .\templates\accounts\signup_business_info.html:354
+msgid "Please select your business type"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:279
+msgid "Business location"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:281
+#: .\templates\accounts\signup_business_info.html:362
+msgid "Please enter your business location"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:285
+msgid "Business address"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:287
+#: .\templates\accounts\signup_business_info.html:370
+msgid "Please enter your business address"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:291
+msgid "Business website (Optional)"
+msgstr ""
+
+#: .\templates\accounts\signup_business_info.html:298
+msgid "PayPal Business User Agreement"
+msgstr ""
+
+#: .\templates\accounts\signup_country_new.html:259
+#: .\templates\accounts\signup_country_new.html:268
+msgid "Select your country"
+msgstr ""
+
+#: .\templates\accounts\signup_country_new.html:260
+msgid "Choose your country to continue"
+msgstr ""
+
+#: .\templates\accounts\signup_country_new.html:266
+msgid "Country"
+msgstr ""
+
+#: .\templates\accounts\signup_country_new.html:275
+msgid "Please select your country"
+msgstr ""
+
+#: .\templates\accounts\signup_country_new.html:278
+msgid "Preferred language"
+msgstr ""
+
+#: .\templates\accounts\signup_details.html:190
+msgid "Create your account"
+msgstr ""
+
+#: .\templates\accounts\signup_details.html:191
+#, python-format
+msgid "Fill in your details to complete your %(account_type)s account"
+msgstr ""
+
+#: .\templates\accounts\signup_details.html:249
+msgid "Date of birth (optional)"
+msgstr ""
+
+#: .\templates\accounts\signup_details.html:257
+msgid "Address (optional)"
+msgstr ""
+
+#: .\templates\accounts\signup_details.html:290
+msgid "Create Account"
+msgstr ""
+
+#: .\templates\accounts\signup_email.html:215
+#: .\templates\accounts\signup_step1.html:225
+msgid "Create your PayPal account"
+msgstr ""
+
+#: .\templates\accounts\signup_email.html:216
+msgid "Enter your email address to get started"
+msgstr ""
+
+#: .\templates\accounts\signup_email.html:223
+msgid "Enter your email address"
+msgstr ""
+
+#: .\templates\accounts\signup_email.html:224
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: .\templates\accounts\signup_email.html:228
+msgid "Confirm email address"
+msgstr ""
+
+#: .\templates\accounts\signup_email.html:229
+msgid "Confirm your email address"
+msgstr ""
+
+#: .\templates\accounts\signup_email.html:230
+msgid "Email addresses do not match"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:309
+msgid "Enter your password"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:314
+#: .\templates\accounts\signup_password.html:488
+msgid "Password does not meet requirements"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:318
+msgid "Confirm password"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:325
+#: .\templates\accounts\signup_password.html:494
+msgid "Passwords do not match"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:329
+msgid "Password Requirements:"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:336
+msgid "Contains uppercase letter"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:340
+msgid "Contains lowercase letter"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:344
+msgid "Contains number"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:348
+msgid "Contains special character"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:356
+msgid "Enter a password"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:453
+msgid "Weak"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:457
+msgid "Fair"
+msgstr ""
+
+#: .\templates\accounts\signup_password.html:461
+msgid "Good"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:258
+msgid "Personal information"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:265
+msgid "Nationality"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:267
+msgid "Select your nationality"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:272
+#: .\templates\accounts\signup_personal_info.html:394
+msgid "Please select your nationality"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:278
+msgid "Enter your first name"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:279
+#: .\templates\accounts\signup_personal_info.html:378
+msgid "Please enter your first name"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:283
+msgid "Enter your last name"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:284
+#: .\templates\accounts\signup_personal_info.html:386
+msgid "Please enter your last name"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:289
+msgid "Date of birth"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:296
+msgid "You must be at least 16 years old to create a PayPal account."
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:298
+msgid "Please enter a valid date of birth"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:402
+msgid "Please enter your date of birth"
+msgstr ""
+
+#: .\templates\accounts\signup_personal_info.html:405
+msgid "You must be at least 16 years old"
+msgstr ""
+
+#: .\templates\accounts\signup_phone.html:276
+msgid "Add your phone number"
+msgstr ""
+
+#: .\templates\accounts\signup_phone.html:277
+msgid "We'll send you a verification code"
+msgstr ""
+
+#: .\templates\accounts\signup_phone.html:286
+msgid "Select Country"
+msgstr ""
+
+#: .\templates\accounts\signup_phone.html:293
+#: .\templates\accounts\signup_phone.html:344
+#: .\templates\accounts\signup_phone.html:346
+msgid "Enter phone number"
+msgstr ""
+
+#: .\templates\accounts\signup_phone.html:295
+#: .\templates\accounts\signup_phone.html:359
+#: .\templates\accounts\signup_phone.html:378
+msgid "Please enter a valid phone number"
+msgstr ""
+
+#: .\templates\accounts\signup_phone.html:372
+msgid "Please select a country"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:8
+msgid "Add Profile Picture - PayPal"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:210
+msgid "Add Profile Picture"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:211
+msgid "Make your account more personal (optional)"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:220
+msgid "Step 8 of 8 - Almost done!"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:232
+msgid "Choose Photo"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:239
+msgid "Skip for now"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:251
+msgid "Complete Signup"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:257
+msgid "Tips for a great profile picture:"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:259
+msgid "Use a clear, well-lit photo"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:260
+msgid "Make sure your face is visible"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:261
+msgid "Keep it professional and friendly"
+msgstr ""
+
+#: .\templates\accounts\signup_profile_picture.html:262
+msgid "File size should be under 5MB"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:226
+msgid "Choose the account type that's right for you"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:234
+msgid "Personal Account"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:235
+msgid "For individuals who want to send and receive money"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:237
+msgid "Send and receive money"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:238
+msgid "Shop online securely"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:239
+msgid "Split bills with friends"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:240
+msgid "No monthly fees"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:247
+msgid "Business Account"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:248
+msgid "For businesses that want to accept payments"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:250
+msgid "Accept payments online"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:251
+msgid "Invoice customers"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:252
+msgid "Track business expenses"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:253
+msgid "Advanced reporting"
+msgstr ""
+
+#: .\templates\accounts\signup_step1.html:296
+msgid "Please select an account type"
+msgstr ""
+
+#: .\templates\partials\header.html:7 .\templates\wallet\dashboard.html:531
+msgid "PayPal"
+msgstr ""
+
+#: .\templates\partials\header.html:23 .\templates\wallet\dashboard.html:643
+msgid "Send Money"
+msgstr ""
+
+#: .\templates\partials\header.html:28 .\templates\wallet\dashboard.html:659
+msgid "Withdraw"
+msgstr ""
+
+#: .\templates\partials\header.html:33
+msgid "History"
+msgstr ""
+
+#: .\templates\partials\header.html:109
+msgid "No new notifications"
+msgstr ""
+
+#: .\templates\partials\header.html:150
+msgid "My Wallet"
+msgstr ""
+
+#: .\templates\partials\header.html:155
+msgid "Settings"
+msgstr ""
+
+#: .\templates\partials\header.html:165
+msgid "Help"
+msgstr ""
+
+#: .\templates\partials\header.html:171
+msgid "Logout"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:9
+msgid "PayPal Dashboard"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:588
+msgid "Home"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:589
+msgid "Wallet"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:590 .\templates\wallet\dashboard.html:755
+msgid "Bank Accounts"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:591
+msgid "Rewards"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:592
+msgid "Transactions"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:593
+msgid "Chats"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:606
+msgid "Welcome back,"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:607
+msgid "Here's what's happening with your account today."
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:617
+msgid "PayPal Balance"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:620
+msgid "Available for payments and transfers"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:628
+msgid "Reward Balance"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:631
+msgid "Earned from referrals and activities"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:637
+msgid "Quick Actions"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:644
+msgid "Transfer to friends and family"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:651
+msgid "Request Money"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:652
+msgid "Ask someone to pay you"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:660
+msgid "Move money to your bank"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:667
+msgid "Transaction History"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:668
+msgid "View all your transactions"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:676
+msgid "Assign agents and manage chats"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:685
+msgid "Recent Transactions"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:707
+msgid "No transactions yet"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:708
+msgid "Your recent transactions will appear here"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:715
+msgid "Linked Accounts"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:720
+msgid "Credit/Debit Cards"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:731
+#, python-format
+msgid "Ending in %(card.masked_number)s"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:732
+#, python-format
+msgid "Expires %(card.expiry_date)s"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:743 .\templates\wallet\dashboard.html:748
+msgid "Add Card"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:746
+msgid "Link a credit or debit card"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:767
+#, python-format
+msgid "Added %(bank.created_at|date:\"M d, Y\")s"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:780 .\templates\wallet\dashboard.html:785
+msgid "Add Bank"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:783
+msgid "Link a bank account for withdrawals"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:153
+#: .\venv\Lib\site-packages\django\forms\fields.py:775
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:200
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:211
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:309
+#: .\venv\Lib\site-packages\django\core\validators.py:318
+#: .\venv\Lib\site-packages\django\core\validators.py:332
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:311
+msgid "IPv4"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:320
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:43
+msgid "IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:334
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:514
+#: .\venv\Lib\site-packages\django\forms\fields.py:366
+#: .\venv\Lib\site-packages\django\forms\fields.py:405
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:659
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1602
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1163
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1165
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1215
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1217
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1326
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1427
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1431
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1566
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1435
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1562
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1570
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1575
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1702
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1704
+msgid "Decimal number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1868
+msgid "Duration"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1945
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2025
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2067
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2180
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2188
+msgid "IPv4 address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2219
+msgid "IP address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2310
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2364
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2379
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2394
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2446
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2534
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2642
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2666
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2733
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:979
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:982
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1276
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1333
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1335
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1383
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:315
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:486
+#: .\venv\Lib\site-packages\django\forms\fields.py:1267
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:509
+#: .\venv\Lib\site-packages\django\forms\fields.py:1268
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:536
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:570
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:571
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:640
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:641
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:642
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:644
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:649
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:717
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:889
+#: .\venv\Lib\site-packages\django\forms\fields.py:975
+#: .\venv\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:977
+#: .\venv\Lib\site-packages\django\forms\fields.py:1096
+#: .\venv\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1097
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1339
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1369
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:97
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:922
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:229
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:527
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:528
+msgid "Currently"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:866
+msgid "Unknown"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:867
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:868
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:287
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:306
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:353
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:68
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""

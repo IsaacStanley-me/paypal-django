@@ -1,0 +1,356 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Chat Management - Admin" %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .admin-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .admin-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .admin-body {
+            padding: 2rem;
+        }
+        
+        .chat-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #0070ba;
+        }
+        
+        .chat-item.pending {
+            border-left-color: #ffc107;
+        }
+        
+        .chat-item.active {
+            border-left-color: #28a745;
+        }
+        
+        .chat-item.closed {
+            border-left-color: #6c757d;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .chat-info h5 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .chat-info p {
+            margin: 0.25rem 0 0 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-closed {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .chat-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .chat-message {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #e1e5e9;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0070ba;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+            
+            .admin-header {
+                padding: 1.5rem;
+            }
+            
+            .admin-body {
+                padding: 1.5rem;
+            }
+            
+            .chat-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+                <i class="fas fa-arrow-left me-2"></i>
+                {% trans "Chat Management" %}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                    <i class="fas fa-home me-1"></i> {% trans "Dashboard" %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="admin-card">
+            <div class="admin-header">
+                <h1><i class="fas fa-comments me-2"></i>{% trans "Chat Management" %}</h1>
+                <p>{% trans "Manage live chat sessions and assign agents" %}</p>
+            </div>
+            
+            <div class="admin-body">
+                <div class="mb-4">
+                    <h3><i class="fas fa-plus-circle me-2"></i>{% trans "Create New Chat" %}</h3>
+                    <form method="POST" class="row g-2 align-items-end">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="create_chat">
+                        <div class="col-md-4">
+                            <label class="form-label">{% trans "Customer" %}</label>
+                            <select name="customer_id" class="form-select" required>
+                                <option value="">{% trans "Select customer..." %}</option>
+                                {% for u in non_staff_users %}
+                                <option value="{{ u.id }}">{{ u.first_name }} {{ u.last_name }} ({{ u.email }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">{% trans "Assign Agent (optional)" %}</label>
+                            <select name="agent_id" class="form-select">
+                                <option value="">{% trans "Select agent..." %}</option>
+                                {% for u in all_users %}
+                                <option value="{{ u.id }}">{{ u.first_name }} {{ u.last_name }} ({{ u.email }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">{% trans "Subject" %}</label>
+                            <input type="text" name="subject" class="form-control" placeholder="{% trans "Live Chat" %}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">{% trans "Initial Message" %}</label>
+                            <input type="text" name="init_message" class="form-control" placeholder="{% trans "Describe the purpose of this chat..." %}">
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i>{% trans "Create Chat" %}
+                            </button>
+                        </div>
+                    </form>
+                    <hr class="my-4">
+                </div>
+                <!-- Statistics -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ chat_sessions.count }}</div>
+                        <div class="stat-label">{% trans "Total Chats" %}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ chat_sessions|length }}</div>
+                        <div class="stat-label">{% trans "Pending" %}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ chat_sessions|length }}</div>
+                        <div class="stat-label">{% trans "Active" %}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ chat_sessions|length }}</div>
+                        <div class="stat-label">{% trans "Closed" %}</div>
+                    </div>
+                </div>
+                
+                <!-- Chat Sessions -->
+                <h3><i class="fas fa-list me-2"></i>{% trans "Chat Sessions" %}</h3>
+                
+                {% if chat_sessions %}
+                    {% for chat in chat_sessions %}
+                    <div class="chat-item {{ chat.status }}">
+                        <div class="chat-header">
+                            <div class="chat-info">
+                                <h5>{{ chat.user.first_name }} {{ chat.user.last_name }}</h5>
+                                <p><i class="fas fa-envelope me-1"></i>{{ chat.user.email }}</p>
+                                <p><i class="fas fa-clock me-1"></i>{{ chat.created_at|date:"M d, Y H:i" }}</p>
+                                {% if chat.agent %}
+                                <p><i class="fas fa-user-tie me-1"></i>Agent: {{ chat.agent.first_name }} {{ chat.agent.last_name }}</p>
+                                {% endif %}
+                            </div>
+                            <span class="status-badge status-{{ chat.status }}">{{ chat.get_status_display }}</span>
+                        </div>
+                        
+                        <div class="chat-message">
+                            <h6><i class="fas fa-comment me-1"></i>{% trans "Initial Message" %}</h6>
+                            <p>{{ chat.messages.first.message|default:"No initial message" }}</p>
+                        </div>
+                        
+                        <div class="chat-actions">
+                            {% if chat.status == 'pending' %}
+                            <form method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="chat_id" value="{{ chat.id }}">
+                                <input type="hidden" name="action" value="assign">
+                                <select name="agent_id" class="form-select form-select-sm" style="width: auto; display: inline-block;">
+                                    <option value="">{% trans "Select Agent..." %}</option>
+                                    {% for u in all_users %}
+                                    <option value="{{ u.id }}">{{ u.first_name }} {{ u.last_name }} ({{ u.email }})</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-user-plus me-1"></i>{% trans "Assign Agent" %}
+                                </button>
+                            </form>
+                            {% endif %}
+                            
+                            <form method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="chat_id" value="{{ chat.id }}">
+                                <input type="hidden" name="action" value="reassign_user">
+                                <select name="user_id" class="form-select form-select-sm" style="width: auto; display: inline-block;">
+                                    <option value="">{% trans "Reassign Customer..." %}</option>
+                                    {% for u in non_staff_users %}
+                                    <option value="{{ u.id }}">{{ u.first_name }} {{ u.last_name }} ({{ u.email }})</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-user-edit me-1"></i>{% trans "Reassign User" %}
+                                </button>
+                            </form>
+
+                            {% if chat.status == 'active' %}
+                            <a href="{% url 'accounts:agent_join_chat' chat.id %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-comments me-1"></i>{% trans "Join Chat" %}
+                            </a>
+                            <form method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="chat_id" value="{{ chat.id }}">
+                                <input type="hidden" name="action" value="close">
+                                <button type="submit" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-times me-1"></i>{% trans "Close Chat" %}
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-comments text-muted" style="font-size: 3rem;"></i>
+                    <h4 class="mt-3 text-muted">{% trans "No Chat Sessions" %}</h4>
+                    <p class="text-muted">{% trans "No chat sessions have been created yet." %}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+

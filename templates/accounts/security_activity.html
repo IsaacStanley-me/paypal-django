@@ -1,0 +1,59 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Recent Activity" %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background:#f5f7fa; }
+    .pp-header { background: linear-gradient(135deg, #003087 0%, #0070ba 100%); }
+    .pp-header .navbar-brand { color:#fff; font-weight:600 }
+    .card-activity { border:none; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.08); }
+    .activity-item { display:flex; align-items:center; padding:1rem; border-bottom:1px solid #f0f0f0; background:#fff; }
+    .activity-item:last-child { border-bottom:none; }
+    .activity-icon { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-right:1rem; font-size:1.1rem; }
+    .activity-login { background-color:#d4edda; color:#155724; }
+    .activity-logout { background-color:#f8d7da; color:#721c24; }
+    .activity-transaction { background-color:#d1ecf1; color:#0c5460; }
+    .activity-security { background-color:#fff3cd; color:#856404; }
+    .activity-title { margin:0; font-weight:600; color:#333; }
+    .activity-desc { margin:0; color:#666; font-size:.9rem; }
+    .activity-time { margin-left:auto; color:#999; font-size:.85rem; }
+  </style>
+</head>
+<body>
+  <nav class="navbar pp-header">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'accounts:security' %}"><i class="fas fa-arrow-left me-2"></i>{% trans "Recent Activity" %}</a>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    <div class="card card-activity">
+      <div class="card-header bg-white">
+        <h5 class="mb-0">{% trans "All Recent Activity" %}</h5>
+      </div>
+      <div class="list-group list-group-flush">
+        {% for a in activities %}
+        <div class="activity-item">
+          <div class="activity-icon {{ a.class }}">
+            <i class="fas {{ a.icon }}"></i>
+          </div>
+          <div>
+            <p class="activity-title">{{ a.title }}</p>
+            <p class="activity-desc">{{ a.desc }}</p>
+          </div>
+          <div class="activity-time">{{ a.time }}</div>
+        </div>
+        {% empty %}
+        <div class="p-4 text-muted">{% trans "No recent activity" %}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

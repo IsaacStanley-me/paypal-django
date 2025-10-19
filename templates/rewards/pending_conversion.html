@@ -1,0 +1,59 @@
+{% load static %}
+{% load currency %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Conversion Pending" %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f4f8ff; }
+    .card { border: none; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .header { background: linear-gradient(135deg, #003087, #0070ba); color: white; border-radius: 16px; padding: 24px; }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <div class="header mb-4">
+      <h2 class="mb-1">{% trans "Conversion Request Submitted" %}</h2>
+      <div class="small">{% trans "An agent will confirm your payment receipt. Until then, this request remains pending." %}</div>
+    </div>
+
+    <div class="card p-3">
+      <h5 class="mb-3">{% trans "Details" %}</h5>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded">
+            <div class="d-flex justify-content-between"><span class="text-muted">{% trans "Points" %}</span><strong>{{ tx.points }}</strong></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">{% trans "Blocks" %}</span><strong>{{ tx.blocks }}</strong></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">{% trans "Payout" %}</span><strong>{% money tx.amount %}</strong></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">{% trans "Fee" %}</span><strong>{% money tx.fee_amount %}</strong></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-3 bg-light rounded">
+            <div class="mb-2"><span class="text-muted">{% trans "Payout Account" %}</span><div class="fw-semibold">{{ tx.payout_account|default:"—" }}</div></div>
+            <div class="mb-2"><span class="text-muted">{% trans "Receipt Ref" %}</span><div class="fw-semibold">{{ tx.receipt_reference|default:"—" }}</div></div>
+            {% if tx.receipt_image %}
+              <div class="mt-2"><span class="text-muted d-block mb-1">{% trans "Receipt Image" %}</span><img src="{{ tx.receipt_image.url }}" class="img-fluid rounded" alt="Receipt image"></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% if settings and settings.payout_account_number %}
+      <div class="alert alert-info mt-3">
+        <div class="fw-bold">{% trans "Pay Conversion Fee To" %}</div>
+        <div>{{ settings.payout_account_number }}</div>
+      </div>
+      {% endif %}
+
+      <div class="mt-3">
+        <a class="btn btn-outline-primary" href="{% url 'rewards:dashboard' %}">{% trans "Back to Rewards" %}</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

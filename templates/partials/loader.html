@@ -1,0 +1,111 @@
+<!-- Global Loader Only (no footer UI) -->
+<div id="globalLoader" aria-hidden="true">
+  <div class="gl-backdrop"></div>
+  <div class="gl-spinner" role="status" aria-live="polite" aria-label="Loading"></div>
+  <span class="gl-sr" aria-live="polite">Loading…</span>
+</div>
+
+<style>
+  #globalLoader {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1049; /* Below Bootstrap modal (1050+) so modals can appear above */
+    opacity: 0;
+    transition: opacity 180ms ease-in-out;
+  }
+  #globalLoader.show { display: flex; opacity: 1; }
+  #globalLoader.hiding { opacity: 0; }
+  .gl-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+  }
+  .gl-spinner {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.35);
+    border-top-color: #ffffff;
+    animation: gl-spin 0.9s linear infinite;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05) inset;
+  }
+  @keyframes gl-spin {
+    to { transform: rotate(360deg); }
+  }
+  .gl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (max-width: 480px) { .gl-spinner { width: 44px; height: 44px; border-width: 3px; } }
+</style>
+
+<script>
+  (function(){
+    const overlay = document.getElementById('globalLoader');
+    if (!overlay) return;
+    let counter = 0; let hideTimer = null;
+    function showLoader(){
+      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+      if (!overlay.classList.contains('show')) {
+        overlay.style.display = 'flex';
+        requestAnimationFrame(()=> overlay.classList.add('show'));
+      }
+    }
+    function hideLoader(){
+      if (!overlay.classList.contains('show')) return;
+      overlay.classList.remove('show');
+      overlay.classList.add('hiding');
+      hideTimer = setTimeout(()=>{
+        overlay.classList.remove('hiding');
+        overlay.style.display = 'none';
+        hideTimer = null;
+      }, 200);
+    }
+    function inc(){ if (++counter === 1) showLoader(); }
+    function dec(){ if (counter > 0 && --counter === 0) hideLoader(); }
+
+    // Intercept fetch
+    if (window.fetch) {
+      const origFetch = window.fetch.bind(window);
+      window.fetch = function(){
+        inc();
+        return origFetch.apply(this, arguments).then(function(res){ dec(); return res; }, function(err){ dec(); throw err; });
+      };
+    }
+
+    // Intercept XHR
+    (function(){
+      const XHR = window.XMLHttpRequest;
+      if (!XHR) return;
+      const send = XHR.prototype.send;
+      XHR.prototype.send = function(){
+        try { this.addEventListener('loadend', dec, { once: true }); } catch(e){}
+        inc();
+        return send.apply(this, arguments);
+      };
+    })();
+
+    // Form submissions
+    document.addEventListener('submit', function(e){
+      if (!e.defaultPrevented) showLoader();
+    }, true);
+
+    // Link navigation (same-origin)
+    document.addEventListener('click', function(e){
+      const a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || a.target === '_blank' || a.hasAttribute('download')) return;
+      try {
+        const url = new URL(href, window.location.href);
+        if (url.origin === window.location.origin) {
+          showLoader();
+        }
+      } catch(err){}
+    }, true);
+
+    // Page unload
+    window.addEventListener('beforeunload', function(){ showLoader(); });
+  })();
+</script>

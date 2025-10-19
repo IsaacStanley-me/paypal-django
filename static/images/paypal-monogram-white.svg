@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="32" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PayPal Monogram">
+  <title>PayPal Monogram</title>
+  <rect width="64" height="32" fill="none"/>
+  <!-- Two full capital P letters (white), back P slightly left, front P slightly right -->
+  <g fill="#FFFFFF">
+    <!-- Back P (left) -->
+    <path fill-rule="evenodd" clip-rule="evenodd" d="
+      M6 4 H14 V28 H6 Z
+      M14 4 H24 C29 4 33 7.5 33 12 C33 16.5 29 20 24 20 H14 Z
+      M18 8 H24 C26.7 8 29 9.6 29 12 C29 14.4 26.7 16 24 16 H18 Z
+    " opacity="0.9"/>
+
+    <!-- Front P (right, overlapping) -->
+    <path fill-rule="evenodd" clip-rule="evenodd" d="
+      M26 6 H34 V28 H26 Z
+      M34 6 H48 C53 6 57 9.2 57 13.5 C57 17.8 53 21 48 21 H34 Z
+      M38 10 H48 C50.2 10 53 11.6 53 13.5 C53 15.4 50.2 17 48 17 H38 Z
+    "/>
+  </g>
+</svg>

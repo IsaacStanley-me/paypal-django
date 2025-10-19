@@ -1,0 +1,270 @@
+{% load static %}
+{% load currency %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Rewards" %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: #f4f8ff; }
+    .navbar { background: linear-gradient(135deg, #003087, #0070ba); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .card { border: none; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .header { background: linear-gradient(135deg, #003087, #0070ba); color: white; border-radius: 16px; padding: 24px; }
+    .stat { background: white; border-radius: 12px; padding: 16px; text-align: center; }
+    .stat h2 { color: #003087; font-weight: 800; }
+    .btn-paypal { background: #0070ba; color: #fff; }
+    .btn-paypal:hover { background: #005c96; color: #fff; }
+    .table thead { background: #e8f1ff; color: #003087; }
+    .badge-blue { background: #0070ba; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'wallet:dashboard' %}">
+        <i class="fas fa-arrow-left me-2"></i>
+        Rewards
+      </a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="{% url 'wallet:dashboard' %}"><i class="fas fa-home me-1"></i> Dashboard</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-4">
+    <div class="header mb-4">
+      <h2 class="mb-1"><i class="fas fa-gift me-2"></i>{% trans "Rewards Dashboard" %}</h2>
+      <div class="small">{% trans "Convert your points to cash anytime. A conversion fee applies per block." %}</div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="stat">
+          <div class="text-muted">{% trans "Current Points" %}</div>
+          <h2>{{ account.points|default:0 }}</h2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat">
+          <div class="text-muted">{% trans "Fee per block" %}</div>
+          <h2>{% money settings.fee_per_block %} <span class="small text-muted">per {{ settings.points_per_block|default:100 }} pts</span></h2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat">
+          <div class="text-muted">{% trans "Total Converted" %}</div>
+          <h2>{% money account.total_converted_amount %}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3 mb-4"
+         id="convertCard"
+         data-ppb="{{ settings.points_per_block|default:100 }}"
+         data-payout="{{ settings.payout_per_block|default:20 }}"
+         data-fee="{{ settings.fee_per_block|default:5 }}"
+         data-maxpts="{{ account.points|default:0 }}">
+      <h5 class="mb-3">{% trans "Conversion" %}</h5>
+      <div class="alert alert-info" role="alert">
+        {% trans "A conversion fee is required per block. Provide your payout account and receipt reference." %}
+        {% if settings and settings.payout_account_number %}
+          <div class="mt-2"><strong>{% trans "Pay fee to:" %}</strong> {{ settings.payout_account_number }}</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card p-3 mb-4">
+      <h5 class="mb-3"><i class="fas fa-bolt me-2"></i>{% trans "Earn Activities" %}</h5>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>{% trans "Activity" %}</th>
+              <th class="text-center">{% trans "Points" %}</th>
+              <th>{% trans "Frequency" %}</th>
+              <th>{% trans "Status" %}</th>
+              <th class="text-end">{% trans "Action" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in activities %}
+            <tr>
+              <td>
+                <div class="fw-semibold">{{ item.obj.name }}</div>
+                <div class="text-muted small">{{ item.obj.description }}</div>
+              </td>
+              <td class="text-center">+{{ item.obj.points }}</td>
+              <td>
+                {% if item.obj.frequency == 'ONCE' %}{% trans "Once" %}{% elif item.obj.frequency == 'DAILY' %}{% trans "Daily" %}{% else %}{% trans "Unlimited" %}{% endif %}
+              </td>
+              <td>
+                {% if not item.obj.claimable %}
+                  <span class="badge bg-secondary">{% trans "Auto" %}</span>
+                {% elif item.can_claim %}
+                  <span class="badge bg-success">{% trans "Available" %}</span>
+                {% else %}
+                  <span class="badge bg-light text-muted">{{ item.reason|default:_('Not available') }}</span>
+                {% endif %}
+              </td>
+              <td class="text-end">
+                {% if item.obj.claimable %}
+                <form method="post" action="{% url 'rewards:claim' %}" style="display:inline-block;">
+                  {% csrf_token %}
+                  <input type="hidden" name="code" value="{{ item.obj.code }}">
+                  <button class="btn btn-sm btn-paypal" {% if not item.can_claim %}disabled{% endif %}>
+                    <i class="fas fa-plus-circle me-1"></i>{% trans "Claim" %}
+                  </button>
+                </form>
+                {% else %}
+                <span class="text-muted small">{% trans "Automatically awarded" %}</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card p-3 mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="mb-0">{% trans "Convert Points" %}</h5>
+        <span class="badge badge-blue">{% trans "Cash credits to your Reward balance" %}</span>
+      </div>
+      <div class="text-muted small mb-2">
+        Minimum {{ settings.points_per_block|default:100 }} points per conversion block. Each block pays {% money settings.payout_per_block %} and requires a fee of {% money settings.fee_per_block %}.
+      </div>
+      <form method="post" action="{% url 'rewards:convert' %}" id="convertForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row g-3 align-items-end">
+          <div class="col-md-4">
+            <label class="form-label">{% trans "Points to convert" %}</label>
+            <input type="number" min="{{ settings.points_per_block|default:100 }}" max="{{ account.points|default:0 }}" step="{{ settings.points_per_block|default:100 }}" class="form-control" name="points" id="pointsInput" placeholder="Must be multiples of {{ settings.points_per_block|default:100 }}">
+          </div>
+          <div class="col-md-5">
+            <div class="p-2 bg-light rounded">
+              <div class="d-flex justify-content-between"><span class="text-muted">Blocks</span><strong id="blocksOut">0</strong></div>
+              <div class="d-flex justify-content-between"><span class="text-muted">Payout</span><strong id="payoutOut">{% currency_symbol %}0.00</strong></div>
+              <div class="d-flex justify-content-between"><span class="text-muted">Fee</span><strong id="feeOut">{% currency_symbol %}0.00</strong></div>
+            </div>
+            <div class="row g-2 mt-2">
+              <div class="col-md-6">
+                <label class="form-label">{% trans "Payout account (email/account)" %}</label>
+                <input type="text" class="form-control" name="payout_account" placeholder="your@email.com">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">{% trans "Receipt reference" %}</label>
+                <input type="text" class="form-control" name="receipt_reference" placeholder="e.g. TXN123 or screenshot ref">
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">{% trans "Upload receipt image" %}</label>
+                <input type="file" class="form-control" name="receipt_image" accept="image/*">
+              </div>
+            </div>
+            <div class="form-check mt-2">
+              <input class="form-check-input" type="checkbox" value="on" id="confirmFee" name="confirm_fee">
+              <label class="form-check-label" for="confirmFee">
+                {% trans "I have paid the conversion fee shown above." %}
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-paypal w-100" id="convertBtn" {% if not account.points %}disabled{% endif %}>
+              <i class="fas fa-exchange-alt me-1"></i>{% trans "Convert Now" %}
+            </button>
+          </div>
+        </div>
+      </form>
+      <script>
+        (function(){
+          const card = document.getElementById('convertCard');
+          const ppb = parseInt(card.dataset.ppb || '100', 10);
+          const payoutPerBlock = parseFloat(card.dataset.payout || '20');
+          const feePerBlock = parseFloat(card.dataset.fee || '5');
+          const maxPts = parseInt(card.dataset.maxpts || '0', 10);
+          const input = document.getElementById('pointsInput');
+          const blocksOut = document.getElementById('blocksOut');
+          const payoutOut = document.getElementById('payoutOut');
+          const feeOut = document.getElementById('feeOut');
+          const btn = document.getElementById('convertBtn');
+          const confirmFee = document.getElementById('confirmFee');
+
+          function fmt(n){
+            return document.querySelector('[data-currency-symbol]')?.getAttribute('data-currency-symbol') + (Math.round(n * 100)/100).toFixed(2);
+          }
+          function recompute(){
+            const pts = parseInt(input.value || '0', 10);
+            const valid = pts >= ppb && pts % ppb === 0 && pts <= maxPts;
+            const blocks = valid ? (pts / ppb) : 0;
+            const payout = blocks * payoutPerBlock;
+            const fee = blocks * feePerBlock;
+            blocksOut.textContent = blocks;
+            payoutOut.textContent = fmt(payout);
+            feeOut.textContent = fmt(fee);
+            btn.disabled = !(valid && confirmFee.checked && maxPts > 0);
+          }
+          if (input) input.addEventListener('input', recompute);
+          if (confirmFee) confirmFee.addEventListener('change', recompute);
+          // inject currency symbol holder
+          const holder = document.createElement('span');
+          holder.setAttribute('data-currency-symbol', '{% currency_symbol %}');
+          holder.style.display = 'none';
+          document.body.appendChild(holder);
+          recompute();
+        })();
+      </script>
+    </div>
+
+    <div class="card p-3">
+      <h5 class="mb-3"><i class="fas fa-list me-2"></i>{% trans "Reward Transactions" %}</h5>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>{% trans "Date" %}</th>
+              <th>{% trans "Status" %}</th>
+              <th>{% trans "Type" %}</th>
+              <th class="text-end">{% trans "Points" %}</th>
+              <th class="text-end">{% trans "Amount" %}</th>
+              <th>{% trans "Details" %}</th>
+              <th>{% trans "Description" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tx in history %}
+            <tr>
+              <td>{{ tx.created_at|date:"M d, Y H:i" }}</td>
+              <td>
+                {% if tx.status == 'PENDING' %}<span class="badge bg-warning text-dark">{% trans "Pending" %}</span>
+                {% elif tx.status == 'COMPLETED' %}<span class="badge bg-success">{% trans "Completed" %}</span>
+                {% elif tx.status == 'DECLINED' %}<span class="badge bg-danger">{% trans "Declined" %}</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if tx.tx_type == 'EARN' %}<span class="badge bg-success">{% trans "Earn" %}</span>
+                {% elif tx.tx_type == 'CONVERT' %}<span class="badge bg-primary">{% trans "Convert" %}</span>
+                {% elif tx.tx_type == 'ACTIVATION' %}<span class="badge bg-warning text-dark">{% trans "Activation" %}</span>
+                {% endif %}
+              </td>
+              <td class="text-end">{{ tx.points }}</td>
+              <td class="text-end">{% money tx.amount %}</td>
+              <td>
+                {% if tx.tx_type == 'CONVERT' %}
+                  <div class="small text-muted">{% trans "Blocks:" %} {{ tx.blocks }} | {% trans "Fee:" %} {% money tx.fee_amount %}{% if tx.payout_account %} | {% trans "To:" %} {{ tx.payout_account }}{% endif %}</div>
+                {% endif %}
+              </td>
+              <td>{{ tx.description }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center text-muted py-4">{% trans "No reward activity yet." %}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
