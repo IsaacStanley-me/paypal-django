@@ -1,0 +1,21 @@
+# --- Django project ignores ---
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# --- Virtual environment ---
+venv/
+env/
+
+# --- Environment variables ---
+.env
+
+# --- Static and media files ---
+staticfiles/
+media/
+
+# --- VS Code / system files ---
+.vscode/
+.DS_Store
+Thumbs.db
