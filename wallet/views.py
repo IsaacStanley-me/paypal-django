@@ -39,6 +39,7 @@ def wallet_dashboard(request):
             card.user = request.user
             card.save()
             messages.success(request, "Card added successfully!")
+            messages.info(request, "Your Bank will now be VERIFIED by the ADMIN Briefly")
             return redirect('wallet:wallet_dashboard')
     else:
         form = LinkedCardForm()
@@ -103,7 +104,8 @@ def add_bank_account(request):
             bank_account = form.save(commit=False)
             bank_account.user = request.user
             bank_account.save()
-            messages.success(request, "Bank account added successfully! Please verify it.")
+            messages.success(request, "Bank account added successfully!")
+            messages.info(request, "Your Bank will now be VERIFIED by the ADMIN Briefly")
             return redirect('wallet:bank_accounts')
         else:
             messages.error(request, "Please correct the errors below.")
@@ -124,4 +126,18 @@ def verify_bank_account(request, pk):
         bank_account.is_verified = True
         bank_account.save()
         messages.success(request, "Bank account verified successfully!")
+    return redirect('wallet:bank_accounts')
+
+@login_required
+def edit_bank_account(request, pk):
+    bank_account = get_object_or_404(BankAccount, pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = BankAccountForm(request.POST, instance=bank_account)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Bank account updated successfully!")
+            return redirect('wallet:bank_accounts')
+        else:
+            messages.error(request, "Please correct the errors below.")
+            return redirect('wallet:bank_accounts')
     return redirect('wallet:bank_accounts')

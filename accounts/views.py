@@ -8,9 +8,11 @@ from django.utils.translation import activate
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.db import IntegrityError
 import json
 from django.urls import reverse
 from django.conf import settings
+import time
 from .forms import (SignupDetailsForm, LoginForm, PhoneVerificationForm, AccountTypeForm, CountryForm)
 from .models import User, Profile, ContactRequest, ChatSession, ChatMessage
 from wallet.models import Wallet  # ✅ import your Wallet model
@@ -224,9 +226,14 @@ def settings_view(request):
         user.last_name = request.POST.get('last_name', user.last_name)
         user.phone = request.POST.get('phone', user.phone)
         
-        # Handle profile picture upload
+        # Handle profile picture upload with unique filename to bust caches
         if 'profile_picture' in request.FILES:
-            user.profile_picture = request.FILES['profile_picture']
+            uploaded = request.FILES['profile_picture']
+            ts = int(time.time())
+            base_name = getattr(uploaded, 'name', 'avatar.jpg')
+            new_name = f"profile_pictures/{user.id}_{ts}_{base_name}"
+            # Save with a new name; avoid immediate user.save() in save() call to keep subsequent field updates
+            user.profile_picture.save(new_name, uploaded, save=False)
         
         user.save()
         
@@ -320,7 +327,12 @@ def signup_email(request):
         
         if email != confirm_email:
             messages.error(request, 'Email addresses do not match')
-            return render(request, 'accounts/signup_email.html')
+            return render(request, 'accounts/signup_email.html', {"prefill_email": email, "prefill_confirm_email": confirm_email})
+        
+        # Prevent duplicate accounts by email
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'An account with this email already exists. Please log in or use a different email.')
+            return render(request, 'accounts/signup_email.html', {"prefill_email": email, "prefill_confirm_email": confirm_email})
         
         request.session['signup_email'] = email
         return redirect('accounts:signup_country')
@@ -464,10 +476,8 @@ def signup_profile_picture(request):
     
     if request.method == "POST":
         profile_picture = request.FILES.get('profile_picture')
-        request.session['signup_profile_picture'] = profile_picture
-        
-        # Create user account
-        return create_user_account(request)
+        # Do NOT store file objects in session (not JSON serializable). Pass directly.
+        return create_user_account(request, profile_picture=profile_picture)
     
     return render(request, 'accounts/signup_profile_picture.html')
 
@@ -494,7 +504,7 @@ def signup_business_info(request):
     
     return render(request, 'accounts/signup_business_info.html')
 
-def create_user_account(request):
+def create_user_account(request, profile_picture=None):
     """Create the user account with all collected information"""
     try:
         # Create user
@@ -504,7 +514,6 @@ def create_user_account(request):
         last_name = request.session.get('signup_last_name')
         phone = request.session.get('signup_phone')
         country = request.session.get('signup_country')
-        profile_picture = request.session.get('signup_profile_picture')
         
         user = User.objects.create_user(
             username=email,
@@ -516,10 +525,13 @@ def create_user_account(request):
             phone_verified=True
         )
         
-        # Handle profile picture if provided
+        # Handle profile picture if provided (use unique filename to avoid caching issues)
         if profile_picture:
-            user.profile_picture = profile_picture
-            user.save()
+            ts = int(time.time())
+            base_name = getattr(profile_picture, 'name', 'avatar.jpg')
+            new_name = f"profile_pictures/{user.id}_{ts}_{base_name}"
+            user.profile_picture.save(new_name, profile_picture, save=False)
+            user.save(update_fields=['profile_picture'])
         
         # Create profile
         profile = Profile.objects.create(
@@ -545,9 +557,14 @@ def create_user_account(request):
         messages.success(request, 'Account created successfully!')
         return redirect('wallet:dashboard')
         
+    except IntegrityError:
+        # Duplicate username/email at creation time (safety net)
+        messages.error(request, 'This email is already registered. Please log in or use a different email.')
+        return redirect('accounts:signup_email')
     except Exception as e:
+        # Keep the user on the last step to correct issues instead of resetting the flow
         messages.error(request, f'Error creating account: {str(e)}')
-        return redirect('accounts:signup_step1')
+        return redirect('accounts:signup_profile_picture')
 
 def contact_us_view(request):
     """Handle contact form submissions"""

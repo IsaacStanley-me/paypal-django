@@ -6,12 +6,10 @@
             <!-- Logo and Description -->
             <div class="footer-section footer-brand">
                 <div class="footer-logo">
-                    <span class="paypal-logo">
-                        <span class="pay">Pay</span><span class="pal">Pal</span>
-                    </span>
+                    <img src="{% static 'images/icici.png' %}?v=5" alt="ICICI Bank" style="height:40px; width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
                 </div>
                 <p class="footer-description">
-                    {% trans "The safer, easier way to pay and get paid online." %}
+                    {% trans "A trusted way to pay and get paid online." %}
                 </p>
                 <div class="social-links">
                     <a href="#" class="social-link" aria-label="Facebook">
@@ -85,7 +83,7 @@
         <div class="footer-bottom">
             <div class="footer-bottom-content">
                 <div class="footer-copyright">
-                    <p>&copy; 2024 PayPal, Inc. {% trans "All rights reserved." %}</p>
+                    <p>&copy; 2024 ICICI Bank. {% trans "All rights reserved." %}</p>
                 </div>
                 <div class="footer-legal-links">
                     <a href="#privacy">{% trans "Privacy" %}</a>
@@ -115,7 +113,7 @@
 
 <style>
 .paypal-footer {
-    background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+    background: linear-gradient(135deg, #cc5a00 0%, #ff7a00 100%);
     color: white;
     margin-top: 4rem;
     padding: 3rem 0 1rem;
@@ -149,13 +147,8 @@
     margin-bottom: 1rem;
 }
 
-.footer-logo .pay {
-    color: #003087;
-}
-
-.footer-logo .pal {
-    color: #0070ba;
-}
+.footer-logo .pay { color: #cc5a00; }
+.footer-logo .pal { color: #ff7a00; }
 
 .footer-description {
     color: rgba(255, 255, 255, 0.8);
@@ -265,7 +258,7 @@
 }
 
 .language-selector option {
-    background: #003087;
+    background: #cc5a00;
     color: white;
 }
 

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Create Account - PayPal" %}</title>
+    <title>{% trans "Create Account - ICICI Bank" %}</title>
     <link rel="stylesheet" href="{% static 'css/signup.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -97,7 +97,7 @@
         }
         
         .signup-header h1 {
-            color: #003087;
+            color: #cc5a00;
             font-size: 2.2rem;
             margin-bottom: 0.5rem;
             line-height: 1.2;
@@ -128,14 +128,14 @@
         }
         
         .account-type-card:hover {
-            border-color: #0070ba;
-            box-shadow: 0 8px 25px rgba(0, 112, 186, 0.15);
+            border-color: #ff7a00;
+            box-shadow: 0 8px 25px rgba(255, 122, 0, 0.2);
             transform: translateY(-2px);
         }
         
         .account-type-card.selected {
-            border-color: #0070ba;
-            background-color: #f0f8ff;
+            border-color: #ff7a00;
+            background-color: #fff5ec;
         }
         
         .account-type-icon {
@@ -144,7 +144,7 @@
         }
         
         .account-type-card h3 {
-            color: #003087;
+            color: #cc5a00;
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
@@ -174,7 +174,7 @@
         }
         
         .continue-btn {
-            background-color: #0070ba;
+            background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%);
             color: white;
             border: none;
             padding: 1rem 3rem;
@@ -190,7 +190,7 @@
         }
         
         .continue-btn:hover {
-            background-color: #005ea6;
+            box-shadow: 0 6px 16px rgba(204, 90, 0, 0.25);
         }
         
         .continue-btn:disabled {
@@ -204,7 +204,7 @@
         }
         
         .login-link a {
-            color: #0070ba;
+            color: #ff7a00;
             text-decoration: none;
         }
         
@@ -215,11 +215,11 @@
 </head>
 <body>
     <div class="signup-top-logo">
-        <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal Logo">
+        <img src="{% static 'images/icici.png' %}?v=5" alt="ICICI Bank Logo">
     </div>
 
     <div class="signup-header">
-        <h1>{% trans "Create your PayPal account" %}</h1>
+        <h1>{% trans "Create your ICICI Bank account" %}</h1>
         <p>{% trans "Choose the account type that's right for you" %}</p>
     </div>
 

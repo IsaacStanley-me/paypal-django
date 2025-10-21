@@ -5,21 +5,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% trans "PayPal Sandbox" %}</title>
+    <title>{% trans "ICICI Bank" %}</title>
 <link rel="stylesheet" href="{% static 'css/style.css' %}?v=7">
-    <link rel="icon" type="image/png" href="{% static 'images/paypal-logo.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/icici.png' %}?v=3">
   </head>
   <body>
     <header class="top-logo">
-      <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal Logo" />
+      <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank Logo" />
       <div class="top-sub">
-        <p>{% trans "Join millions of people using PayPal — simple, secure, worldwide." %}</p>
+        <p>{% trans "Join millions banking with ICICI Bank — simple, secure, worldwide." %}</p>
       </div>
     </header>
 
     <section class="hero">
       <div class="hero-content">
-        <h1>{% trans "Welcome to PayPal Sandbox" %}</h1>
+        <h1>{% trans "Welcome to ICICI Bank" %}</h1>
         <p>{% trans "Securely send, receive, and manage payments online." %}</p>
         <div class="buttons">
           <a href="{% url 'accounts:signup_step1' %}" class="btn btn-primary">{% trans "Get Started" %}</a>
@@ -30,7 +30,7 @@
     <main>
       <section class="section features">
         <div class="container">
-          <h2>{% trans "Do more with PayPal" %}</h2>
+          <h2>{% trans "Do more with ICICI Bank" %}</h2>
           <div class="feature-grid">
             <div class="feature-card">
               <div class="icon">💸</div>
@@ -62,7 +62,7 @@
           <div class="logos">
             <img src="{% static 'images/visa.png' %}" alt="Visa" />
             <img src="{% static 'images/mastercard.png' %}" alt="Mastercard" />
-            <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal" />
+            <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank" />
           </div>
         </div>
       </section>

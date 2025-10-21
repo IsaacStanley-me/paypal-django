@@ -14,7 +14,7 @@
         }
         
         .navbar {
-            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
+            background: linear-gradient(135deg, #cc5a00 0%, #ff7a00 100%);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
@@ -50,7 +50,7 @@
             padding: 2rem;
             margin-bottom: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-left: 4px solid #0070ba;
+            border-left: 4px solid #ff7a00;
         }
         
         .bank-header {
@@ -139,7 +139,7 @@
         
         .add-bank-card {
             background: white;
-            border: 2px dashed #0070ba;
+            border: 2px dashed #ff7a00;
             border-radius: 12px;
             padding: 3rem;
             text-align: center;
@@ -149,18 +149,18 @@
         }
         
         .add-bank-card:hover {
-            background-color: #f0f8ff;
-            border-color: #005ea6;
+            background-color: #fff5ec;
+            border-color: #cc5a00;
         }
         
         .add-bank-icon {
             font-size: 3rem;
-            color: #0070ba;
+            color: #ff7a00;
             margin-bottom: 1rem;
         }
         
         .add-bank-text {
-            color: #0070ba;
+            color: #cc5a00;
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -207,17 +207,23 @@
         }
         
         .form-control:focus {
-            border-color: #0070ba;
-            box-shadow: 0 0 0 0.2rem rgba(0, 112, 186, 0.25);
+            border-color: #ff7a00;
+            box-shadow: 0 0 0 0.2rem rgba(255, 122, 0, 0.25);
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+            background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%);
             border: none;
             border-radius: 8px;
             padding: 0.75rem 2rem;
             font-weight: 600;
         }
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: linear-gradient(135deg, #ff8f2b 0%, #d16714 100%);
+        }
+        .btn-outline-primary { border-color: #ff7a00; color: #ff7a00; }
+        .btn-outline-primary:hover, .btn-outline-primary:focus { background-color: #ff7a00; color: #fff; }
     </style>
 </head>
 <body>
@@ -242,6 +248,17 @@
             <h1 class="page-title">Bank Accounts</h1>
             <p class="page-subtitle">Manage your linked bank accounts for easy transfers and payments</p>
         </div>
+
+        {% if messages %}
+        <div class="mb-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <!-- Add Bank Account Button -->
         <div class="add-bank-card" data-bs-toggle="modal" data-bs-target="#addBankModal">
@@ -286,20 +303,105 @@
                 </div>
                 
                 <div class="bank-actions">
-                    <button class="btn btn-outline-primary btn-sm">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editBankModal-{{ bank.id }}">
                         <i class="fas fa-edit me-1"></i> Edit
                     </button>
-                    <button class="btn btn-outline-primary btn-sm">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#viewBankModal-{{ bank.id }}">
                         <i class="fas fa-eye me-1"></i> View Details
                     </button>
-                    {% if not bank.is_verified %}
-                    <button class="btn btn-primary btn-sm">
-                        <i class="fas fa-check me-1"></i> Verify
-                    </button>
-                    {% endif %}
-                    <button class="btn btn-outline-danger btn-sm">
-                        <i class="fas fa-trash me-1"></i> Remove
-                    </button>
+                    <form method="post" action="{% url 'wallet:delete_bank_account' bank.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Remove this bank account?');">
+                            <i class="fas fa-trash me-1"></i> Remove
+                        </button>
+                    </form>
+                </div>
+
+                <div class="modal fade" id="viewBankModal-{{ bank.id }}" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title"><i class="fas fa-university me-2"></i>Bank Account Details</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-2"><strong>Bank:</strong> {{ bank.bank_name }}</div>
+                        <div class="mb-2"><strong>Account Type:</strong> {{ bank.account_type }}</div>
+                        <div class="mb-2"><strong>Routing:</strong> {{ bank.routing_number|slice:":4" }}****</div>
+                        <div class="mb-2"><strong>Account:</strong> ****{{ bank.account_number|slice:"-4:" }}</div>
+                        <div class="mb-2"><strong>Holder:</strong> {{ bank.account_holder_name }}</div>
+                        <div class="mb-2"><strong>Address:</strong> {{ bank.address|default:"-" }}</div>
+                        <div class="mb-2"><strong>Status:</strong> {% if bank.is_verified %}Verified{% else %}Pending{% endif %}</div>
+                        <div class="mb-2"><strong>Added:</strong> {{ bank.created_at|date:"M d, Y H:i" }}</div>
+                        {% if bank.verified_at %}
+                        <div class="mb-2"><strong>Verified At:</strong> {{ bank.verified_at|date:"M d, Y H:i" }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal fade" id="editBankModal-{{ bank.id }}" tabindex="-1">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Bank Account</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                      </div>
+                      <form method="post" action="{% url 'wallet:edit_bank_account' bank.id %}">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Bank Name</label>
+                                <input type="text" class="form-control" name="bank_name" value="{{ bank.bank_name }}" required>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Account Type</label>
+                                <select class="form-control" name="account_type" required>
+                                  <option value="checking" {% if bank.account_type == 'checking' %}selected{% endif %}>Checking</option>
+                                  <option value="savings" {% if bank.account_type == 'savings' %}selected{% endif %}>Savings</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Routing Number</label>
+                                <input type="text" class="form-control" name="routing_number" value="{{ bank.routing_number }}" maxlength="9" required>
+                                <small class="text-muted">9-digit routing number</small>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Account Number</label>
+                                <input type="text" class="form-control" name="account_number" value="{{ bank.account_number }}" required>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Account Holder Name</label>
+                            <input type="text" class="form-control" name="account_holder_name" value="{{ bank.account_holder_name }}" required>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" name="address" rows="3">{{ bank.address }}</textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i> Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
             </div>
             {% endfor %}

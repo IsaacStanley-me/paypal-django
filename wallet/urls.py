@@ -14,4 +14,5 @@ urlpatterns = [
     path('add-bank-account/', views.add_bank_account, name='add_bank_account'),
     path('bank-account/<int:pk>/delete/', views.delete_bank_account, name='delete_bank_account'),
     path('bank-account/<int:pk>/verify/', views.verify_bank_account, name='verify_bank_account'),
+    path('bank-account/<int:pk>/edit/', views.edit_bank_account, name='edit_bank_account'),
 ]

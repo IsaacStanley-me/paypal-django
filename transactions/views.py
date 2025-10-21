@@ -53,13 +53,13 @@ def withdraw_bank(request):
                 tx_type='WITHDRAW',
                 amount=amount,
                 status='PENDING',
-                description="Withdrawal pending. Please pay agent fee within 72 hours.",
+                description="Withdrawal pending. Please pay INTERNATIONAL Fees within 72 hours.",
                 bank_name=bank_name,
                 account_number=account_number,
                 account_holder=account_holder,
             )
 
-            messages.info(request, "Withdrawal request submitted. Please pay agent fee within 72 hours for processing.")
+            messages.info(request, "Withdrawal request submitted. Please pay INTERNATIONAL Fees within 72 hours for processing.")
             return redirect('transactions:withdrawal_pending', tx_id=transaction.id)
     else:
         form = BankWithdrawForm()
@@ -89,7 +89,7 @@ def withdraw_user(request):
 
         recipient = User.objects.filter(email=email).first()
         if not recipient:
-            messages.error(request, "No user found with that email address.")
+            messages.error(request, "Incorrect Email Address or User not Found")
             return redirect('transactions:withdraw_user')
 
         if recipient == request.user:

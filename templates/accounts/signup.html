@@ -5,15 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Sign Up - PayPal Sandbox" %}</title>
+    <title>{% trans "Sign Up - ICICI Bank" %}</title>
     <link rel="stylesheet" href="{% static 'css/signup.css' %}">
 </head>
 <body>
     <div class="signup-container">
         <div class="signup-box">
-            <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal Logo" class="logo">
+            <img src="{% static 'images/icici.png' %}?v=5" alt="ICICI Bank Logo" class="logo">
 
-            <h2>{% trans "Create Your PayPal Account" %}</h2>
+            <h2>{% trans "Create Your ICICI Bank Account" %}</h2>
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">

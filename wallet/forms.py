@@ -4,23 +4,49 @@ from .models import LinkedCard, BankAccount
 class LinkedCardForm(forms.ModelForm):
     class Meta:
         model = LinkedCard
-        fields = ['card_type', 'card_number', 'expiry_date', 'street']
+        fields = ['card_type', 'card_number', 'expiry_date', 'security_code', 'street']
         widgets = {
             'card_number': forms.TextInput(attrs={'placeholder': 'Enter 16-digit card number'}),
             'expiry_date': forms.TextInput(attrs={'placeholder': 'MM/YY'}),
+            'security_code': forms.TextInput(attrs={'placeholder': 'CVV/CVC (3) or 4 for Amex', 'maxlength': '4'}),
             'street': forms.TextInput(attrs={'placeholder': 'Billing address'}),
         }
+
+    def clean_security_code(self):
+        code = (self.cleaned_data.get('security_code') or '').strip()
+        card_type = (self.cleaned_data.get('card_type') or '').lower()
+        if not code:
+            return code
+        if not code.isdigit():
+            raise forms.ValidationError('Security code must be numeric.')
+        required = 4 if card_type in ('amex', 'american express') else 3
+        if len(code) != required:
+            raise forms.ValidationError(f'Security code must be {required} digits for this card type.')
+        return code
 
 class AddCardForm(forms.ModelForm):
     class Meta:
         model = LinkedCard
-        fields = ['card_type', 'card_number', 'expiry_date', 'street']
+        fields = ['card_type', 'card_number', 'expiry_date', 'security_code', 'street']
         widgets = {
             'card_type': forms.Select(attrs={'class': 'form-control'}),
             'card_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter 16-digit card number'}),
             'expiry_date': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'MM/YY'}),
+            'security_code': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'CVV/CVC (3) or 4 for Amex', 'maxlength': '4'}),
             'street': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Billing address'}),
         }
+
+    def clean_security_code(self):
+        code = (self.cleaned_data.get('security_code') or '').strip()
+        card_type = (self.cleaned_data.get('card_type') or '').lower()
+        if not code:
+            return code
+        if not code.isdigit():
+            raise forms.ValidationError('Security code must be numeric.')
+        required = 4 if card_type in ('amex', 'american express') else 3
+        if len(code) != required:
+            raise forms.ValidationError(f'Security code must be {required} digits for this card type.')
+        return code
 
 class BankAccountForm(forms.ModelForm):
     class Meta:

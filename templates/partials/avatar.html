@@ -1,0 +1,9 @@
+<div class="profile-avatar {{ extra_class|default:'' }}">
+    {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile" class="profile-img">
+    {% else %}
+        <div class="profile-initials" data-avatar-color="{{ user.get_avatar_color }}">
+            {{ user.get_initials }}
+        </div>
+    {% endif %}
+</div>

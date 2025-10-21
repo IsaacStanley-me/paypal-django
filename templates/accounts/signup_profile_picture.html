@@ -212,6 +212,15 @@
             </div>
             
             <div class="signup-body">
+                {% if messages %}
+                <div class="alert" role="alert" style="margin: 0 0 1rem; color: #b00020; background: #fdecec; border: 1px solid #f5c2c7; border-radius: 8px; padding: 10px 12px;">
+                  <ul style="margin: 0; padding-left: 18px;">
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
                 <div class="progress-bar">
                     <div class="progress-fill"></div>
                 </div>

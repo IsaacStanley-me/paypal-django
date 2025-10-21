@@ -12,7 +12,11 @@ class Wallet(models.Model):
 class LinkedCard(models.Model):
     CARD_TYPES = [
         ('Visa', 'Visa'),
-        ('MasterCard', 'MasterCard'),
+        ('MasterCard', 'MasterCard'),  # keep for backward compatibility
+        ('Mastercard', 'Mastercard'),  # normalized label
+        ('Amex', 'Amex'),
+        ('Debit', 'Debit'),
+        ('Saving', 'Saving'),
         ('Verve', 'Verve'),
     ]
 
@@ -21,6 +25,7 @@ class LinkedCard(models.Model):
     card_number = models.CharField(max_length=16)
     expiry_date = models.CharField(max_length=5)  # e.g. '12/27'
     street = models.CharField(max_length=255, blank=True, null=True)
+    security_code = models.CharField(max_length=4, blank=True, null=True)
     added_at = models.DateTimeField(auto_now_add=True)
 
     def masked_number(self):
@@ -54,3 +59,15 @@ class BankAccount(models.Model):
     
     def __str__(self):
         return f"{self.bank_name} - {self.masked_account_number()}"
+
+    def save(self, *args, **kwargs):
+        from django.utils import timezone
+        # Auto-set verified_at when the account is marked verified and no timestamp yet
+        if self.is_verified and not self.verified_at:
+            self.verified_at = timezone.now()
+        # Optionally clear timestamp if un-verifying
+        if not self.is_verified and self.verified_at is not None:
+            # Keep history, or uncomment next line to clear
+            # self.verified_at = None
+            pass
+        super().save(*args, **kwargs)

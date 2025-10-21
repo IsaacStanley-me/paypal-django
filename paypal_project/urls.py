@@ -3,6 +3,8 @@ from django.urls import path, include
 from home import views as home_views
 from django.views.generic.base import RedirectView
 from django.templatetags.static import static
+from django.conf import settings
+from django.conf.urls.static import static as media_static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +26,7 @@ urlpatterns = [
     path('support/accessibility/', home_views.accessibility, name='accessibility'),
 
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += media_static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

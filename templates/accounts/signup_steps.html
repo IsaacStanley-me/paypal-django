@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Create Account - PayPal" %}</title>
+    <title>{% trans "Create Account - ICICI Bank" %}</title>
     <link rel="stylesheet" href="{% static 'css/signup.css' %}">
     <style>
         .signup-steps-container {
@@ -37,7 +37,7 @@
             top: 20px;
             left: 0;
             height: 2px;
-            background-color: #0070ba;
+            background-color: #ff7a00;
             z-index: 2;
             transition: width 0.3s ease;
         }
@@ -65,7 +65,7 @@
         }
         
         .step.active .step-circle {
-            background-color: #0070ba;
+            background-color: #ff7a00;
             color: white;
         }
         
@@ -86,7 +86,7 @@
         }
         
         .step.active .step-label {
-            color: #0070ba;
+            color: #cc5a00;
             font-weight: 600;
         }
         
@@ -157,12 +157,12 @@
         }
         
         .btn-primary {
-            background-color: #0070ba;
+            background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%);
             color: white;
         }
         
         .btn-primary:hover {
-            background-color: #005ea6;
+            box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
         }
         
         .error-message {
@@ -181,7 +181,7 @@
 <body>
     <div class="signup-container">
         <div class="signup-steps-container">
-            <img src="{% static 'images/paypal-logo.png' %}" alt="PayPal Logo" class="logo">
+            <img src="{% static 'images/icici.png' %}?v=2" alt="ICICI Bank" class="logo">
             
             <div class="progress-bar">
                 <div class="progress-line" data-progress="{{ progress_width|default:0 }}"></div>
