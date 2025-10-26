@@ -5,9 +5,17 @@
 
 from pathlib import Path
 import os
+try:
+    from dotenv import load_dotenv  # type: ignore
+except Exception:
+    load_dotenv = None
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load .env if python-dotenv is available
+if load_dotenv is not None:
+    load_dotenv(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
@@ -51,6 +59,7 @@ MIDDLEWARE = [
      "django.middleware.common.CommonMiddleware",
      "django.middleware.csrf.CsrfViewMiddleware",
      "django.contrib.auth.middleware.AuthenticationMiddleware",
+     "accounts.middleware.InactivityLogoutMiddleware",
      "django.contrib.messages.middleware.MessageMiddleware",
      "django.middleware.clickjacking.XFrameOptionsMiddleware",
  ]
@@ -160,3 +169,16 @@ REST_FRAMEWORK = {
 LANGUAGE_COOKIE_NAME = "django_language"
 LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365  # 1 year
 LANGUAGE_COOKIE_SAMESITE = "Lax"
+
+# Session / inactivity settings (5 minutes)
+SESSION_COOKIE_AGE = 300  # 5 minutes
+SESSION_SAVE_EVERY_REQUEST = True  # refresh expiry on each request while active
+
+# Email (Gmail SMTP)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'icicibankweb@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'hrbj ypdo jkhz dboo')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'ICICI Bank <icicibankweb@gmail.com>')

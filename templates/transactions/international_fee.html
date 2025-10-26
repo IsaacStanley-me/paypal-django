@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>International Fee Payment - ICICI Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; margin: 0; padding: 0; }
+    .navbar { background: linear-gradient(135deg, #cc5a00 0%, #ff7a00 100%); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .main-container { max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+    .cardx { background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); overflow: hidden; }
+    .header { background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%); color: #fff; padding: 2rem; text-align:center; }
+    .header h1 { margin:0; font-size: 1.75rem; font-weight:600; }
+    .body { padding: 2rem; }
+    .progress-box { background:#f8f9fa; border-radius:12px; padding:1rem; display:flex; align-items:center; justify-content:space-between; }
+    .progress-label { color:#666; font-weight:600; }
+    .status-pill { padding: .35rem .75rem; border-radius: 999px; font-size:.9rem; font-weight:700; background:#fff3cd; color:#856404; }
+    .info-box { background:#fff5ec; border:2px solid #ff7a00; border-radius:12px; padding:1rem; margin-top:1rem; }
+    .actions { display:flex; gap:.75rem; margin-top:1.25rem; }
+    .btn-prim { background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%); border:none; color:#fff; padding:.75rem 1.25rem; border-radius:8px; font-weight:600; display:inline-flex; align-items:center; gap:.5rem; }
+    .btn-ghost { background:#6c757d; border:none; color:#fff; padding:.75rem 1.25rem; border-radius:8px; font-weight:600; display:none; align-items:center; gap:.5rem; }
+    .btn-outline { background:transparent; border:2px solid #e1e5e9; padding:.75rem 1.25rem; border-radius:8px; font-weight:600; display:none; align-items:center; gap:.5rem; }
+    .muted { color:#6c757d; }
+    .spinner { display:none; color:#6c757d; }
+    @media (max-width:768px){ .body{ padding:1.5rem; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'transactions:transaction_detail' transaction.id %}"><i class="fas fa-arrow-left me-2"></i>International Fee Payment</a>
+      <div class="navbar-nav ms-auto"><a class="nav-link" href="{% url 'wallet:dashboard' %}"><i class="fas fa-home me-1"></i> Dashboard</a></div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <div class="cardx">
+      <div class="header">
+        <h1>International Fees <span id="percentComplete">{% if percentage %}{{ percentage }}%{% else %}0%{% endif %}</span> completed</h1>
+      </div>
+      <div class="body">
+        <div class="progress-box">
+          <div class="progress-label">Transaction #{{ transaction.id }} • Amount: ${{ transaction.amount }}</div>
+          <div class="status-pill" id="feeStatusPill">Pending</div>
+        </div>
+
+        <div class="info-box mt-3">
+          <div class="warning-notice" style="background:#fff3cd;border:1px solid #ffeaa7;border-radius:8px;padding:12px;margin:0;">
+            <i class="fas fa-exclamation-triangle" style="color:#ffc107;margin-right:8px;"></i>
+            <div style="display:inline-block;vertical-align:top;">
+              <div><strong>Withdrawal pending.</strong></div>
+              <div>Pay your international payment fee using either <strong>Voucher</strong> or <strong>Bitcoin</strong> within <strong>10 minutes</strong>.</div>
+              <div>All fees can be paid once or in installments.</div>
+              <div>Ask for directions from the person or <strong>Agent</strong> who referred you if you need help.</div>
+            </div>
+          </div>
+        </div>
+
+        {% if fee_notes %}
+        <div class="mt-3">
+          {% for note in fee_notes %}
+          <div class="warning-notice" style="background:#e8f4ff;border:1px solid #b6ddff;border-radius:8px;padding:10px;margin:0 0 8px 0;">
+            <i class="fas fa-info-circle" style="color:#0d6efd;margin-right:8px;"></i>
+            <div style="display:inline-block;vertical-align:top;">
+              <div style="font-weight:600;">Admin note • {{ note.created_at|date:"M d, Y H:i" }}</div>
+              <div>{{ note.message }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="mt-3" style="background:#f8f9fa;border:1px solid #e6e6e6;border-radius:10px;padding:14px;">
+          <h3 style="margin:0 0 10px 0;font-size:1.05rem;color:#b5121b;">Links to get your Voucher For International Fees Payment</h3>
+          <div class="row g-2">
+            <div class="col-6 col-md-4 col-lg-3">
+              <a class="btn btn-warning w-100" style="border-radius:8px" href="https://www.g2a.com/category/gift-cards" target="_blank" rel="noopener noreferrer">G2A</a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <a class="btn btn-warning w-100" style="border-radius:8px" href="https://www.guthaben.de/en/razer-gold" target="_blank" rel="noopener noreferrer">Guthaben</a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <a class="btn btn-warning w-100" style="border-radius:8px" href="https://www.eneba.com/us/gift-cards" target="_blank" rel="noopener noreferrer">Eneba</a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <a class="btn btn-warning w-100" style="border-radius:8px" href="https://startselect.com/us-en/gift-cards" target="_blank" rel="noopener noreferrer">StartSelect</a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <a class="btn btn-warning w-100" style="border-radius:8px" href="https://www.recharge.com/en/gift-cards" target="_blank" rel="noopener noreferrer">Recharge</a>
+            </div>
+          </div>
+        </div>
+
+        {% if transaction.voucher_image %}
+        <div class="mt-3" style="background:#f8f9fa;border:1px solid #e6e6e6;border-radius:8px;padding:12px;">
+          <div style="font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-paperclip"></i> Voucher Proof (uploaded)
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <a href="{{ transaction.voucher_image.url }}" target="_blank" rel="noopener noreferrer" style="display:inline-block;border-radius:6px;overflow:hidden;border:1px solid #ddd;">
+              <img src="{{ transaction.voucher_image.url }}" alt="Voucher Proof" style="max-height:120px;display:block;"/>
+            </a>
+            <a class="btn btn-sm btn-outline-primary" href="{{ transaction.voucher_image.url }}" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i> View full image
+            </a>
+          </div>
+        </div>
+        {% endif %}
+
+        <form class="mt-3" method="post" enctype="multipart/form-data" action="">
+          {% csrf_token %}
+          <label class="form-label" for="id_voucher_image">Upload your Voucher image proof here. Only valid and clear Voucher Pics will be accepted.</label>
+          <input type="file" name="voucher_image" id="id_voucher_image" accept="image/*" class="form-control" />
+          <button type="submit" class="btn-prim mt-2"><i class="fas fa-upload"></i> Upload Voucher</button>
+        </form>
+
+        <div class="mt-3">
+          <button id="paidBtn" class="btn-prim"><i class="fas fa-check"></i> Uploaded and Continue</button>
+          <span id="confirming" class="spinner ms-2" style="display:none;"><i class="fas fa-spinner fa-spin me-1"></i>Confirming payment…</span>
+        </div>
+
+        <div class="actions">
+          <a id="goHome" href="{% url 'wallet:dashboard' %}" class="btn-ghost" style="display:none;"><i class="fas fa-home"></i> Go back to homepage</a>
+          <button id="keepWaiting" class="btn-outline" style="display:none;"><i class="fas fa-clock"></i> Keep waiting for confirmation</button>
+        </div>
+
+        <div class="mt-3 muted" id="pollNote" style="display:none;">
+          <i class="fas fa-info-circle me-1"></i> This page updates automatically when admin changes status or message.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const txId = parseInt('{{ transaction.id }}', 10);
+    const paidBtn = document.getElementById('paidBtn');
+    const confirming = document.getElementById('confirming');
+    const goHome = document.getElementById('goHome');
+    const keepWaiting = document.getElementById('keepWaiting');
+    const feeStatusPill = document.getElementById('feeStatusPill');
+    const adminMsg = document.getElementById('adminMsg');
+    const percentComplete = document.getElementById('percentComplete');
+    // Initialize from template value already rendered; no-op here
+    const pollNote = document.getElementById('pollNote');
+
+    let polling = true;
+
+    function setPostConfirmUI(){
+      goHome.style.display = 'inline-flex';
+      keepWaiting.style.display = 'inline-flex';
+    }
+
+    paidBtn.addEventListener('click', function(){
+      paidBtn.disabled = true;
+      confirming.style.display = 'inline-flex';
+      setTimeout(function(){
+        confirming.style.display = 'none';
+        setPostConfirmUI();
+      }, 1800);
+    });
+
+    keepWaiting.addEventListener('click', function(){
+      // just show spinner briefly to indicate we continue waiting
+      confirming.style.display = 'inline-flex';
+      setTimeout(function(){ confirming.style.display = 'none'; }, 1200);
+    });
+
+    async function poll(){
+      if(!polling) return;
+      try{
+        const res = await fetch(`/transactions/international-fee/${txId}/status/`, { cache: 'no-store' });
+        if(res.ok){
+          const data = await res.json();
+          if(data.status){
+            feeStatusPill.textContent = data.status.charAt(0) + data.status.slice(1).toLowerCase();
+            // Status-based fallbacks only if no explicit percentage provided
+            if(!data.percentage && data.status === 'PROCESSING'){ percentComplete.textContent = '50%'; }
+            if(data.status === 'COMPLETED'){ percentComplete.textContent = '100%'; }
+          }
+          if(typeof data.message === 'string' && data.message.length){ adminMsg.textContent = data.message; }
+          if(data.percentage){
+            // Update header percentage from admin
+            percentComplete.textContent = `${data.percentage}%`;
+            pollNote.style.display = 'block';
+          }
+          if(data.tx_status === 'COMPLETED'){
+            // Transaction completed -> go to detail page
+            window.location.href = `{% url 'transactions:transaction_detail' transaction.id %}`;
+            return;
+          }
+        }
+      }catch(e){ console.warn(e); }
+      setTimeout(poll, 4000);
+    }
+    document.addEventListener('DOMContentLoaded', poll);
+  </script>
+</body>
+</html>

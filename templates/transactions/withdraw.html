@@ -127,6 +127,10 @@
             background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
             color: white;
         }
+        .option-icon.card {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            color: white;
+        }
         
         .option-title {
             font-size: 1.2rem;
@@ -264,6 +268,24 @@
                             <li>Low fees</li>
                             <li>Direct to your bank</li>
                             <li>FDIC insured</li>
+                        </ul>
+                    </a>
+
+                    <a href="{% url 'transactions:withdraw_card' %}" class="withdraw-option">
+                        <div class="option-header">
+                            <div class="option-icon card">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div>
+                                <h3 class="option-title">Transfer to Card</h3>
+                                <p class="option-description">Withdraw directly to your card</p>
+                            </div>
+                        </div>
+                        <ul class="option-features">
+                            <li>Fast processing</li>
+                            <li>Withdraw to Visa/MasterCard</li>
+                            <li>Secure and encrypted</li>
+                            <li>Fees may apply</li>
                         </ul>
                     </a>
                 </div>

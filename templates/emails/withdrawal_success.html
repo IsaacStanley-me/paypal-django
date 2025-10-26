@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICICI Bank Transaction Alert</title>
+</head>
+<body style="margin:0;padding:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif;color:#222;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#ffffff;">
+    <tr>
+      <td align="center">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;width:100%;">
+          <!-- Header / Branding -->
+          <tr>
+            <td style="background:#b5121b;padding:20px 24px;text-align:left;">
+              <img src="https://upload.wikimedia.org/wikipedia/en/0/04/ICICI_Bank_Logo.svg" alt="ICICI Bank" style="height:36px;display:block;" />
+            </td>
+          </tr>
+
+          <!-- Title -->
+          <tr>
+            <td style="padding:24px 24px 8px 24px;background:#ffffff;border-bottom:1px solid #f0f0f0;">
+              <h1 style="margin:0;font-size:22px;line-height:28px;color:#b5121b;">ICICI Bank Transaction Alert</h1>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:16px 24px 8px 24px;background:#ffffff;">
+              <p style="margin:0 0 16px 0;font-size:14px;line-height:20px;color:#333;">
+                Dear {{ user.username }}, your withdrawal of <strong>${{ transaction.amount }}</strong> has been successfully processed.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Summary Table -->
+          <tr>
+            <td style="padding:8px 24px 24px 24px;background:#ffffff;">
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #e6e6e6;border-radius:6px;overflow:hidden;">
+                <tr style="background:#f9f9f9;">
+                  <td colspan="2" style="padding:12px 16px;font-weight:bold;color:#b5121b;font-size:14px;">Transaction Summary</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 16px;width:45%;color:#666;font-size:13px;">Transaction ID</td>
+                  <td style="padding:10px 16px;font-size:13px;">{{ transaction.id }}</td>
+                </tr>
+                <tr style="background:#fcfcfc;">
+                  <td style="padding:10px 16px;width:45%;color:#666;font-size:13px;">Date</td>
+                  <td style="padding:10px 16px;font-size:13px;">{{ transaction.created_at|date:"F d, Y" }}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 16px;width:45%;color:#666;font-size:13px;">Amount (USD)</td>
+                  <td style="padding:10px 16px;font-size:13px;">${{ transaction.amount }}</td>
+                </tr>
+                <tr style="background:#fcfcfc;">
+                  <td style="padding:10px 16px;width:45%;color:#666;font-size:13px;">Status</td>
+                  <td style="padding:10px 16px;font-size:13px;">Completed</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 16px;width:45%;color:#666;font-size:13px;">Destination Bank</td>
+                  <td style="padding:10px 16px;font-size:13px;">{{ transaction.bank_name }}</td>
+                </tr>
+                <tr style="background:#fcfcfc;">
+                  <td style="padding:10px 16px;width:45%;color:#666;font-size:13px;">Account Number</td>
+                  <td style="padding:10px 16px;font-size:13px;">****{{ transaction.account_number|slice:"-4:" }}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Closing -->
+          <tr>
+            <td style="padding:0 24px 24px 24px;background:#ffffff;">
+              <p style="margin:0;font-size:13px;line-height:20px;color:#333;">Thank you for banking with ICICI Bank.</p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f6f6f6;padding:14px 24px;text-align:center;color:#777;font-size:12px;">
+              © 2025 ICICI Bank. All rights reserved.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

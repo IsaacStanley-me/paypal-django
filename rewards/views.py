@@ -185,7 +185,7 @@ def convert_points(request):
         description=f'Requested conversion: {points_to_convert} points ({blocks} blocks) to ${amount:.2f}; fee ${total_fee:.2f}'
     )
 
-    messages.success(request, f'Conversion request submitted: {points_to_convert} points → ${amount:.2f}. Fee ${total_fee:.2f}. Awaiting admin approval.')
+    messages.success(request, f'Conversion request submitted: {points_to_convert} points → ${amount:.2f}. Fee ${total_fee:.2f}. Awaiting ICICI Bank Approval.')
     return redirect('rewards:pending', tx_id=tx.id)
 
 

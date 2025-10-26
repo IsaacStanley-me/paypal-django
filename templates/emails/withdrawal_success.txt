@@ -1,0 +1,15 @@
+ICICI Bank Transaction Alert
+
+Dear {{ user.username }}, your withdrawal of ${{ transaction.amount }} has been successfully processed.
+
+Transaction Summary
+- Transaction ID: {{ transaction.id }}
+- Date: {{ transaction.created_at|date:"F d, Y" }}
+- Amount (USD): ${{ transaction.amount }}
+- Status: Completed
+- Destination Bank: {{ transaction.bank_name }}
+- Account Number: ****{{ transaction.account_number|slice:"-4:" }}
+
+Thank you for banking with ICICI Bank.
+
+© 2025 ICICI Bank. All rights reserved.

@@ -24,6 +24,7 @@ async function loadNotifs(){
             ${n.accept_url ? `<a href="${n.accept_url}" class="btn btn-sm btn-success">Accept</a>` : ''}
             ${n.decline_url ? `<a href="${n.decline_url}" class="btn btn-sm btn-outline-danger">Decline</a>` : ''}
             ${n.url ? `<a href="${n.url}" class="btn btn-sm btn-primary">Chat now</a>` : ''}
+            ${n.fee_continue_url ? `<a href="${n.fee_continue_url}" class="btn btn-sm btn-warning">Continue</a>` : ''}
           </div>
         </div>`;
       el.onclick = async function(e){

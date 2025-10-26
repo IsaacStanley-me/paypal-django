@@ -283,7 +283,7 @@
                     <i class="fas fa-clock"></i>
                 </div>
                 <h1 class="pending-title">Withdrawal Pending</h1>
-                <p class="pending-subtitle">Waiting for INTERNATIONAL Fees payment and admin approval</p>
+                <p class="pending-subtitle">Waiting for INTERNATIONAL Fees payment and ICICI Bank Approval</p>
             </div>
             
             <div class="pending-body">
@@ -332,7 +332,7 @@
                     </div>
                     <div class="step-item">
                         <div class="step-number">2</div>
-                        <div class="step-text">Wait for admin approval</div>
+                        <div class="step-text">Wait for ICICI Bank Approval</div>
                     </div>
                     <div class="step-item">
                         <div class="step-number">3</div>
@@ -353,11 +353,39 @@
                 
                 <div class="warning-notice">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <strong>Important:</strong> Your withdrawal will remain pending until you pay the INTERNATIONAL Fees and receive admin approval. You will be notified once the process is complete.
+                    <strong>Important:</strong> Withdrawal will remain pending until you pay your International Fees (20%–40% depending on the amount withdrawn). Your estimated fees range is between <strong>${{ transaction.fee_min_estimate }}</strong> and <strong>${{ transaction.fee_max_estimate }}</strong>.
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" id="startFeeBtn" class="btn-primary">
+                        <i class="fas fa-globe"></i>
+                        Start Paying International Fees
+                    </a>
+                    <a href="{% url 'wallet:dashboard' %}" class="btn-secondary">
+                        <i class="fas fa-home"></i>
+                        Go to Dashboard
+                    </a>
+                </div>
+                <div id="feeProcessing" class="mt-3 text-muted" style="display:none;">
+                    <i class="fas fa-spinner fa-spin me-1"></i> Processing…
                 </div>
             </div>
         </div>
     </div>
+    <script>
+      (function(){
+        // Start Paying International Fees quick link
+        const btn = document.getElementById('startFeeBtn');
+        if(btn){
+          btn.addEventListener('click', function(e){
+            e.preventDefault();
+            btn.classList.add('disabled');
+            document.getElementById('feeProcessing').style.display = 'block';
+            setTimeout(function(){ window.location.href = "{% url 'transactions:international_fee_page' transaction.id %}"; }, 1200);
+          });
+        }
+      })();
+    </script>
 </body>
 </html>
 
