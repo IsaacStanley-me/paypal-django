@@ -3,7 +3,7 @@ from .models import Wallet, LinkedCard, BankAccount
 
 @admin.register(Wallet)
 class WalletAdmin(admin.ModelAdmin):
-    list_display = ('user', 'paypal_balance', 'reward_balance')
+    list_display = ('user', 'icici_balance', 'reward_balance')
     search_fields = ('user__email',)
 
 

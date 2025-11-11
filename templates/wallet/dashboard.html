@@ -73,7 +73,7 @@
             transform: translateY(-4px);
         }
         
-        .balance-card.paypal {
+        .balance-card.icici {
             border-left: 4px solid #ff7a00;
         }
         
@@ -98,7 +98,7 @@
             margin-right: 1rem;
         }
         
-        .balance-icon.paypal {
+        .balance-icon.icici {
             background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%);
             color: white;
         }
@@ -258,8 +258,8 @@
         }
         
         .transaction-icon.receive {
-            background: #d1ecf1;
-            color: #0c5460;
+            background: #fff3e0;
+            color: #e65100;
         }
         
         .transaction-icon.withdraw {
@@ -375,8 +375,8 @@
         }
         
         .account-status.verified {
-            background: #d1ecf1;
-            color: #0c5460;
+            background: #fff3e0;
+            color: #e65100;
         }
         
         .account-status.pending {
@@ -635,14 +635,14 @@
         
         <!-- Balance Cards -->
         <div class="balance-cards">
-            <div class="balance-card paypal">
+            <div class="balance-card icici">
                 <div class="balance-header">
-                    <div class="balance-icon paypal">
+                    <div class="balance-icon icici">
                         <i class="fas fa-wallet"></i>
                     </div>
                     <h3 class="balance-title">{% trans "ICICI Bank Balance" %}</h3>
                 </div>
-                <div class="balance-amount">{% money wallet.paypal_balance %}</div>
+                <div class="balance-amount">{% money wallet.icici_balance %}</div>
                 <p class="balance-subtitle">{% trans "Available for payments and transfers" %}</p>
             </div>
             

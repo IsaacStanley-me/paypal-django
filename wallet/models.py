@@ -3,7 +3,7 @@ from django.conf import settings
 
 class Wallet(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wallet')
-    paypal_balance = models.DecimalField(max_digits=19, decimal_places=2, default=0.00)
+    icici_balance = models.DecimalField(max_digits=19, decimal_places=2, default=0.00)
     reward_balance = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
 
     def __str__(self):

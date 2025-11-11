@@ -352,8 +352,8 @@
                 <!-- Balance Display -->
                 <div class="balance-section">
                     <div class="balance-row">
-                        <span class="balance-label">PayPal Balance</span>
-                        <span class="balance-amount">{% money wallet.paypal_balance %}</span>
+                        <span class="balance-label">ICICI Bank Balance</span>
+                        <span class="balance-amount">{% money wallet.icici_balance %}</span>
                     </div>
                     <div class="balance-row">
                         <span class="balance-label">Reward Balance</span>
@@ -464,12 +464,13 @@
                         <!-- Balance Selection (shown after amount is entered) -->
                         <div class="balance-selection" id="balanceSelection">
                             <h4 style="color: #003087; margin-bottom: 1rem;">Select balance to transfer with:</h4>
-                            <div class="balance-option" data-balance="paypal" data-amount="{{ wallet.paypal_balance|default:'0.00' }}">
-                                <div class="balance-info">
-                                    <div class="balance-name">PayPal Balance</div>
-                                    <div class="balance-available">Available: {% money wallet.paypal_balance %}</div>
+                            <div class="balance-option" data-balance="icici" data-amount="{{ wallet.icici_balance|default:0 }}">
+                                <div class="balance-option-header">
+                                    <i class="fas fa-university"></i>
+                                    <h5>ICICI Bank Balance</h5>
+                                    <span class="balance-amount">${% money wallet.icici_balance %}</span>
                                 </div>
-                                <div class="balance-amount">{% money wallet.paypal_balance %}</div>
+                                <p>Transfer from your ICICI Bank balance</p>
                             </div>
                             <div class="balance-option" data-balance="reward" data-amount="{{ wallet.reward_balance|default:'0.00' }}">
                                 <div class="balance-info">
@@ -583,14 +584,14 @@
         });
         
         function checkBalances() {
-            const paypalBalance = parseFloat(document.querySelector('[data-balance="paypal"]').dataset.amount) || 0;
+            const iciciBalance = parseFloat(document.querySelector('[data-balance="icici"]').dataset.amount) || 0;
             const rewardBalance = parseFloat(document.querySelector('[data-balance="reward"]').dataset.amount) || 0;
             
             // Hide insufficient notices initially
             hideNotices();
             
             // Check if any balance has enough funds
-            if (transferAmount <= paypalBalance || transferAmount <= rewardBalance) {
+            if (transferAmount <= iciciBalance || transferAmount <= rewardBalance) {
                 // At least one balance has enough funds
                 return;
             } else {
@@ -608,12 +609,12 @@
             hideNotices();
             
             if (transferAmount > availableAmount) {
-                if (selectedBalance === 'paypal') {
+                if (selectedBalance === 'icici') {
                     // Suggest using reward balance
-                    showInsufficientNotice('PayPal Balance', 'Reward Balance');
+                    showInsufficientNotice('ICICI Bank Balance', 'Reward Balance');
                 } else {
-                    // Suggest using PayPal balance
-                    showInsufficientNotice('Reward Balance', 'PayPal Balance');
+                    // Suggest using ICICI balance
+                    showInsufficientNotice('Reward Balance', 'ICICI Bank Balance');
                 }
             }
         }
@@ -653,6 +654,12 @@
             
             const selectedOption = document.querySelector(`[data-balance="${selectedBalance}"]`);
             const availableAmount = parseFloat(selectedOption.dataset.amount) || 0;
+            
+            if (transferAmount <= 0) {
+                e.preventDefault();
+                alert('Please enter a valid amount to transfer.');
+                return;
+            }
             
             if (transferAmount > availableAmount) {
                 e.preventDefault();

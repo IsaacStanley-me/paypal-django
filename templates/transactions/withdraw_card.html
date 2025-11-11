@@ -39,8 +39,102 @@
         .btn-withdraw { background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%); border: none; border-radius: 8px; padding: 1rem 2rem; font-size: 1.1rem; font-weight: 600; color: white; width: 100%; transition: all 0.3s ease; }
         .btn-withdraw:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3); }
         .security-notice { background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; margin-top: 1rem; font-size: 0.9rem; color: #856404; }
+        .error-message { margin-top: 1rem; }
         .security-notice i { color: #ffc107; margin-right: 0.5rem; }
-        @media (max-width: 768px) { .main-container { margin: 1rem auto; padding: 0 0.5rem; } .withdraw-header { padding: 1.5rem; } .withdraw-header h1 { font-size: 1.5rem; } .withdraw-body { padding: 1.5rem; } }
+        
+        /* Currency Converter Styles */
+        .currency-converter {
+            margin-top: 1rem;
+        }
+        
+        .currency-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .currency-flag {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+        
+        .currency-dropdown {
+            position: relative;
+            flex-grow: 1;
+        }
+        
+        .currency-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .currency-btn:hover {
+            border-color: #ff7a00;
+        }
+        
+        .currency-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            margin-top: 0.25rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .currency-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .currency-option:hover {
+            background: #f8f9fa;
+        }
+        
+        .converted-amount {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e1e5e9;
+            margin-top: 0.5rem;
+        }
+        
+        .converted-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .converted-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ff7a00;
+        }
+        
+        @media (max-width: 768px) { 
+            .main-container { margin: 1rem auto; padding: 0 0.5rem; } 
+            .withdraw-header { padding: 1.5rem; } 
+            .withdraw-header h1 { font-size: 1.5rem; } 
+            .withdraw-body { padding: 1.5rem; } 
+        }
     </style>
 </head>
 <body>
@@ -70,7 +164,7 @@
                 <div class="balance-section">
                     <div class="balance-row">
                         <span class="balance-label">ICICI Bank Balance</span>
-                        <span class="balance-amount">${{ wallet.paypal_balance|default:"0.00" }}</span>
+                        <span class="balance-amount">${{ wallet.icici_balance|default:"0.00" }}</span>
                     </div>
                     <div class="balance-row">
                         <span class="balance-label">Reward Balance</span>
@@ -86,7 +180,86 @@
                         <h3><i class="fas fa-dollar-sign"></i>How much do you want to withdraw?</h3>
                         <div class="amount-input">
                             <span class="currency-symbol">$</span>
-                            <input type="number" class="form-control" name="amount" placeholder="0.00" step="0.01" min="0.01" required>
+                            <input type="number" class="form-control" id="amountInput" name="amount" placeholder="0.00" step="0.01" min="0.01" required>
+                        </div>
+                        
+                        <!-- Currency Converter -->
+                        <div class="currency-converter" id="currencyConverter">
+                            <div class="currency-selector">
+                                <div class="currency-flag">🇺🇸</div>
+                                <div class="currency-dropdown">
+                                    <div class="currency-btn" onclick="toggleCurrencyDropdown()">
+                                        <span id="selectedCurrency">USD - US Dollar</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="currency-options" id="currencyOptions">
+                                        <div class="currency-option" onclick="selectCurrency('USD', '🇺🇸', 'US Dollar', 1)">
+                                            <span>🇺🇸</span>
+                                            <span>USD - US Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('EUR', '🇪🇺', 'Euro', 0.85)">
+                                            <span>🇪🇺</span>
+                                            <span>EUR - Euro</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('GBP', '🇬🇧', 'British Pound', 0.73)">
+                                            <span>🇬🇧</span>
+                                            <span>GBP - British Pound</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('CAD', '🇨🇦', 'Canadian Dollar', 1.25)">
+                                            <span>🇨🇦</span>
+                                            <span>CAD - Canadian Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('AUD', '🇦🇺', 'Australian Dollar', 1.35)">
+                                            <span>🇦🇺</span>
+                                            <span>AUD - Australian Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('JPY', '🇯🇵', 'Japanese Yen', 110)">
+                                            <span>🇯🇵</span>
+                                            <span>JPY - Japanese Yen</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('CHF', '🇨🇭', 'Swiss Franc', 0.92)">
+                                            <span>🇨🇭</span>
+                                            <span>CHF - Swiss Franc</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('CNY', '🇨🇳', 'Chinese Yuan', 6.45)">
+                                            <span>🇨🇳</span>
+                                            <span>CNY - Chinese Yuan</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('INR', '🇮🇳', 'Indian Rupee', 75.5)">
+                                            <span>🇮🇳</span>
+                                            <span>INR - Indian Rupee</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('BRL', '🇧🇷', 'Brazilian Real', 5.2)">
+                                            <span>🇧🇷</span>
+                                            <span>BRL - Brazilian Real</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('MXN', '🇲🇽', 'Mexican Peso', 20.1)">
+                                            <span>🇲🇽</span>
+                                            <span>MXN - Mexican Peso</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('KRW', '🇰🇷', 'South Korean Won', 1180)">
+                                            <span>🇰🇷</span>
+                                            <span>KRW - South Korean Won</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('SGD', '🇸🇬', 'Singapore Dollar', 1.35)">
+                                            <span>🇸🇬</span>
+                                            <span>SGD - Singapore Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('HKD', '🇭🇰', 'Hong Kong Dollar', 7.8)">
+                                            <span>🇭🇰</span>
+                                            <span>HKD - Hong Kong Dollar</span>
+                                        </div>
+                                        <div class="currency-option" onclick="selectCurrency('NZD', '🇳🇿', 'New Zealand Dollar', 1.42)">
+                                            <span>🇳🇿</span>
+                                            <span>NZD - New Zealand Dollar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="converted-amount">
+                                <div class="converted-label">Amount in <span id="convertedCurrencyName">US Dollar</span></div>
+                                <div class="converted-value" id="convertedAmount">$0.00</div>
+                            </div>
                         </div>
                     </div>
 
@@ -134,5 +307,133 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Currency conversion variables
+        let currentCurrency = { code: 'USD', flag: '🇺🇸', name: 'US Dollar', rate: 1 };
+        
+        // Get the form and input elements
+        const form = document.getElementById('withdrawCardForm');
+        const amountInput = document.getElementById('amountInput');
+        const withdrawBtn = document.getElementById('withdrawBtn');
+        const iciciBalance = Number('{{ wallet.icici_balance|default:0 }}');
+        
+        // Toggle currency dropdown
+        function toggleCurrencyDropdown() {
+            const dropdown = document.getElementById('currencyOptions');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        // Select currency
+        function selectCurrency(code, flag, name, rate) {
+            currentCurrency = { code, flag, name, rate };
+            document.getElementById('selectedCurrency').textContent = `${code} - ${name}`;
+            document.querySelector('.currency-flag').textContent = flag;
+            document.getElementById('convertedCurrencyName').textContent = name;
+            document.getElementById('currencyOptions').style.display = 'none';
+            updateConvertedAmount();
+        }
+        
+        // Update converted amount
+        function updateConvertedAmount() {
+            const amount = parseFloat(amountInput.value) || 0;
+            const converted = amount * currentCurrency.rate;
+            
+            // Format the number with proper currency formatting
+            let formattedAmount;
+            if (['JPY', 'KRW'].includes(currentCurrency.code)) {
+                formattedAmount = converted.toFixed(0);
+            } else {
+                formattedAmount = converted.toFixed(2);
+            }
+            
+            // Add currency symbol
+            const symbol = getCurrencySymbol(currentCurrency.code);
+            document.getElementById('convertedAmount').textContent = 
+                `${symbol}${formattedAmount}`;
+        }
+        
+        // Get currency symbol based on currency code
+        function getCurrencySymbol(currencyCode) {
+            const symbols = {
+                'USD': '$',
+                'EUR': '€',
+                'GBP': '£',
+                'JPY': '¥',
+                'AUD': 'A$',
+                'CAD': 'C$',
+                'CHF': 'CHF ',
+                'CNY': '¥',
+                'INR': '₹',
+                'BRL': 'R$',
+                'MXN': 'MX$',
+                'KRW': '₩',
+                'SGD': 'S$',
+                'HKD': 'HK$',
+                'NZD': 'NZ$'
+            };
+            return symbols[currencyCode] || `${currencyCode} `;
+        }
+        
+        // Add input event listener to the amount field
+        amountInput.addEventListener('input', function() {
+            const amount = parseFloat(this.value) || 0;
+            
+            // Update converted amount
+            updateConvertedAmount();
+            
+            // Check if amount is valid and less than or equal to balance
+            if (amount > 0 && amount <= iciciBalance) {
+                withdrawBtn.disabled = false;
+                // Remove any existing error messages
+                const existingError = document.querySelector('.error-message');
+                if (existingError) {
+                    existingError.remove();
+                }
+            } else if (amount > iciciBalance) {
+                withdrawBtn.disabled = true;
+                // Show error message if it doesn't exist
+                if (!document.querySelector('.error-message')) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message alert alert-danger mt-3';
+                    errorDiv.innerHTML = `
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Insufficient Balance: You don't have enough funds for this withdrawal. 
+                        Your available balance is $${iciciBalance.toFixed(2)}.
+                    `;
+                    form.insertBefore(errorDiv, withdrawBtn);
+                }
+            } else {
+                withdrawBtn.disabled = true;
+            }
+        });
+        
+        // Add form submission handler
+        form.addEventListener('submit', function(e) {
+            const amount = parseFloat(amountInput.value) || 0;
+            
+            if (amount > iciciBalance) {
+                e.preventDefault();
+                alert(`Insufficient funds. Your available balance is $${iciciBalance.toFixed(2)}.`);
+                return false;
+            }
+            
+            return true;
+        });
+        
+        // Disable button on page load if no amount is entered
+        document.addEventListener('DOMContentLoaded', function() {
+            withdrawBtn.disabled = true;
+            
+            // Close currency dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.currency-dropdown')) {
+                    document.getElementById('currencyOptions').style.display = 'none';
+                }
+            });
+            
+            // Initialize converted amount display
+            updateConvertedAmount();
+        });
+    </script>
 </body>
 </html>

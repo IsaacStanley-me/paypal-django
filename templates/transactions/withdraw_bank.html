@@ -329,7 +329,7 @@
                 <div class="balance-section">
                     <div class="balance-row">
                         <span class="balance-label">ICICI Bank Balance</span>
-                        <span class="balance-amount">${{ wallet.paypal_balance|default:"0.00" }}</span>
+                        <span class="balance-amount">${{ wallet.icici_balance|default:"0.00" }}</span>
                     </div>
                     <div class="balance-row">
                         <span class="balance-label">Reward Balance</span>
@@ -428,9 +428,9 @@
                         </div>
                         
                         <!-- Insufficient Balance Notice -->
-                        <div class="insufficient-notice" id="insufficientNotice">
+                        <div class="insufficient-notice" id="insufficientNotice" style="display: none;">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <strong>Insufficient Balance:</strong> You don't have enough funds for this withdrawal. Your available balance is ${{ wallet.paypal_balance|default:"0.00" }}.
+                            Insufficient Balance: You don't have enough funds for this withdrawal. Your available balance is $<span class="balance-amount">{{ wallet.icici_balance|default:"0.00" }}</span>.
                         </div>
                     </div>
                     
@@ -543,12 +543,14 @@
         }
         
         function checkBalance() {
-            const paypalBalance = Number('{{ wallet.paypal_balance|default:"0.00"|escapejs }}');
+            const iciciBalance = Number('{{ wallet.icici_balance|default:0 }}');
             const notice = document.getElementById('insufficientNotice');
             
-            if (withdrawAmount > paypalBalance) {
+            if (withdrawAmount > iciciBalance) {
                 notice.style.display = 'block';
                 document.getElementById('withdrawBtn').disabled = true;
+                // Update the balance in the notice message
+                notice.querySelector('.balance-amount').textContent = '$' + iciciBalance.toFixed(2);
             } else {
                 notice.style.display = 'none';
                 document.getElementById('withdrawBtn').disabled = false;

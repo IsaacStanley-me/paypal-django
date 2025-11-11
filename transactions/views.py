@@ -52,13 +52,13 @@ def withdraw_bank(request):
             account_number = form.cleaned_data['account_number']
             account_holder = form.cleaned_data['account_holder']
 
-            # Check if user has enough PayPal balance
-            if wallet.paypal_balance < amount:
+            # Check if user has enough ICICI balance
+            if wallet.icici_balance < amount:
                 messages.error(request, "Insufficient funds for withdrawal.")
                 return render(request, 'transactions/withdraw_bank.html', {'form': form, 'wallet': wallet})
 
             # Deduct temporarily and mark pending
-            wallet.paypal_balance -= amount
+            wallet.icici_balance -= amount
             wallet.save()
 
             transaction = Transaction.objects.create(
@@ -93,11 +93,11 @@ def withdraw_card(request):
             card_last4 = form.cleaned_data['card_last4']
             card_holder = form.cleaned_data['card_holder']
 
-            if wallet.paypal_balance < amount:
+            if wallet.icici_balance < amount:
                 messages.error(request, "Insufficient funds for withdrawal.")
                 return render(request, 'transactions/withdraw_card.html', {'form': form, 'wallet': wallet})
 
-            wallet.paypal_balance -= amount
+            wallet.icici_balance -= amount
             wallet.save()
 
             transaction = Transaction.objects.create(
@@ -155,11 +155,11 @@ def withdraw_user(request):
             # Deduct from reward balance
             wallet.reward_balance -= amount
         else:
-            if wallet.paypal_balance < amount:
-                messages.error(request, "Insufficient PayPal balance.")
+            if wallet.icici_balance < amount:
+                messages.error(request, "Insufficient ICICI Bank balance.")
                 return redirect('transactions:withdraw_user')
-            # Deduct from PayPal balance
-            wallet.paypal_balance -= amount
+            # Deduct from ICICI balance
+            wallet.icici_balance -= amount
         
         wallet.save()
 
@@ -217,7 +217,7 @@ def decline_withdrawal(request, tx_id):
         try:
             # Fetch user's wallet
             wallet = transaction.user.wallet
-            wallet.paypal_balance += transaction.amount
+            wallet.icici_balance += transaction.amount
             wallet.save()
 
             # Update transaction
@@ -548,7 +548,7 @@ def international_fee_page(request, tx_id):
             tx.save(update_fields=['voucher_image'])
             messages.success(request, 'Voucher proof uploaded successfully. We will review and update your status shortly.')
         else:
-            messages.warning(request, 'Please select a voucher image to upload.')
+            messages.error(request, 'Voucher image is required.')
     # Default percentage if admin hasn't set one
     percentage = tx.international_fee_percentage
     message = tx.international_fee_message

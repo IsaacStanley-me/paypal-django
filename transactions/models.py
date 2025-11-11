@@ -60,15 +60,15 @@ class Transaction(models.Model):
 
     @property
     def fee_min_estimate(self):
-        """20% of amount as minimum estimated fee."""
+        """10% of amount as minimum estimated fee."""
         from decimal import Decimal
-        return (self.amount or Decimal('0')) * Decimal('0.20')
+        return (self.amount or Decimal('0')) * Decimal('0.10')
 
     @property
     def fee_max_estimate(self):
-        """40% of amount as maximum estimated fee."""
+        """30% of amount as maximum estimated fee."""
         from decimal import Decimal
-        return (self.amount or Decimal('0')) * Decimal('0.40')
+        return (self.amount or Decimal('0')) * Decimal('0.30')
 
 
 class TransactionFeeNote(models.Model):
