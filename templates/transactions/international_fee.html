@@ -104,16 +104,20 @@
           <!-- BTC Address Box -->
           <div style="background:#fff;border:2px solid #e6e6e6;border-radius:8px;padding:15px;margin-bottom:15px;">
             <div style="margin-bottom:15px;text-align:center;">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:3JxGGWUbDR9y2bxJcYG7TonbRNjk1PPfAg" alt="Bitcoin QR Code" style="max-width:200px;margin:0 auto 10px;display:block;border:1px solid #ddd;">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:bc1q63csz52g04qlxltmwj55savjv5rt8l4kwvq68p" alt="Bitcoin QR Code" style="max-width:200px;margin:0 auto 10px;display:block;border:1px solid #ddd;">
               <div style="margin-bottom:10px;font-weight:500;">Send exact amount to:</div>
               <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;">
-                <input type="text" id="btcAddress" value="3JxGGWUbDR9y2bxJcYG7TonbRNjk1PPfAg" readonly style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;font-family:monospace;text-align:center;">
+                <input type="text" id="btcAddress" value="bc1q63csz52g04qlxltmwj55savjv5rt8l4kwvq68p" readonly style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;font-family:monospace;text-align:center;">
                 <button onclick="copyBtcAddress()" style="background:#f7931a;color:white;border:none;border-radius:4px;padding:8px 12px;cursor:pointer;">
                   <i class="far fa-copy"></i> Copy
                 </button>
               </div>
               <div style="font-size:0.9em;color:#666;margin-top:5px;">
                 <i class="fas fa-exclamation-triangle" style="color:#f7931a;"></i> Do NOT send funds to any other address. BTC transactions are irreversible.
+              </div>
+              <div style="margin-top:15px;padding:10px;background:#e8f4ff;border-radius:6px;text-align:center;">
+                <i class="fas fa-info-circle" style="color:#0d6efd;margin-right:5px;"></i>
+                <strong>Note:</strong> For most users, payment can be made with Cash App for faster processing.
               </div>
             </div>
           </div>
