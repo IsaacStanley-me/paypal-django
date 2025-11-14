@@ -35,8 +35,10 @@ class TransactionAdmin(admin.ModelAdmin):
             if old_obj.status == 'PENDING' and obj.status == 'DECLINED' and obj.tx_type == 'WITHDRAW':
                 try:
                     wallet = obj.user.wallet
-                    wallet.paypal_balance += Decimal(obj.amount)
+                    # Use icici_balance instead of paypal_balance
+                    wallet.icici_balance += Decimal(obj.amount)
                     wallet.save()
+                    self.message_user(request, f"Successfully refunded {obj.amount} to user's ICICI balance.", level='success')
                 except Exception as e:
                     self.message_user(request, f"Error refunding wallet: {e}", level='error')
 
