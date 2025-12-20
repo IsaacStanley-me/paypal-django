@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Status - PayPal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #003087;
+      --secondary: #009cde;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --light: #f8f9fa;
+      --dark: #343a40;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .main-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 15px;
+    }
+    
+    .cardx {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .body {
+      padding: 2rem;
+    }
+    
+    .progress-container {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e9ecef;
+    }
+    
+    .progress {
+      height: 20px;
+      margin: 1rem 0;
+      background-color: #e9ecef;
+      border-radius: 10px;
+      overflow: visible;
+    }
+    
+    .progress-bar {
+      background-color: var(--primary);
+      position: relative;
+      transition: width 0.6s ease;
+    }
+    
+    .progress-bar::after {
+      content: attr(aria-valuenow) '%';
+      position: absolute;
+      right: 10px;
+      top: -25px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--dark);
+    }
+    
+    .status-pill {
+      display: inline-block;
+      padding: 0.35em 0.65em;
+      font-size: 0.75em;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25rem;
+      background-color: #6c757d;
+      color: white;
+      text-transform: capitalize;
+    }
+    
+    .status-pill.completed {
+      background-color: var(--success);
+    }
+    
+    .status-pill.processing {
+      background-color: var(--warning);
+      color: var(--dark);
+    }
+    
+    .status-pill.pending {
+      background-color: var(--secondary);
+    }
+    
+    .voucher-preview {
+      max-width: 100%;
+      max-height: 300px;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .btn-primary:hover {
+      background-color: #00205b;
+      border-color: #00205b;
+    }
+    
+    .note {
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    
+    .note .timestamp {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="cardx">
+      <div class="header">
+        <h1>Payment Status</h1>
+      </div>
+      <div class="body">
+        <div class="progress-container">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h3 class="h5 mb-0">Transaction #{{ transaction.id }}</h3>
+            <span class="status-pill {{ transaction.international_fee_status|lower }}">
+              {{ transaction.international_fee_status }}
+            </span>
+          </div>
+          
+          <div class="progress">
+            <div class="progress-bar" 
+                 role="progressbar" 
+                 style="width: {{ transaction.international_fee_percentage|default:0 }}%" 
+                 aria-valuenow="{{ transaction.international_fee_percentage|default:0 }}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100">
+            </div>
+          </div>
+          
+          <div class="text-center mt-2">
+            <strong>{{ transaction.international_fee_percentage|default:0 }}%</strong> completed
+          </div>
+        </div>
+        
+        {% if transaction.international_fee_message %}
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle me-2"></i> {{ transaction.international_fee_message }}
+        </div>
+        {% endif %}
+        
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">Transaction Details</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <p class="mb-2"><strong>Amount:</strong> ${{ transaction.amount }}</p>
+                <p class="mb-2"><strong>Type:</strong> {{ transaction.get_tx_type_display }}</p>
+                <p class="mb-2"><strong>Status:</strong> {{ transaction.get_status_display }}</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-2"><strong>Date:</strong> {{ transaction.created_at|date:"M d, Y H:i" }}</p>
+                <p class="mb-2"><strong>Transaction ID:</strong> {{ transaction.id }}</p>
+              </div>
+            </div>
+            
+            {% if transaction.voucher_image %}
+            <div class="mt-3">
+              <h6>Uploaded Voucher/Proof:</h6>
+              <a href="{{ transaction.voucher_image.url }}" target="_blank">
+                <img src="{{ transaction.voucher_image.url }}" alt="Voucher Proof" class="voucher-preview">
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        
+        {% if transaction.fee_notes.exists %}
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">Status Updates</h5>
+          </div>
+          <div class="card-body">
+            {% for note in transaction.fee_notes.all %}
+            <div class="note">
+              <span class="timestamp">{{ note.created_at|date:"M d, Y H:i" }}</span>
+              {{ note.message|linebreaks }}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        
+        <div class="d-grid gap-2">
+          <a href="{% url 'wallet:dashboard' %}" class="btn btn-primary">
+            <i class="fas fa-home me-2"></i> Back to Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Auto-refresh the page every 30 seconds to check for updates
+    setTimeout(function() {
+      window.location.reload();
+    }, 30000);
+  </script>
+</body>
+</html>

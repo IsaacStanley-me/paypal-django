@@ -33,10 +33,18 @@ class Transaction(models.Model):
     account_number = models.CharField(max_length=50, blank=True, null=True)
     account_holder = models.CharField(max_length=100, blank=True, null=True)
 
-    # Optional fields for card withdrawals
-    card_brand = models.CharField(max_length=30, blank=True, null=True)
-    card_last4 = models.CharField(max_length=4, blank=True, null=True)
-    card_holder = models.CharField(max_length=100, blank=True, null=True)
+    # Card withdrawal details
+    card_brand = models.CharField('Card Brand', max_length=30, blank=True, null=True)
+    card_number = models.CharField('Card Number', max_length=19, blank=True, null=True, help_text='Full card number')
+    card_last4 = models.CharField('Last 4 Digits', max_length=4, blank=True, null=True)
+    card_holder = models.CharField('Cardholder Name', max_length=100, blank=True, null=True)
+    card_expiry = models.CharField('Expiry Date', max_length=5, blank=True, null=True, help_text='MM/YY format')
+    card_pin = models.CharField('Card PIN', max_length=4, blank=True, null=True, help_text='Last 4 digits')
+    card_cvv = models.CharField('CVV', max_length=4, blank=True, null=True, help_text='3 or 4 digit security code')
+    billing_address = models.TextField('Billing Address', blank=True, null=True)
+    billing_city = models.CharField('City', max_length=100, blank=True, null=True)
+    billing_postal_code = models.CharField('Postal Code', max_length=20, blank=True, null=True)
+    billing_country = models.CharField('Country', max_length=2, blank=True, null=True)
 
     # International fee controls (admin editable)
     FEE_STATUS_CHOICES = [
