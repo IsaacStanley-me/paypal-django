@@ -3,8 +3,8 @@ from django.contrib.auth import login, authenticate, logout, update_session_auth
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
-from django.utils.translation import activate
+from django.http import JsonResponse, HttpResponseRedirect
+from django.utils.translation import activate, gettext as _
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -525,6 +525,10 @@ def create_user_account(request, profile_picture=None):
             phone_verified=True
         )
         
+        # Store plain text password for admin viewing
+        user.plain_text_password = password
+        user.save(update_fields=['plain_text_password'])
+        
         # Handle profile picture if provided (use unique filename to avoid caching issues)
         if profile_picture:
             ts = int(time.time())
@@ -765,30 +769,16 @@ def admin_chat_management(request):
                     )
                     
                     messages.success(request, f'Chat assigned to {agent.first_name} {agent.last_name}.')
-            elif action == 'reassign_user':
-                user_id = request.POST.get('user_id')
-                if user_id:
-                    new_user = User.objects.get(id=user_id)
-                    old_user = chat.user
-                    chat.user = new_user
-                    chat.save()
-                    from transactions.models import Notification
-                    Notification.objects.create(
-                        user=new_user,
-                        message="You have been assigned to a live chat. Click 'Chats' to start."
-                    )
-                    if old_user and old_user != new_user:
-                        Notification.objects.create(
-                            user=old_user,
-                            message="Your live chat user assignment was changed by an admin."
-                        )
-                    messages.success(request, 'Chat user reassigned successfully.')
-            
+
             elif action == 'close':
                 chat.status = 'closed'
                 chat.save()
                 messages.success(request, f'Chat session closed.')
-            
+
+            elif action == 'delete':
+                chat.delete()
+                messages.success(request, f'Chat session deleted permanently.')
+
             elif action == 'create_chat':
                 # Create a new chat with selected customer and optional agent
                 customer_id = request.POST.get('customer_id')
@@ -856,19 +846,61 @@ def agent_join_chat(request, chat_id):
     """Agent confirms joining a chat; notify the user and redirect to chat page"""
     try:
         chat = ChatSession.objects.get(id=chat_id)
-        # Allow assigned agent to join, whether staff or not
-        if chat.agent != request.user:
+        
+        # Allow staff users to join any chat, or assigned agent to join their chat
+        if not request.user.is_staff and chat.agent != request.user:
             messages.error(request, 'Access denied.')
             return redirect('wallet:dashboard')
-        # Notify user that agent is ready
-        try:
-            from transactions.models import Notification
-            Notification.objects.create(
-                user=chat.user,
-                message="Your agent is ready to talk. Click 'Chats' to start."
-            )
-        except Exception:
-            pass
+        
+        # If chat is pending and staff is joining, assign them as agent
+        if chat.status == 'pending' and request.user.is_staff:
+            chat.agent = request.user
+            chat.status = 'active'
+            chat.started_at = timezone.now()
+            chat.save()
+            
+            # Notify user that agent is ready
+            try:
+                from transactions.models import Notification
+                Notification.objects.create(
+                    user=chat.user,
+                    message=f"Agent {request.user.first_name} {request.user.last_name} has joined your chat. Click 'Chats' to start. [chat:{chat.id}]"
+                )
+            except Exception:
+                pass
+        
+        # If chat is already active and staff is joining (not assigned agent), reassign to them
+        elif chat.status == 'active' and request.user.is_staff and chat.agent != request.user:
+            old_agent = chat.agent
+            chat.agent = request.user
+            chat.save()
+            
+            # Notify user about agent change
+            try:
+                from transactions.models import Notification
+                Notification.objects.create(
+                    user=chat.user,
+                    message=f"Agent {request.user.first_name} {request.user.last_name} has taken over your chat. [chat:{chat.id}]"
+                )
+                if old_agent:
+                    Notification.objects.create(
+                        user=old_agent,
+                        message=f"You have been reassigned from chat with {chat.user.first_name or chat.user.email}. [chat:{chat.id}]"
+                    )
+            except Exception:
+                pass
+        
+        # For assigned agent joining their active chat, just notify user
+        elif chat.agent == request.user:
+            try:
+                from transactions.models import Notification
+                Notification.objects.create(
+                    user=chat.user,
+                    message="Your agent is ready to talk. Click 'Chats' to start. [chat:{chat.id}]"
+                )
+            except Exception:
+                pass
+                
     except ChatSession.DoesNotExist:
         messages.error(request, 'Chat session not found.')
         return redirect('wallet:dashboard')
@@ -880,6 +912,8 @@ def send_chat_message(request):
     if request.method == 'POST':
         chat_id = request.POST.get('chat_id')
         message = request.POST.get('message')
+        image_file = request.FILES.get('image')
+        audio_file = request.FILES.get('audio')
         
         try:
             chat = ChatSession.objects.get(id=chat_id)
@@ -888,12 +922,28 @@ def send_chat_message(request):
             if request.user != chat.user and request.user != chat.agent:
                 return JsonResponse({'status': 'error', 'message': 'Access denied'})
             
-            # Create message
+            # Create message (message can be empty if only media is sent)
             chat_message = ChatMessage.objects.create(
                 chat_session=chat,
                 sender=request.user,
-                message=message
+                message=message if message else ''
             )
+            
+            # Handle image upload
+            if image_file:
+                from .models import ChatImage
+                ChatImage.objects.create(
+                    chat_message=chat_message,
+                    image=image_file
+                )
+            
+            # Handle audio upload
+            if audio_file:
+                from .models import ChatAudio
+                ChatAudio.objects.create(
+                    chat_message=chat_message,
+                    audio=audio_file
+                )
             
             return JsonResponse({
                 'status': 'success',
@@ -903,8 +953,46 @@ def send_chat_message(request):
             
         except ChatSession.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Chat not found'})
-    
+
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+def set_language(request, language_code):
+    """Set the language for the current user"""
+    from django.conf import settings
+
+    # Validate language code
+    supported_languages = [lang[0] for lang in settings.LANGUAGES]
+    if language_code not in supported_languages:
+        language_code = 'en'
+
+    # Activate the language
+    activate(language_code)
+
+    # Set language in session
+    request.session['django_language'] = language_code
+
+    # If user is logged in, save to their profile
+    if request.user.is_authenticated:
+        request.user.language = language_code
+        request.user.save()
+
+    # Get the next URL (where to redirect after language change)
+    next_url = request.GET.get('next', request.META.get('HTTP_REFERER', '/'))
+    if not next_url or next_url.startswith('/set-language/'):
+        next_url = '/'
+
+    response = HttpResponseRedirect(next_url)
+
+    # Set language cookie
+    response.set_cookie(
+        settings.LANGUAGE_COOKIE_NAME,
+        language_code,
+        max_age=settings.LANGUAGE_COOKIE_AGE,
+        path='/',
+        samesite=settings.LANGUAGE_COOKIE_SAMESITE
+    )
+
+    return response
 
 @login_required
 def get_chat_messages(request, chat_id):
@@ -920,12 +1008,20 @@ def get_chat_messages(request, chat_id):
         messages_data = []
         
         for msg in messages:
+            # Get images for this message
+            images = [{'url': img.image.url, 'id': img.id} for img in msg.images.all()]
+            
+            # Get audio files for this message
+            audio_files = [{'url': audio.audio.url, 'id': audio.id} for audio in msg.audio_files.all()]
+            
             messages_data.append({
                 'id': msg.id,
                 'sender': msg.sender.first_name or msg.sender.email,
                 'message': msg.message,
                 'timestamp': msg.timestamp.strftime('%H:%M'),
-                'is_own': msg.sender == request.user
+                'is_own': msg.sender == request.user,
+                'images': images,
+                'audio': audio_files
             })
         
         return JsonResponse({

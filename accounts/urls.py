@@ -31,5 +31,6 @@ urlpatterns = [
     path('chat/send-message/', views.send_chat_message, name='send_chat_message'),
     path('chat/messages/<int:chat_id>/', views.get_chat_messages, name='get_chat_messages'),
     path('chat/agent-join/<int:chat_id>/', views.agent_join_chat, name='agent_join_chat'),
+    path('set-language/<str:language_code>/', views.set_language, name='set_language'),
 ]
 

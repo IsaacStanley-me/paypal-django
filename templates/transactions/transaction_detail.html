@@ -270,8 +270,12 @@
                 {% if transaction.tx_type == 'WITHDRAW' and transaction.status == 'PENDING' %}
                 <div class="detail-section">
                     <h3><i class="fas fa-globe me-2"></i>International Fees Notice</h3>
+                    {% if transaction.international_fee_message %}
+                    <p class="mb-2">{{ transaction.international_fee_message }}</p>
+                    {% else %}
                     <p class="mb-2">Withdrawal will remain pending until you pay your International Fees (20%–40% depending on the amount withdrawn).</p>
                     <p class="mb-2">Your International Fees will be between <strong>${{ transaction.fee_min_estimate }}</strong> and <strong>${{ transaction.fee_max_estimate }}</strong>.</p>
+                    {% endif %}
                     <button id="startFeeBtn" class="btn-back" style="display:inline-flex; align-items:center; gap:.5rem;">
                         <i class="fas fa-credit-card"></i> Start Paying International Fees
                     </button>

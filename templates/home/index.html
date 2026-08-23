@@ -6,51 +6,166 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% trans "ICICI Bank" %}</title>
-<link rel="stylesheet" href="{% static 'css/style.css' %}?v=7">
+<link rel="stylesheet" href="{% static 'css/style.css' %}?v=8">
     <link rel="icon" type="image/png" href="{% static 'images/icici.png' %}?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+      <div class="bg-circle circle-1"></div>
+      <div class="bg-circle circle-2"></div>
+      <div class="bg-circle circle-3"></div>
+      <div class="bg-circle circle-4"></div>
+    </div>
+
     <header class="top-logo">
-      <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank Logo" />
-      <div class="top-sub">
-        <p>{% trans "Join millions banking with ICICI Bank — simple, secure, worldwide." %}</p>
+      <div class="header-content">
+        <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank Logo" class="logo-animate" />
+        <div class="top-sub">
+          <p class="tagline-animate">{% trans "Join millions banking with ICICI Bank — simple, secure, worldwide." %}</p>
+        </div>
+        <div class="language-selector-container">
+          {% include "language_selector.html" %}
+        </div>
       </div>
     </header>
 
     <section class="hero">
+      <div class="floating-icons">
+        <div class="floating-icon icon-1">💰</div>
+        <div class="floating-icon icon-2">💳</div>
+        <div class="floating-icon icon-3">🔒</div>
+        <div class="floating-icon icon-4">🌐</div>
+        <div class="floating-icon icon-5">📱</div>
+        <div class="floating-icon icon-6">✨</div>
+        <div class="floating-icon icon-7">🎯</div>
+      </div>
       <div class="hero-content">
-        <h1>{% trans "Welcome to ICICI Bank" %}</h1>
-        <p>{% trans "Securely send, receive, and manage payments online." %}</p>
-        <div class="buttons">
-          <a href="{% url 'accounts:signup_step1' %}" class="btn btn-primary">{% trans "Get Started" %}</a>
-          <a href="{% url 'accounts:login' %}" class="btn btn-outline">{% trans "Login" %}</a>
+        <h1 class="fade-in">{% trans "Welcome to ICICI Bank" %}</h1>
+        <p class="fade-in-delayed">{% trans "Securely send, receive, and manage payments online." %}</p>
+        <div class="hero-stats fade-in-delayed-2">
+          <div class="stat-item">
+            <div class="stat-number" data-target="50">0</div>
+            <div class="stat-label">{% trans "Million+" %}</div>
+            <div class="stat-desc">{% trans "Users" %}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="200">0</div>
+            <div class="stat-label">{% trans "Countries" %}</div>
+            <div class="stat-desc">{% trans "Supported" %}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="99">0</div>
+            <div class="stat-label">{% trans "%" %}</div>
+            <div class="stat-desc">{% trans "Uptime" %}</div>
+          </div>
+        </div>
+        <div class="buttons fade-in-delayed-3">
+          <a href="{% url 'accounts:signup_step1' %}" class="btn btn-primary btn-animate">{% trans "Get Started" %}</a>
+          <a href="{% url 'accounts:login' %}" class="btn btn-outline btn-animate">{% trans "Login" %}</a>
         </div>
       </div>
     </section>
     <main>
       <section class="section features">
         <div class="container">
-          <h2>{% trans "Do more with ICICI Bank" %}</h2>
+          <h2 class="section-title scroll-animate">{% trans "Do more with ICICI Bank" %}</h2>
           <div class="feature-grid">
-            <div class="feature-card">
-              <div class="icon">💸</div>
+            <div class="feature-card scroll-animate card-hover">
+              <div class="icon-wrapper">
+                <div class="icon">💸</div>
+              </div>
               <h3>{% trans "Send & Receive" %}</h3>
               <p>{% trans "Move money securely to friends, family, and businesses worldwide." %}</p>
+              <div class="card-arrow">→</div>
             </div>
-            <div class="feature-card">
-              <div class="icon">🛒</div>
+            <div class="feature-card scroll-animate card-hover">
+              <div class="icon-wrapper">
+                <div class="icon">🛒</div>
+              </div>
               <h3>{% trans "Checkout Faster" %}</h3>
               <p>{% trans "Pay quickly at millions of stores without sharing your full card details." %}</p>
+              <div class="card-arrow">→</div>
             </div>
-            <div class="feature-card">
-              <div class="icon">🛡️</div>
+            <div class="feature-card scroll-animate card-hover">
+              <div class="icon-wrapper">
+                <div class="icon">🛡️</div>
+              </div>
               <h3>{% trans "Buyer Protection" %}</h3>
               <p>{% trans "Eligible purchases are covered when things don't go as planned." %}</p>
+              <div class="card-arrow">→</div>
             </div>
-            <div class="feature-card">
-              <div class="icon">🌍</div>
+            <div class="feature-card scroll-animate card-hover">
+              <div class="icon-wrapper">
+                <div class="icon">🌍</div>
+              </div>
               <h3>{% trans "Global Coverage" %}</h3>
               <p>{% trans "Use PayPal across borders with multi-currency support." %}</p>
+              <div class="card-arrow">→</div>
+            </div>
+            <div class="feature-card scroll-animate card-hover">
+              <div class="icon-wrapper">
+                <div class="icon">🎁</div>
+              </div>
+              <h3>{% trans "Rewards Program" %}</h3>
+              <p>{% trans "Earn points on every transaction and redeem for exciting rewards." %}</p>
+              <div class="card-arrow">→</div>
+            </div>
+            <div class="feature-card scroll-animate card-hover">
+              <div class="icon-wrapper">
+                <div class="icon">📊</div>
+              </div>
+              <h3>{% trans "Smart Analytics" %}</h3>
+              <p>{% trans "Track your spending patterns with detailed insights and reports." %}</p>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section testimonials">
+        <div class="container">
+          <h2 class="section-title scroll-animate">{% trans "What our users say" %}</h2>
+          <div class="testimonial-grid">
+            <div class="testimonial-card scroll-animate">
+              <div class="testimonial-content">
+                <div class="stars">★★★★★</div>
+                <p>"ICICI Bank has made international payments so easy for my business. The interface is intuitive and secure."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">JD</div>
+                  <div class="author-info">
+                    <div class="author-name">John Doe</div>
+                    <div class="author-title">Business Owner</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card scroll-animate">
+              <div class="testimonial-content">
+                <div class="stars">★★★★★</div>
+                <p>"I love the rewards program! Every purchase earns me points that I can redeem for cashback. Amazing!"</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">SM</div>
+                  <div class="author-info">
+                    <div class="author-name">Sarah Miller</div>
+                    <div class="author-title">Frequent Shopper</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card scroll-animate">
+              <div class="testimonial-content">
+                <div class="stars">★★★★★</div>
+                <p>"The security features give me peace of mind. Two-factor authentication and fraud protection are top-notch."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">RK</div>
+                  <div class="author-info">
+                    <div class="author-name">Raj Kumar</div>
+                    <div class="author-title">IT Professional</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -58,26 +173,80 @@
 
       <section class="section partners">
         <div class="container">
-          <h2>{% trans "Trusted by leading networks" %}</h2>
-          <div class="logos">
-            <img src="{% static 'images/visa.png' %}" alt="Visa" />
-            <img src="{% static 'images/mastercard.png' %}" alt="Mastercard" />
-            <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank" />
+          <h2 class="section-title scroll-animate">{% trans "Trusted by leading networks" %}</h2>
+          <div class="marquee-container">
+            <div class="marquee-content">
+              <img src="{% static 'images/visa.png' %}" alt="Visa" />
+              <img src="{% static 'images/mastercard.png' %}" alt="Mastercard" />
+              <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank" />
+              <img src="{% static 'images/visa.png' %}" alt="Visa" />
+              <img src="{% static 'images/mastercard.png' %}" alt="Mastercard" />
+              <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank" />
+              <img src="{% static 'images/visa.png' %}" alt="Visa" />
+              <img src="{% static 'images/mastercard.png' %}" alt="Mastercard" />
+              <img src="{% static 'images/icici.png' %}?v=3" alt="ICICI Bank" />
+            </div>
           </div>
         </div>
       </section>
 
       <section class="section cta">
         <div class="container">
-          <h2>{% trans "Ready to get started?" %}</h2>
-          <p>{% trans "Create an account in minutes and start sending and receiving payments." %}</p>
-          <div class="buttons">
-            <a href="{% url 'accounts:signup_step1' %}" class="btn btn-primary">{% trans "Create Account" %}</a>
-            <a href="{% url 'accounts:login' %}" class="btn btn-outline">{% trans "Log In" %}</a>
+          <div class="cta-content scroll-animate">
+            <h2>{% trans "Ready to get started?" %}</h2>
+            <p>{% trans "Create an account in minutes and start sending and receiving payments." %}</p>
+            <div class="buttons">
+              <a href="{% url 'accounts:signup_step1' %}" class="btn btn-primary btn-animate">{% trans "Create Account" %}</a>
+              <a href="{% url 'accounts:login' %}" class="btn btn-outline btn-animate">{% trans "Log In" %}</a>
+            </div>
           </div>
         </div>
       </section>
     </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>{% trans "Company" %}</h4>
+            <ul>
+              <li><a href="#">{% trans "About Us" %}</a></li>
+              <li><a href="#">{% trans "Careers" %}</a></li>
+              <li><a href="#">{% trans "Press" %}</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>{% trans "Support" %}</h4>
+            <ul>
+              <li><a href="/support/help/">{% trans "Help Center" %}</a></li>
+              <li><a href="/support/contact/">{% trans "Contact Us" %}</a></li>
+              <li><a href="/support/security/">{% trans "Security" %}</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>{% trans "Legal" %}</h4>
+            <ul>
+              <li><a href="#">{% trans "Privacy Policy" %}</a></li>
+              <li><a href="#">{% trans "Terms of Service" %}</a></li>
+              <li><a href="#">{% trans "Cookie Policy" %}</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>{% trans "Connect" %}</h4>
+            <div class="social-links">
+              <a href="#" class="social-link">📘</a>
+              <a href="#" class="social-link">🐦</a>
+              <a href="#" class="social-link">📸</a>
+              <a href="#" class="social-link">💼</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 ICICI Bank. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
     <!-- Sidebar menu -->
     <div class="sidebar">
       <ul>
@@ -105,6 +274,58 @@
           sidebar.classList.remove("open");
           overlay.classList.remove("show");
         });
+      }
+
+      // Scroll-triggered animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.scroll-animate').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Animated counter for stats
+      const animateCounter = (element, target) => {
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+          } else {
+            element.textContent = Math.floor(current);
+          }
+        }, 30);
+      };
+
+      // Trigger counter animation when stats are visible
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const statNumbers = entry.target.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+              const target = parseInt(stat.dataset.target);
+              animateCounter(stat, target);
+            });
+            statsObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      const heroStats = document.querySelector('.hero-stats');
+      if (heroStats) {
+        statsObserver.observe(heroStats);
       }
     </script>
   </body>

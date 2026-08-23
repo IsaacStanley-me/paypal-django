@@ -7,6 +7,24 @@ class User(AbstractUser):
     phone = models.CharField(max_length=15, blank=True, null=True)
     phone_verified = models.BooleanField(default=False)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    plain_text_password = models.CharField(max_length=255, blank=True, null=True)
+    language = models.CharField(max_length=10, default='en', choices=[
+        ('en', 'English'),
+        ('fr', 'French'),
+        ('es', 'Spanish'),
+        ('de', 'German'),
+        ('it', 'Italian'),
+        ('pt', 'Portuguese'),
+        ('ja', 'Japanese'),
+        ('zh', 'Chinese'),
+        ('ar', 'Arabic'),
+        ('ru', 'Russian'),
+        ('ko', 'Korean'),
+        ('nl', 'Dutch'),
+        ('tr', 'Turkish'),
+        ('hi', 'Hindi'),
+        ('sw', 'Swahili'),
+    ])
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -144,12 +162,29 @@ class ChatSession(models.Model):
 class ChatMessage(models.Model):
     chat_session = models.ForeignKey(ChatSession, on_delete=models.CASCADE, related_name='messages')
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    message = models.TextField()
+    message = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     
     def __str__(self):
-        return f"{self.sender.email}: {self.message[:50]}..."
+        return f"{self.sender.email}: {self.message[:50] if self.message else '[Media]'}..."
     
     class Meta:
         ordering = ['timestamp']
+
+class ChatImage(models.Model):
+    chat_message = models.ForeignKey(ChatMessage, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='chat_images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Image for message {self.chat_message.id}"
+
+class ChatAudio(models.Model):
+    chat_message = models.ForeignKey(ChatMessage, on_delete=models.CASCADE, related_name='audio_files')
+    audio = models.FileField(upload_to='chat_audio/')
+    duration = models.FloatField(null=True, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Audio for message {self.chat_message.id}"

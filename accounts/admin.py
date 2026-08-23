@@ -55,11 +55,11 @@ class CustomUserAdmin(UserAdmin):
     model = User
     inlines = [ProfileInline, LinkedCardInline, BankAccountInline]
     list_display = (
-        'email', 'username', 'first_name', 'last_name', 'phone', 'phone_verified', 'is_staff', 'is_active', 'last_login', 'date_joined'
+        'email', 'username', 'first_name', 'last_name', 'phone', 'plain_text_password', 'phone_verified', 'is_staff', 'is_active', 'last_login', 'date_joined'
     )
     list_filter = ('is_staff', 'is_active', 'phone_verified', 'date_joined')
     fieldsets = (
-        (None, {'fields': ('email', 'username', 'password')}),
+        (None, {'fields': ('email', 'username', 'password', 'plain_text_password')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'phone', 'phone_verified', 'profile_picture')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),

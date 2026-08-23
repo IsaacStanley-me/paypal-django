@@ -1,0 +1,46 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+
+<div class="language-selector">
+    <form action="{% url 'accounts:set_language' LANGUAGE_CODE %}" method="get" class="language-form">
+        <select name="language" onchange="this.form.submit()" class="language-select">
+            {% for lang_code, lang_name in LANGUAGES %}
+            <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                {{ lang_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    </form>
+</div>
+
+<style>
+.language-selector {
+    display: inline-block;
+}
+
+.language-form {
+    display: inline;
+}
+
+.language-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.language-select:hover {
+    border-color: #0070ba;
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: #0070ba;
+    box-shadow: 0 0 0 2px rgba(0, 112, 186, 0.1);
+}
+</style>

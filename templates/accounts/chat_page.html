@@ -105,19 +105,148 @@
         }
         
         .message.own .message-content {
-            background: #ff7a00;
-            color: white;
+            background: #dcf8c6;
+            color: #000;
         }
         
         .message-text {
             margin: 0;
+            word-wrap: break-word;
             line-height: 1.4;
+            font-size: 0.95rem;
         }
-        
+
         .message-time {
             font-size: 0.7rem;
-            opacity: 0.7;
+            color: #666;
+            text-align: right;
             margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.25rem;
+        }
+
+        .message-time::before {
+            content: '✓✓';
+            font-size: 0.65rem;
+            color: #53bdeb;
+        }
+
+        .message-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            display: none;
+            position: relative;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-preview.active {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .image-preview .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .voice-recorder-btn {
+            background: #f8f9fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .voice-recorder-btn:hover {
+            background: #e9ecef;
+            color: #ff7a00;
+        }
+
+        .voice-recorder-btn.recording {
+            background: #dc3545;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .audio-preview {
+            display: none;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .audio-preview.active {
+            display: flex;
+        }
+
+        .audio-preview audio {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .audio-preview .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .message-audio {
+            max-width: 300px;
+            margin-top: 0.5rem;
+        }
+
+        .message-audio audio {
+            width: 100%;
         }
         
         .chat-input {
@@ -311,10 +440,27 @@
                         </div>
                         
                         <div class="chat-input" id="chatInput" style="display: none;">
-                            <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                            <div class="chat-input-wrapper">
+                                <label class="image-upload-btn">
+                                    <i class="fas fa-image"></i>
+                                    <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)">
+                                </label>
+                                <button class="voice-recorder-btn" id="voiceRecorderBtn" onclick="toggleVoiceRecording()">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                                <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                            </div>
                             <button class="send-btn" onclick="sendMessage()">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
+                        </div>
+                        <div class="image-preview" id="imagePreview">
+                            <img id="previewImg" src="" alt="Preview">
+                            <button class="remove-btn" onclick="removeImage()">×</button>
+                        </div>
+                        <div class="audio-preview" id="audioPreview">
+                            <audio id="previewAudio" controls></audio>
+                            <button class="remove-btn" onclick="removeAudio()">×</button>
                         </div>
                     </div>
                 </div>
@@ -407,10 +553,31 @@
                 const avatarColor = message.is_own ? '#0070ba' : '#28a745';
                 const initials = message.sender.charAt(0).toUpperCase();
                 
+                let contentHtml = '';
+                
+                // Add text message if present
+                if (message.message) {
+                    contentHtml += `<p class="message-text">${message.message}</p>`;
+                }
+                
+                // Add images if present
+                if (message.images && message.images.length > 0) {
+                    message.images.forEach(img => {
+                        contentHtml += `<img src="${img.url}" class="message-image" alt="Shared image">`;
+                    });
+                }
+                
+                // Add audio if present
+                if (message.audio && message.audio.length > 0) {
+                    message.audio.forEach(audio => {
+                        contentHtml += `<audio src="${audio.url}" controls class="message-audio"></audio>`;
+                    });
+                }
+                
                 messageDiv.innerHTML = `
                     <div class="message-avatar" style="background-color: ${avatarColor};">${initials}</div>
                     <div class="message-content">
-                        <p class="message-text">${message.message}</p>
+                        ${contentHtml}
                         <div class="message-time">${message.timestamp}</div>
                     </div>
                 `;
@@ -438,11 +605,20 @@
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value.trim();
             
-            if (!message || !currentChatId) return;
+            if (!message && !selectedImage && audioChunks.length === 0 || !currentChatId) return;
             
             const formData = new FormData();
             formData.append('chat_id', currentChatId);
             formData.append('message', message);
+            
+            if (selectedImage) {
+                formData.append('image', selectedImage);
+            }
+            
+            if (audioChunks.length > 0) {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                formData.append('audio', audioBlob);
+            }
             
             fetch('{% url "accounts:send_chat_message" %}', {
                 method: 'POST',
@@ -455,6 +631,8 @@
             .then(data => {
                 if (data.status === 'success') {
                     messageInput.value = '';
+                    removeImage();
+                    removeAudio();
                     // Reload messages
                     loadChat(currentChatId);
                 }
@@ -469,7 +647,74 @@
                 sendMessage();
             }
         }
-        
+
+        let selectedImage = null;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedImage = file;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'flex';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage() {
+            selectedImage = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('previewImg').src = '';
+        }
+
+        async function toggleVoiceRecording() {
+            const btn = document.getElementById('voiceRecorderBtn');
+            
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+                    
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        document.getElementById('previewAudio').src = audioUrl;
+                        document.getElementById('audioPreview').style.display = 'flex';
+                    };
+                    
+                    mediaRecorder.start();
+                    isRecording = true;
+                    btn.innerHTML = '<i class="fas fa-stop"></i>';
+                    btn.style.backgroundColor = '#dc3545';
+                } catch (err) {
+                    console.error('Error accessing microphone:', err);
+                    alert('Could not access microphone. Please allow microphone access.');
+                }
+            } else {
+                mediaRecorder.stop();
+                isRecording = false;
+                btn.innerHTML = '<i class="fas fa-microphone"></i>';
+                btn.style.backgroundColor = '';
+            }
+        }
+
+        function removeAudio() {
+            document.getElementById('audioPreview').style.display = 'none';
+            document.getElementById('previewAudio').src = '';
+            audioChunks = [];
+        }
+
         // Deep-link: auto-open chat via ?chat_id=ID
         document.addEventListener('DOMContentLoaded', function(){
             const params = new URLSearchParams(window.location.search);

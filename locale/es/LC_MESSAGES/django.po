@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-15 22:29+0100\n"
+"POT-Creation-Date: 2026-08-23 18:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,127 +23,131 @@ msgstr ""
 msgid "Chat Management - Admin"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:188
-#: .\templates\accounts\admin_chat_management.html:201
-#: .\templates\wallet\dashboard.html:675
+#: .\templates\accounts\admin_chat_management.html:213
+#: .\templates\accounts\admin_chat_management.html:226
+#: .\templates\wallet\dashboard.html:701
 msgid "Chat Management"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:192
+#: .\templates\accounts\admin_chat_management.html:217
 #: .\templates\accounts\admin_contact_management.html:209
 #: .\templates\accounts\security.html:245
 #: .\templates\accounts\settings.html:246 .\templates\home\contact_us.html:286
 #: .\templates\home\help_center.html:266
-#: .\templates\home\security_center.html:328
 #: .\templates\notifications\notifications.html:185
-#: .\templates\partials\footer.html:39 .\templates\partials\header.html:18
-#: .\templates\transactions\history.html:133
+#: .\templates\partials\footer.html:37 .\templates\partials\header.html:18
+#: .\templates\transactions\history.html:139
 msgid "Dashboard"
 msgstr "Panel"
 
-#: .\templates\accounts\admin_chat_management.html:202
+#: .\templates\accounts\admin_chat_management.html:227
 msgid "Manage live chat sessions and assign agents"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:207
+#: .\templates\accounts\admin_chat_management.html:232
 msgid "Create New Chat"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:212
+#: .\templates\accounts\admin_chat_management.html:237
 msgid "Customer"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:214
+#: .\templates\accounts\admin_chat_management.html:239
 msgid "Select customer..."
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:221
+#: .\templates\accounts\admin_chat_management.html:246
 msgid "Assign Agent (optional)"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:223
+#: .\templates\accounts\admin_chat_management.html:248
 msgid "Select agent..."
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:230
-#: .\templates\home\contact_us.html:372
+#: .\templates\accounts\admin_chat_management.html:255
+#: .\templates\home\contact_us.html:363
 msgid "Subject"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:231
-#: .\templates\home\contact_us.html:328
+#: .\templates\accounts\admin_chat_management.html:256
+#: .\templates\home\contact_us.html:319
 msgid "Live Chat"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:234
-#: .\templates\accounts\admin_chat_management.html:284
+#: .\templates\accounts\admin_chat_management.html:259
+#: .\templates\accounts\admin_chat_management.html:309
 msgid "Initial Message"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:235
+#: .\templates\accounts\admin_chat_management.html:260
 msgid "Describe the purpose of this chat..."
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:239
+#: .\templates\accounts\admin_chat_management.html:264
 msgid "Create Chat"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:249
+#: .\templates\accounts\admin_chat_management.html:274
 msgid "Total Chats"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:253
+#: .\templates\accounts\admin_chat_management.html:278
 #: .\templates\accounts\admin_contact_management.html:231
-#: .\templates\accounts\security.html:298
-#: .\templates\accounts\settings.html:381
-#: .\templates\rewards\rewards_dashboard.html:229
-#: .\templates\transactions\history.html:175
-#: .\templates\transactions\history.html:259
-#: .\templates\wallet\dashboard.html:770
+#: .\templates\accounts\security.html:295
+#: .\templates\accounts\settings.html:389
+#: .\templates\admin\transactions\grouped_by_user.html:18
+#: .\templates\rewards\rewards_dashboard.html:241
+#: .\templates\transactions\history.html:181
+#: .\templates\transactions\history.html:265
+#: .\templates\wallet\dashboard.html:806
 msgid "Pending"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:257
+#: .\templates\accounts\admin_chat_management.html:282
 msgid "Active"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:261
+#: .\templates\accounts\admin_chat_management.html:286
 msgid "Closed"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:266
+#: .\templates\accounts\admin_chat_management.html:291
 msgid "Chat Sessions"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:295
-msgid "Select Agent..."
-msgstr ""
-
-#: .\templates\accounts\admin_chat_management.html:301
-msgid "Assign Agent"
-msgstr ""
-
-#: .\templates\accounts\admin_chat_management.html:311
-msgid "Reassign Customer..."
+#: .\templates\accounts\admin_chat_management.html:315
+msgid "User Password"
 msgstr ""
 
 #: .\templates\accounts\admin_chat_management.html:317
-msgid "Reassign User"
+msgid "Show Password"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:323
+#: .\templates\accounts\admin_chat_management.html:332
+msgid "Select Agent..."
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:338
+msgid "Assign Agent"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:345
 msgid "Join Chat"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:330
+#: .\templates\accounts\admin_chat_management.html:355
 msgid "Close Chat"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:340
+#: .\templates\accounts\admin_chat_management.html:365
+msgid "Delete Chat"
+msgstr ""
+
+#: .\templates\accounts\admin_chat_management.html:374
 msgid "No Chat Sessions"
 msgstr ""
 
-#: .\templates\accounts\admin_chat_management.html:341
+#: .\templates\accounts\admin_chat_management.html:375
 msgid "No chat sessions have been created yet."
 msgstr ""
 
@@ -210,7 +214,8 @@ msgid "Resolve Contact Request"
 msgstr ""
 
 #: .\templates\accounts\admin_contact_management.html:340
-#: .\templates\home\contact_us.html:483
+#: .\templates\accounts\change_password.html:108
+#: .\templates\home\contact_us.html:474
 msgid "Cancel"
 msgstr ""
 
@@ -219,182 +224,220 @@ msgid "Mark as Resolved"
 msgstr ""
 
 #: .\templates\accounts\basic_info.html:8
-msgid "Basic Information - PayPal"
+msgid "Basic Information - ICICI Bank"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:186
-#: .\templates\accounts\signup_personal_info.html:259
+#: .\templates\accounts\basic_info.html:178
+#: .\templates\accounts\signup_personal_info.html:250
 #: .\templates\accounts\signup_steps.html:207
 msgid "Tell us about yourself"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:187
+#: .\templates\accounts\basic_info.html:179
 #: .\templates\accounts\signup_steps.html:208
 msgid "We'll use this information to set up your account"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:194
-#: .\templates\accounts\signup_details.html:205
+#: .\templates\accounts\basic_info.html:186
+#: .\templates\accounts\signup_details.html:196
 #: .\templates\accounts\signup_email.html:222
 #: .\templates\accounts\signup_steps.html:211
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1920
 msgid "Email address"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:202
-#: .\templates\accounts\signup_details.html:213
+#: .\templates\accounts\basic_info.html:194
+#: .\templates\accounts\signup_details.html:204
 #: .\templates\accounts\signup_steps.html:219
 msgid "Username"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:211
-#: .\templates\accounts\signup_details.html:222
-#: .\templates\accounts\signup_personal_info.html:277
+#: .\templates\accounts\basic_info.html:203
+#: .\templates\accounts\signup_details.html:213
+#: .\templates\accounts\signup_personal_info.html:268
 #: .\templates\accounts\signup_steps.html:228
 msgid "First name"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:218
-#: .\templates\accounts\signup_details.html:229
-#: .\templates\accounts\signup_personal_info.html:282
+#: .\templates\accounts\basic_info.html:210
+#: .\templates\accounts\signup_details.html:220
+#: .\templates\accounts\signup_personal_info.html:273
 #: .\templates\accounts\signup_steps.html:235
 msgid "Last name"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:227
-#: .\templates\accounts\contact_info.html:199
-#: .\templates\accounts\create_password.html:238
-#: .\templates\accounts\signup_address.html:303
-#: .\templates\accounts\signup_business_info.html:305
-#: .\templates\accounts\signup_country_new.html:288
-#: .\templates\accounts\signup_details.html:187
+#: .\templates\accounts\basic_info.html:219
+#: .\templates\accounts\contact_info.html:191
+#: .\templates\accounts\create_password.html:230
+#: .\templates\accounts\signup_address.html:294
+#: .\templates\accounts\signup_business_info.html:296
+#: .\templates\accounts\signup_country_new.html:271
+#: .\templates\accounts\signup_details.html:179
 #: .\templates\accounts\signup_email.html:235
-#: .\templates\accounts\signup_password.html:361
-#: .\templates\accounts\signup_personal_info.html:303
-#: .\templates\accounts\signup_phone.html:300
+#: .\templates\accounts\signup_password.html:352
+#: .\templates\accounts\signup_personal_info.html:294
+#: .\templates\accounts\signup_phone.html:351
 #: .\templates\accounts\signup_steps.html:271
 msgid "Back"
 msgstr ""
 
-#: .\templates\accounts\basic_info.html:228
-#: .\templates\accounts\contact_info.html:200
-#: .\templates\accounts\create_password.html:239
-#: .\templates\accounts\signup_country_new.html:291
+#: .\templates\accounts\basic_info.html:220
+#: .\templates\accounts\contact_info.html:192
+#: .\templates\accounts\create_password.html:231
+#: .\templates\accounts\signup_country_new.html:274
 #: .\templates\accounts\signup_email.html:238
-#: .\templates\accounts\signup_password.html:364
-#: .\templates\accounts\signup_personal_info.html:306
-#: .\templates\accounts\signup_phone.html:303
+#: .\templates\accounts\signup_password.html:355
+#: .\templates\accounts\signup_personal_info.html:297
+#: .\templates\accounts\signup_phone.html:354
 #: .\templates\accounts\signup_step1.html:259
 #: .\templates\accounts\signup_steps.html:272
 msgid "Continue"
 msgstr ""
 
-#: .\templates\accounts\contact_info.html:8
-msgid "Contact Information - PayPal"
+#: .\templates\accounts\change_password.html:7
+#: .\templates\accounts\change_password.html:45
+#: .\templates\accounts\change_password.html:109
+#: .\templates\home\security_center.html:444
+msgid "Change Password"
 msgstr ""
 
-#: .\templates\accounts\contact_info.html:180
+#: .\templates\accounts\change_password.html:54
+msgid "Update your password"
+msgstr ""
+
+#: .\templates\accounts\change_password.html:71
+msgid "Current password"
+msgstr ""
+
+#: .\templates\accounts\change_password.html:74
+#: .\templates\accounts\change_password.html:86
+#: .\templates\accounts\change_password.html:99
+msgid "Show password"
+msgstr ""
+
+#: .\templates\accounts\change_password.html:83
+msgid "New password"
+msgstr ""
+
+#: .\templates\accounts\change_password.html:96
+msgid "Confirm new password"
+msgstr ""
+
+#: .\templates\accounts\contact_info.html:8
+msgid "Contact Information - ICICI Bank"
+msgstr ""
+
+#: .\templates\accounts\contact_info.html:172
 msgid "Contact Information"
 msgstr ""
 
-#: .\templates\accounts\contact_info.html:181
+#: .\templates\accounts\contact_info.html:173
 msgid "We'll use this to verify your identity and send you important updates"
 msgstr ""
 
-#: .\templates\accounts\contact_info.html:188
-#: .\templates\accounts\signup_details.html:238
-#: .\templates\accounts\signup_phone.html:283
+#: .\templates\accounts\contact_info.html:180
+#: .\templates\accounts\signup_details.html:229
+#: .\templates\accounts\signup_phone.html:329
 #: .\templates\accounts\signup_steps.html:244
 msgid "Phone number"
 msgstr ""
 
 #: .\templates\accounts\create_password.html:8
-msgid "Create Password - PayPal"
+msgid "Create Password - ICICI Bank"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:204
+#: .\templates\accounts\create_password.html:196
 msgid "Create a secure password"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:205
-#: .\templates\accounts\signup_password.html:301
+#: .\templates\accounts\create_password.html:197
+#: .\templates\accounts\signup_password.html:292
 msgid "Choose a strong password to protect your account"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:212
-#: .\templates\accounts\signup_details.html:265
-#: .\templates\accounts\signup_password.html:300
+#: .\templates\accounts\create_password.html:204
+#: .\templates\accounts\signup_details.html:256
+#: .\templates\accounts\signup_password.html:291
 #: .\templates\accounts\signup_steps.html:255
 msgid "Create a password"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:219
-#: .\templates\accounts\signup_details.html:272
+#: .\templates\accounts\create_password.html:211
+#: .\templates\accounts\signup_details.html:263
 msgid "Password requirements:"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:221
-#: .\templates\accounts\signup_details.html:274
-#: .\templates\accounts\signup_password.html:332
+#: .\templates\accounts\create_password.html:213
+#: .\templates\accounts\signup_details.html:265
+#: .\templates\accounts\signup_password.html:323
 msgid "At least 8 characters long"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:222
-#: .\templates\accounts\signup_details.html:275
+#: .\templates\accounts\create_password.html:214
+#: .\templates\accounts\signup_details.html:266
 msgid "Contains both letters and numbers"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:223
-#: .\templates\accounts\signup_details.html:276
+#: .\templates\accounts\create_password.html:215
+#: .\templates\accounts\signup_details.html:267
 msgid "Not your name or email"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:224
-#: .\templates\accounts\signup_details.html:277
+#: .\templates\accounts\create_password.html:216
+#: .\templates\accounts\signup_details.html:268
 msgid "Not a common password"
 msgstr ""
 
-#: .\templates\accounts\create_password.html:230
-#: .\templates\accounts\signup_details.html:283
-#: .\templates\accounts\signup_password.html:320
+#: .\templates\accounts\create_password.html:222
+#: .\templates\accounts\signup_details.html:274
+#: .\templates\accounts\signup_password.html:311
 #: .\templates\accounts\signup_steps.html:263
 msgid "Confirm your password"
 msgstr ""
 
 #: .\templates\accounts\login.html:8
-msgid "Login - PayPal Sandbox"
+msgid "Login - ICICI Bank"
 msgstr ""
 
-#: .\templates\accounts\login.html:18 .\templates\accounts\settings.html:496
-#: .\templates\partials\header.html:42 .\templates\partials\header.html:71
-msgid "Language"
-msgstr ""
-
-#: .\templates\accounts\login.html:44
+#: .\templates\accounts\login.html:20
 msgid "Login to Your Account"
 msgstr "Inicia sesión en tu cuenta"
 
-#: .\templates\accounts\login.html:47 .\templates\accounts\signup.html:66
-#: .\templates\accounts\signup_address.html:312
-#: .\templates\accounts\signup_business_info.html:314
+#: .\templates\accounts\login.html:41
+msgid "Invalid email or password."
+msgstr ""
+
+#: .\templates\accounts\login.html:48 .\templates\home\contact_us.html:464
+msgid "Email"
+msgstr ""
+
+#: .\templates\accounts\login.html:52 .\templates\accounts\security.html:268
+#: .\templates\accounts\settings.html:377
+#: .\templates\accounts\signup_password.html:298
+msgid "Password"
+msgstr ""
+
+#: .\templates\accounts\login.html:61 .\templates\accounts\signup.html:66
+#: .\templates\accounts\signup_address.html:303
+#: .\templates\accounts\signup_business_info.html:305
 #: .\templates\accounts\signup_email.html:244
-#: .\templates\accounts\signup_password.html:370
-#: .\templates\accounts\signup_personal_info.html:312
-#: .\templates\accounts\signup_phone.html:309
-#: .\templates\accounts\signup_step1.html:263 .\templates\home\index.html:76
+#: .\templates\accounts\signup_password.html:361
+#: .\templates\accounts\signup_personal_info.html:303
+#: .\templates\accounts\signup_phone.html:360
+#: .\templates\accounts\signup_step1.html:263 .\templates\home\index.html:200
 msgid "Log In"
 msgstr "Iniciar sesión"
 
-#: .\templates\accounts\login.html:50
+#: .\templates\accounts\login.html:64
 msgid "Don't have an account?"
 msgstr "¿No tienes una cuenta?"
 
-#: .\templates\accounts\login.html:51 .\templates\accounts\signup.html:62
+#: .\templates\accounts\login.html:65 .\templates\accounts\signup.html:62
 msgid "Sign Up"
 msgstr "Regístrate"
 
 #: .\templates\accounts\phone_verification.html:8
-msgid "Phone Verification - PayPal Sandbox"
+msgid "Phone Verification - ICICI Bank"
 msgstr ""
 
 #: .\templates\accounts\phone_verification.html:126
@@ -435,14 +478,16 @@ msgid "Use code 111111 or 222222"
 msgstr ""
 
 #: .\templates\accounts\security.html:8 .\templates\home\security_center.html:8
-msgid "Security Center - PayPal"
-msgstr ""
+#, fuzzy
+#| msgid "Security Center"
+msgid "Security Center - ICICI Bank"
+msgstr "Centro de seguridad"
 
 #: .\templates\accounts\security.html:241
 #: .\templates\accounts\security.html:255
 #: .\templates\home\security_center.html:324
 #: .\templates\home\security_center.html:337
-#: .\templates\partials\footer.html:53
+#: .\templates\partials\footer.html:51
 msgid "Security Center"
 msgstr "Centro de seguridad"
 
@@ -451,386 +496,411 @@ msgid "Manage your account security settings and monitor activity"
 msgstr "Gestiona la seguridad de tu cuenta y supervisa la actividad"
 
 #: .\templates\accounts\security.html:263
-#: .\templates\accounts\settings.html:365
+#: .\templates\accounts\settings.html:373
 msgid "Security Settings"
 msgstr ""
 
-#: .\templates\accounts\security.html:268
-#: .\templates\accounts\settings.html:369
-#: .\templates\accounts\signup_password.html:307
-msgid "Password"
-msgstr ""
-
 #: .\templates\accounts\security.html:269
-#: .\templates\accounts\settings.html:370
+#: .\templates\accounts\settings.html:378
 msgid "Last changed: Never"
 msgstr ""
 
 #: .\templates\accounts\security.html:272
-#: .\templates\accounts\signup_password.html:465
+#: .\templates\accounts\signup_password.html:456
 msgid "Strong"
 msgstr ""
 
 #: .\templates\accounts\security.html:273
-#: .\templates\accounts\settings.html:372
+#: .\templates\accounts\settings.html:380
 #: .\venv\Lib\site-packages\django\forms\widgets.py:529
 msgid "Change"
 msgstr ""
 
 #: .\templates\accounts\security.html:279
-#: .\templates\accounts\settings.html:387
+#: .\templates\accounts\settings.html:395
 #: .\templates\home\security_center.html:380
 msgid "Two-Factor Authentication"
 msgstr ""
 
 #: .\templates\accounts\security.html:280
-#: .\templates\accounts\security.html:432
+#: .\templates\accounts\security.html:434
 msgid "Add an extra layer of security to your account"
 msgstr ""
 
 #: .\templates\accounts\security.html:283
+#: .\templates\accounts\security.html:488
 msgid "Disabled"
 msgstr ""
 
-#: .\templates\accounts\security.html:293
-#: .\templates\accounts\settings.html:377
+#: .\templates\accounts\security.html:284
+#: .\templates\accounts\security.html:489
+#: .\templates\accounts\settings.html:398
+msgid "Enable"
+msgstr ""
+
+#: .\templates\accounts\security.html:290
+#: .\templates\accounts\settings.html:385
 msgid "Phone Verification"
 msgstr ""
 
-#: .\templates\accounts\security.html:294
-#: .\templates\accounts\settings.html:378
+#: .\templates\accounts\security.html:291
+#: .\templates\accounts\settings.html:386
 #, python-format
 msgid "Phone: %(user.phone|default:\"Not set\")s"
 msgstr ""
 
-#: .\templates\accounts\security.html:298
-#: .\templates\accounts\settings.html:381 .\templates\wallet\dashboard.html:734
-#: .\templates\wallet\dashboard.html:770
+#: .\templates\accounts\security.html:295
+#: .\templates\accounts\settings.html:389 .\templates\wallet\dashboard.html:765
+#: .\templates\wallet\dashboard.html:806
 msgid "Verified"
 msgstr ""
 
-#: .\templates\accounts\security.html:306
-#: .\templates\accounts\settings.html:408
+#: .\templates\accounts\security.html:300
+msgid "Verify"
+msgstr ""
+
+#: .\templates\accounts\security.html:308
+#: .\templates\accounts\settings.html:416
 msgid "Email Notifications"
 msgstr ""
 
-#: .\templates\accounts\security.html:307
-#: .\templates\accounts\settings.html:442
+#: .\templates\accounts\security.html:309
+#: .\templates\accounts\settings.html:450
 msgid "Get notified about security events"
 msgstr ""
 
-#: .\templates\accounts\security.html:320
-#: .\templates\accounts\settings.html:419
+#: .\templates\accounts\security.html:322
+#: .\templates\accounts\settings.html:427
 msgid "SMS Notifications"
 msgstr ""
 
-#: .\templates\accounts\security.html:321
+#: .\templates\accounts\security.html:323
 msgid "Get notified via SMS about important events"
 msgstr ""
 
-#: .\templates\accounts\security.html:334
+#: .\templates\accounts\security.html:336
 msgid "Login Alerts"
 msgstr ""
 
-#: .\templates\accounts\security.html:335
+#: .\templates\accounts\security.html:337
 msgid "Get notified when someone logs into your account"
 msgstr ""
 
-#: .\templates\accounts\security.html:351
+#: .\templates\accounts\security.html:353
+#: .\templates\accounts\security_activity.html:7
+#: .\templates\accounts\security_activity.html:30
 msgid "Recent Activity"
 msgstr "Actividad reciente"
 
-#: .\templates\accounts\security.html:352 .\templates\wallet\dashboard.html:686
+#: .\templates\accounts\security.html:354 .\templates\wallet\dashboard.html:712
 msgid "View All"
 msgstr "Ver todo"
 
-#: .\templates\accounts\security.html:360
+#: .\templates\accounts\security.html:362
 msgid "Successful Login"
 msgstr "Inicio de sesión exitoso"
 
-#: .\templates\accounts\security.html:361
+#: .\templates\accounts\security.html:363
 msgid "Logged in from Chrome on Windows"
 msgstr ""
 
-#: .\templates\accounts\security.html:371
+#: .\templates\accounts\security.html:373
 msgid "Transaction Completed"
 msgstr ""
 
-#: .\templates\accounts\security.html:372
+#: .\templates\accounts\security.html:374
 msgid "Sent $50.00 to john@example.com"
 msgstr ""
 
-#: .\templates\accounts\security.html:382
+#: .\templates\accounts\security.html:384
 msgid "Password Changed"
 msgstr ""
 
-#: .\templates\accounts\security.html:383
+#: .\templates\accounts\security.html:385
 msgid "Password was updated successfully"
 msgstr ""
 
-#: .\templates\accounts\security.html:393
+#: .\templates\accounts\security.html:395
 msgid "Mobile Login"
 msgstr ""
 
-#: .\templates\accounts\security.html:394
+#: .\templates\accounts\security.html:396
 msgid "Logged in from PayPal Mobile App"
 msgstr ""
 
-#: .\templates\accounts\security.html:404
+#: .\templates\accounts\security.html:406
 msgid "Card Added"
 msgstr ""
 
-#: .\templates\accounts\security.html:405
+#: .\templates\accounts\security.html:407
 msgid "New Visa card ending in 1234 was added"
 msgstr ""
 
-#: .\templates\accounts\security.html:415
+#: .\templates\accounts\security.html:417
 msgid "Security Tips"
 msgstr ""
 
-#: .\templates\accounts\security.html:423
+#: .\templates\accounts\security.html:425
 msgid "Use a Strong Password"
 msgstr ""
 
-#: .\templates\accounts\security.html:424
+#: .\templates\accounts\security.html:426
 msgid "Use a combination of letters, numbers, and symbols"
 msgstr ""
 
-#: .\templates\accounts\security.html:431
+#: .\templates\accounts\security.html:433
 #: .\templates\home\security_center.html:409
 msgid "Enable Two-Factor Authentication"
 msgstr ""
 
-#: .\templates\accounts\security.html:439
+#: .\templates\accounts\security.html:441
 msgid "Keep Your Contact Info Updated"
 msgstr ""
 
-#: .\templates\accounts\security.html:440
+#: .\templates\accounts\security.html:442
 msgid "Make sure we can reach you about your account"
 msgstr ""
 
-#: .\templates\accounts\security.html:449
+#: .\templates\accounts\security.html:451
 #: .\templates\home\security_center.html:416
 msgid "Monitor Your Account Regularly"
 msgstr ""
 
-#: .\templates\accounts\security.html:450
+#: .\templates\accounts\security.html:452
 msgid "Check your transaction history frequently"
 msgstr ""
 
-#: .\templates\accounts\security.html:457
+#: .\templates\accounts\security.html:459
 msgid "Log Out When Done"
 msgstr ""
 
-#: .\templates\accounts\security.html:458
+#: .\templates\accounts\security.html:460
 msgid "Always log out from shared computers"
 msgstr ""
 
-#: .\templates\accounts\security.html:465
+#: .\templates\accounts\security.html:467
 msgid "Report Suspicious Activity"
 msgstr ""
 
-#: .\templates\accounts\security.html:466
+#: .\templates\accounts\security.html:468
 msgid "Contact us immediately if you notice anything unusual"
 msgstr ""
 
-#: .\templates\accounts\settings.html:8
-msgid "Account Settings - PayPal"
+#: .\templates\accounts\security.html:493
+msgid "Enabled"
 msgstr ""
 
-#: .\templates\accounts\settings.html:242 .\templates\partials\footer.html:43
+#: .\templates\accounts\security.html:494
+msgid "Disable"
+msgstr ""
+
+#: .\templates\accounts\security_activity.html:37
+#, fuzzy
+#| msgid "Recent Activity"
+msgid "All Recent Activity"
+msgstr "Actividad reciente"
+
+#: .\templates\accounts\security_activity.html:52
+#, fuzzy
+#| msgid "Recent Activity"
+msgid "No recent activity"
+msgstr "Actividad reciente"
+
+#: .\templates\accounts\settings.html:8
+msgid "Account Settings - ICICI Bank"
+msgstr ""
+
+#: .\templates\accounts\settings.html:242 .\templates\partials\footer.html:41
 msgid "Account Settings"
 msgstr ""
 
-#: .\templates\accounts\settings.html:260
+#: .\templates\accounts\settings.html:269
 msgid "Profile"
 msgstr ""
 
-#: .\templates\accounts\settings.html:265 .\templates\partials\header.html:160
-#: .\templates\wallet\dashboard.html:575
+#: .\templates\accounts\settings.html:274 .\templates\home\index.html:223
+#: .\templates\partials\header.html:103 .\templates\wallet\dashboard.html:600
 msgid "Security"
 msgstr ""
 
-#: .\templates\accounts\settings.html:270
+#: .\templates\accounts\settings.html:279
 #: .\templates\notifications\notifications.html:181
 #: .\templates\notifications\notifications.html:194
-#: .\templates\partials\header.html:104
+#: .\templates\partials\header.html:47
 #: .\templates\partials\notifications.html:14
 msgid "Notifications"
 msgstr ""
 
-#: .\templates\accounts\settings.html:275 .\templates\partials\footer.html:91
+#: .\templates\accounts\settings.html:284 .\templates\partials\footer.html:89
 msgid "Privacy"
 msgstr ""
 
-#: .\templates\accounts\settings.html:280
+#: .\templates\accounts\settings.html:289
 msgid "Preferences"
 msgstr ""
 
-#: .\templates\accounts\settings.html:293
+#: .\templates\accounts\settings.html:302
 msgid "Profile Information"
 msgstr ""
 
-#: .\templates\accounts\settings.html:297
+#: .\templates\accounts\settings.html:306
 msgid "Profile Picture"
 msgstr ""
 
-#: .\templates\accounts\settings.html:310
+#: .\templates\accounts\settings.html:319
 msgid "Change Photo"
 msgstr ""
 
-#: .\templates\accounts\settings.html:313
+#: .\templates\accounts\settings.html:322
 msgid "JPG, PNG or GIF. Max size 5MB."
 msgstr ""
 
-#: .\templates\accounts\settings.html:324 .\templates\home\contact_us.html:344
+#: .\templates\accounts\settings.html:332 .\templates\home\contact_us.html:335
+#: .\templates\home\contact_us.html:456
 msgid "First Name"
 msgstr ""
 
-#: .\templates\accounts\settings.html:330 .\templates\home\contact_us.html:350
+#: .\templates\accounts\settings.html:338 .\templates\home\contact_us.html:341
+#: .\templates\home\contact_us.html:460
 msgid "Last Name"
 msgstr ""
 
-#: .\templates\accounts\settings.html:337 .\templates\home\contact_us.html:359
+#: .\templates\accounts\settings.html:345 .\templates\home\contact_us.html:350
 msgid "Email Address"
 msgstr ""
 
-#: .\templates\accounts\settings.html:339
+#: .\templates\accounts\settings.html:347
 msgid "Email cannot be changed"
 msgstr ""
 
-#: .\templates\accounts\settings.html:343 .\templates\home\contact_us.html:365
+#: .\templates\accounts\settings.html:351 .\templates\home\contact_us.html:356
 msgid "Phone Number"
 msgstr ""
 
-#: .\templates\accounts\settings.html:348
+#: .\templates\accounts\settings.html:356
 msgid "Date of Birth"
 msgstr ""
 
-#: .\templates\accounts\settings.html:353
+#: .\templates\accounts\settings.html:361
 msgid "Address"
 msgstr ""
 
-#: .\templates\accounts\settings.html:358
+#: .\templates\accounts\settings.html:366
 msgid "Save Changes"
 msgstr ""
 
-#: .\templates\accounts\settings.html:388
+#: .\templates\accounts\settings.html:396
 msgid "Add an extra layer of security"
 msgstr ""
 
-#: .\templates\accounts\settings.html:390
-msgid "Enable"
-msgstr ""
-
-#: .\templates\accounts\settings.html:395
+#: .\templates\accounts\settings.html:403
 msgid "Login Activity"
 msgstr ""
 
-#: .\templates\accounts\settings.html:396
+#: .\templates\accounts\settings.html:404
 msgid "View recent login attempts"
 msgstr ""
 
-#: .\templates\accounts\settings.html:398
+#: .\templates\accounts\settings.html:406
 msgid "View"
 msgstr ""
 
-#: .\templates\accounts\settings.html:404
+#: .\templates\accounts\settings.html:412
 msgid "Notification Preferences"
 msgstr ""
 
-#: .\templates\accounts\settings.html:409
+#: .\templates\accounts\settings.html:417
 msgid "Receive updates via email"
 msgstr ""
 
-#: .\templates\accounts\settings.html:420
+#: .\templates\accounts\settings.html:428
 msgid "Receive updates via SMS"
 msgstr ""
 
-#: .\templates\accounts\settings.html:430
+#: .\templates\accounts\settings.html:438
 msgid "Transaction Alerts"
 msgstr ""
 
-#: .\templates\accounts\settings.html:431
+#: .\templates\accounts\settings.html:439
 msgid "Get notified about transactions"
 msgstr ""
 
-#: .\templates\accounts\settings.html:441
+#: .\templates\accounts\settings.html:449
 #: .\templates\home\security_center.html:452
 msgid "Security Alerts"
 msgstr ""
 
-#: .\templates\accounts\settings.html:453
+#: .\templates\accounts\settings.html:461
 msgid "Privacy Settings"
 msgstr ""
 
-#: .\templates\accounts\settings.html:457
+#: .\templates\accounts\settings.html:465
 msgid "Profile Visibility"
 msgstr ""
 
-#: .\templates\accounts\settings.html:458
+#: .\templates\accounts\settings.html:466
 msgid "Control who can see your profile"
 msgstr ""
 
-#: .\templates\accounts\settings.html:461
+#: .\templates\accounts\settings.html:469
 msgid "Public"
 msgstr ""
 
-#: .\templates\accounts\settings.html:462
+#: .\templates\accounts\settings.html:470
 msgid "Friends Only"
 msgstr ""
 
-#: .\templates\accounts\settings.html:463
+#: .\templates\accounts\settings.html:471
 msgid "Private"
 msgstr ""
 
-#: .\templates\accounts\settings.html:469
+#: .\templates\accounts\settings.html:477
 msgid "Data Sharing"
 msgstr ""
 
-#: .\templates\accounts\settings.html:470
+#: .\templates\accounts\settings.html:478
 msgid "Allow data sharing with partners"
 msgstr ""
 
-#: .\templates\accounts\settings.html:480
+#: .\templates\accounts\settings.html:488
 msgid "Analytics"
 msgstr ""
 
-#: .\templates\accounts\settings.html:481
+#: .\templates\accounts\settings.html:489
 msgid "Help improve our services"
 msgstr ""
 
-#: .\templates\accounts\settings.html:492
+#: .\templates\accounts\settings.html:500
 msgid "Account Preferences"
 msgstr ""
 
-#: .\templates\accounts\settings.html:510
+#: .\templates\accounts\settings.html:505
 msgid "Currency"
 msgstr ""
 
-#: .\templates\accounts\settings.html:522
+#: .\templates\accounts\settings.html:517
 msgid "Time Zone"
 msgstr ""
 
-#: .\templates\accounts\settings.html:532
+#: .\templates\accounts\settings.html:527
 msgid "Save Preferences"
 msgstr ""
 
 #: .\templates\accounts\signup.html:8
-msgid "Sign Up - PayPal Sandbox"
+msgid "Sign Up - ICICI Bank"
 msgstr ""
 
 #: .\templates\accounts\signup.html:16
-msgid "Create Your PayPal Account"
+msgid "Create Your ICICI Bank Account"
 msgstr ""
 
 #: .\templates\accounts\signup.html:66
-#: .\templates\accounts\signup_address.html:312
-#: .\templates\accounts\signup_business_info.html:314
+#: .\templates\accounts\signup_address.html:303
+#: .\templates\accounts\signup_business_info.html:305
 #: .\templates\accounts\signup_email.html:244
-#: .\templates\accounts\signup_password.html:370
-#: .\templates\accounts\signup_personal_info.html:312
-#: .\templates\accounts\signup_phone.html:309
+#: .\templates\accounts\signup_password.html:361
+#: .\templates\accounts\signup_personal_info.html:303
+#: .\templates\accounts\signup_phone.html:360
 #: .\templates\accounts\signup_step1.html:263
 msgid "Already have an account?"
 msgstr ""
@@ -845,242 +915,238 @@ msgstr ""
 #: .\templates\accounts\signup_phone.html:8
 #: .\templates\accounts\signup_step1.html:8
 #: .\templates\accounts\signup_steps.html:8
-msgid "Create Account - PayPal"
+msgid "Create Account - ICICI Bank"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:257
+#: .\templates\accounts\signup_address.html:248
 msgid "Address information"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:258
+#: .\templates\accounts\signup_address.html:249
 msgid "Where should we send your mail?"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:264
+#: .\templates\accounts\signup_address.html:255
 msgid "Address line 1"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:265
+#: .\templates\accounts\signup_address.html:256
 msgid "Street address, P.O. box, company name"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:266
-#: .\templates\accounts\signup_address.html:344
+#: .\templates\accounts\signup_address.html:257
+#: .\templates\accounts\signup_address.html:335
 msgid "Please enter your address"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:270
+#: .\templates\accounts\signup_address.html:261
 msgid "Address line 2 (Optional)"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:276
+#: .\templates\accounts\signup_address.html:267
 msgid "City"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:277
+#: .\templates\accounts\signup_address.html:268
 msgid "Enter city"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:278
-#: .\templates\accounts\signup_address.html:352
+#: .\templates\accounts\signup_address.html:269
+#: .\templates\accounts\signup_address.html:343
 msgid "Please enter your city"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:281
+#: .\templates\accounts\signup_address.html:272
 msgid "Postal code"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:282
+#: .\templates\accounts\signup_address.html:273
 msgid "Enter postal code"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:283
-#: .\templates\accounts\signup_address.html:360
+#: .\templates\accounts\signup_address.html:274
+#: .\templates\accounts\signup_address.html:351
 msgid "Please enter your postal code"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:288
+#: .\templates\accounts\signup_address.html:279
 msgid "State/Province/Region"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:289
+#: .\templates\accounts\signup_address.html:280
 msgid "Enter state or province"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:290
-#: .\templates\accounts\signup_address.html:368
+#: .\templates\accounts\signup_address.html:281
+#: .\templates\accounts\signup_address.html:359
 msgid "Please enter your state or province"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:296
-#: .\templates\accounts\signup_business_info.html:298
+#: .\templates\accounts\signup_address.html:287
+#: .\templates\accounts\signup_business_info.html:289
 msgid "I agree to the"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:296
+#: .\templates\accounts\signup_address.html:287
 msgid "PayPal User Agreement"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:296
-#: .\templates\accounts\signup_business_info.html:298
+#: .\templates\accounts\signup_address.html:287
+#: .\templates\accounts\signup_business_info.html:289
 #: .\venv\Lib\site-packages\django\db\models\base.py:1600
 #: .\venv\Lib\site-packages\django\forms\models.py:908
 msgid "and"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:296
-#: .\templates\accounts\signup_business_info.html:298
-#: .\templates\home\security_center.html:391
-#: .\templates\partials\footer.html:75
+#: .\templates\accounts\signup_address.html:287
+#: .\templates\accounts\signup_business_info.html:289
+#: .\templates\home\index.html:229 .\templates\home\security_center.html:391
+#: .\templates\partials\footer.html:73
 msgid "Privacy Policy"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:297
-#: .\templates\accounts\signup_business_info.html:299
+#: .\templates\accounts\signup_address.html:288
+#: .\templates\accounts\signup_business_info.html:290
 msgid ""
 "I also agree to receive important account-related communications via email "
 "and SMS."
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:306
-#: .\templates\accounts\signup_business_info.html:308
+#: .\templates\accounts\signup_address.html:297
+#: .\templates\accounts\signup_business_info.html:299
 msgid "Agree and Create Account"
 msgstr ""
 
-#: .\templates\accounts\signup_address.html:376
-#: .\templates\accounts\signup_business_info.html:378
+#: .\templates\accounts\signup_address.html:367
+#: .\templates\accounts\signup_business_info.html:369
 msgid "Please agree to the terms and conditions to continue"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:252
+#: .\templates\accounts\signup_business_info.html:243
 msgid "Business information"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:253
+#: .\templates\accounts\signup_business_info.html:244
 msgid "Tell us about your business"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:259
+#: .\templates\accounts\signup_business_info.html:250
 msgid "Business name"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:261
-#: .\templates\accounts\signup_business_info.html:346
+#: .\templates\accounts\signup_business_info.html:252
+#: .\templates\accounts\signup_business_info.html:337
 msgid "Please enter your business name"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:265
+#: .\templates\accounts\signup_business_info.html:256
 msgid "Business type"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:267
+#: .\templates\accounts\signup_business_info.html:258
 msgid "Select business type"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:268
+#: .\templates\accounts\signup_business_info.html:259
 msgid "Sole Proprietorship"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:269
+#: .\templates\accounts\signup_business_info.html:260
 msgid "Partnership"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:270
+#: .\templates\accounts\signup_business_info.html:261
 msgid "Corporation"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:271
+#: .\templates\accounts\signup_business_info.html:262
 msgid "Limited Liability Company (LLC)"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:272
+#: .\templates\accounts\signup_business_info.html:263
 msgid "Non-profit Organization"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:273
-#: .\templates\home\contact_us.html:380
+#: .\templates\accounts\signup_business_info.html:264
+#: .\templates\home\contact_us.html:371
 msgid "Other"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:275
-#: .\templates\accounts\signup_business_info.html:354
+#: .\templates\accounts\signup_business_info.html:266
+#: .\templates\accounts\signup_business_info.html:345
 msgid "Please select your business type"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:279
+#: .\templates\accounts\signup_business_info.html:270
 msgid "Business location"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:281
-#: .\templates\accounts\signup_business_info.html:362
+#: .\templates\accounts\signup_business_info.html:272
+#: .\templates\accounts\signup_business_info.html:353
 msgid "Please enter your business location"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:285
+#: .\templates\accounts\signup_business_info.html:276
 msgid "Business address"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:287
-#: .\templates\accounts\signup_business_info.html:370
+#: .\templates\accounts\signup_business_info.html:278
+#: .\templates\accounts\signup_business_info.html:361
 msgid "Please enter your business address"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:291
+#: .\templates\accounts\signup_business_info.html:282
 msgid "Business website (Optional)"
 msgstr ""
 
-#: .\templates\accounts\signup_business_info.html:298
+#: .\templates\accounts\signup_business_info.html:289
 msgid "PayPal Business User Agreement"
 msgstr ""
 
+#: .\templates\accounts\signup_country_new.html:250
 #: .\templates\accounts\signup_country_new.html:259
-#: .\templates\accounts\signup_country_new.html:268
 msgid "Select your country"
 msgstr ""
 
-#: .\templates\accounts\signup_country_new.html:260
+#: .\templates\accounts\signup_country_new.html:251
 msgid "Choose your country to continue"
 msgstr ""
 
-#: .\templates\accounts\signup_country_new.html:266
+#: .\templates\accounts\signup_country_new.html:257
 msgid "Country"
 msgstr ""
 
-#: .\templates\accounts\signup_country_new.html:275
+#: .\templates\accounts\signup_country_new.html:266
 msgid "Please select your country"
 msgstr ""
 
-#: .\templates\accounts\signup_country_new.html:278
-msgid "Preferred language"
-msgstr ""
-
-#: .\templates\accounts\signup_details.html:190
+#: .\templates\accounts\signup_details.html:182
 msgid "Create your account"
 msgstr ""
 
-#: .\templates\accounts\signup_details.html:191
+#: .\templates\accounts\signup_details.html:183
 #, python-format
 msgid "Fill in your details to complete your %(account_type)s account"
 msgstr ""
 
-#: .\templates\accounts\signup_details.html:249
+#: .\templates\accounts\signup_details.html:240
 msgid "Date of birth (optional)"
 msgstr ""
 
-#: .\templates\accounts\signup_details.html:257
+#: .\templates\accounts\signup_details.html:248
 msgid "Address (optional)"
 msgstr ""
 
-#: .\templates\accounts\signup_details.html:290 .\templates\home\index.html:75
+#: .\templates\accounts\signup_details.html:281 .\templates\home\index.html:199
 msgid "Create Account"
 msgstr ""
 
-#: .\templates\accounts\signup_email.html:215
+#: .\templates\accounts\signup_email.html:206
 #: .\templates\accounts\signup_step1.html:222
-msgid "Create your PayPal account"
+msgid "Create your ICICI Bank account"
 msgstr ""
 
-#: .\templates\accounts\signup_email.html:216
+#: .\templates\accounts\signup_email.html:207
 msgid "Enter your email address to get started"
 msgstr ""
 
@@ -1104,140 +1170,139 @@ msgstr ""
 msgid "Email addresses do not match"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:309
+#: .\templates\accounts\signup_password.html:300
 msgid "Enter your password"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:314
-#: .\templates\accounts\signup_password.html:488
+#: .\templates\accounts\signup_password.html:305
+#: .\templates\accounts\signup_password.html:479
 msgid "Password does not meet requirements"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:318
+#: .\templates\accounts\signup_password.html:309
 msgid "Confirm password"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:325
-#: .\templates\accounts\signup_password.html:494
+#: .\templates\accounts\signup_password.html:316
+#: .\templates\accounts\signup_password.html:485
 msgid "Passwords do not match"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:329
+#: .\templates\accounts\signup_password.html:320
 msgid "Password Requirements:"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:336
+#: .\templates\accounts\signup_password.html:327
 msgid "Contains uppercase letter"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:340
+#: .\templates\accounts\signup_password.html:331
 msgid "Contains lowercase letter"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:344
+#: .\templates\accounts\signup_password.html:335
 msgid "Contains number"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:348
+#: .\templates\accounts\signup_password.html:339
 msgid "Contains special character"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:356
+#: .\templates\accounts\signup_password.html:347
 msgid "Enter a password"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:453
+#: .\templates\accounts\signup_password.html:444
 msgid "Weak"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:457
+#: .\templates\accounts\signup_password.html:448
 msgid "Fair"
 msgstr ""
 
-#: .\templates\accounts\signup_password.html:461
+#: .\templates\accounts\signup_password.html:452
 msgid "Good"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:258
+#: .\templates\accounts\signup_personal_info.html:249
 msgid "Personal information"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:265
+#: .\templates\accounts\signup_personal_info.html:256
 msgid "Nationality"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:267
+#: .\templates\accounts\signup_personal_info.html:258
 msgid "Select your nationality"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:272
-#: .\templates\accounts\signup_personal_info.html:394
+#: .\templates\accounts\signup_personal_info.html:263
+#: .\templates\accounts\signup_personal_info.html:385
 msgid "Please select your nationality"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:278
+#: .\templates\accounts\signup_personal_info.html:269
 msgid "Enter your first name"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:279
-#: .\templates\accounts\signup_personal_info.html:378
+#: .\templates\accounts\signup_personal_info.html:270
+#: .\templates\accounts\signup_personal_info.html:369
 msgid "Please enter your first name"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:283
+#: .\templates\accounts\signup_personal_info.html:274
 msgid "Enter your last name"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:284
-#: .\templates\accounts\signup_personal_info.html:386
+#: .\templates\accounts\signup_personal_info.html:275
+#: .\templates\accounts\signup_personal_info.html:377
 msgid "Please enter your last name"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:289
+#: .\templates\accounts\signup_personal_info.html:280
 msgid "Date of birth"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:296
+#: .\templates\accounts\signup_personal_info.html:287
 msgid "You must be at least 16 years old to create a PayPal account."
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:298
+#: .\templates\accounts\signup_personal_info.html:289
 msgid "Please enter a valid date of birth"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:402
+#: .\templates\accounts\signup_personal_info.html:393
 msgid "Please enter your date of birth"
 msgstr ""
 
-#: .\templates\accounts\signup_personal_info.html:405
+#: .\templates\accounts\signup_personal_info.html:396
 msgid "You must be at least 16 years old"
 msgstr ""
 
-#: .\templates\accounts\signup_phone.html:276
+#: .\templates\accounts\signup_phone.html:322
 msgid "Add your phone number"
 msgstr ""
 
-#: .\templates\accounts\signup_phone.html:277
+#: .\templates\accounts\signup_phone.html:323
 msgid "We'll send you a verification code"
 msgstr ""
 
-#: .\templates\accounts\signup_phone.html:286
+#: .\templates\accounts\signup_phone.html:333
 msgid "Select Country"
 msgstr ""
 
-#: .\templates\accounts\signup_phone.html:293
 #: .\templates\accounts\signup_phone.html:344
-#: .\templates\accounts\signup_phone.html:346
+#: .\templates\accounts\signup_phone.html:415
 msgid "Enter phone number"
 msgstr ""
 
-#: .\templates\accounts\signup_phone.html:295
-#: .\templates\accounts\signup_phone.html:359
-#: .\templates\accounts\signup_phone.html:378
+#: .\templates\accounts\signup_phone.html:346
+#: .\templates\accounts\signup_phone.html:454
+#: .\templates\accounts\signup_phone.html:473
 msgid "Please enter a valid phone number"
 msgstr ""
 
-#: .\templates\accounts\signup_phone.html:372
+#: .\templates\accounts\signup_phone.html:467
 msgid "Please select a country"
 msgstr ""
 
@@ -1253,39 +1318,39 @@ msgstr ""
 msgid "Make your account more personal (optional)"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:220
+#: .\templates\accounts\signup_profile_picture.html:229
 msgid "Step 8 of 8 - Almost done!"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:232
+#: .\templates\accounts\signup_profile_picture.html:241
 msgid "Choose Photo"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:239
+#: .\templates\accounts\signup_profile_picture.html:248
 msgid "Skip for now"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:251
+#: .\templates\accounts\signup_profile_picture.html:260
 msgid "Complete Signup"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:257
+#: .\templates\accounts\signup_profile_picture.html:266
 msgid "Tips for a great profile picture:"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:259
+#: .\templates\accounts\signup_profile_picture.html:268
 msgid "Use a clear, well-lit photo"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:260
+#: .\templates\accounts\signup_profile_picture.html:269
 msgid "Make sure your face is visible"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:261
+#: .\templates\accounts\signup_profile_picture.html:270
 msgid "Keep it professional and friendly"
 msgstr ""
 
-#: .\templates\accounts\signup_profile_picture.html:262
+#: .\templates\accounts\signup_profile_picture.html:271
 msgid "File size should be under 5MB"
 msgstr ""
 
@@ -1345,8 +1410,99 @@ msgstr ""
 msgid "Please select an account type"
 msgstr ""
 
+#: .\templates\admin\transactions\change_list_with_grouped_link.html:8
+msgid "Grouped by User"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:3
+msgid "Transactions Grouped by User"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:8
+msgid "Search"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:9
+#: .\venv\Lib\site-packages\django\forms\widgets.py:527
+msgid "Clear"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:16
+msgid "User"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:17
+msgid "Total"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:19
+#: .\templates\rewards\rewards_dashboard.html:242
+#: .\templates\transactions\history.html:182
+#: .\templates\transactions\history.html:269
+msgid "Completed"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:20
+#: .\templates\admin\transactions\grouped_by_user_detail.html:19
+#: .\templates\transactions\history.html:238
+msgid "Actions"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:34
+msgid "View Transactions"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user.html:38
+msgid "No results"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:4
+msgid "Transactions for"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:9
+msgid "Back to grouped list"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:10
+msgid "All Transactions"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:15
+#: .\templates\rewards\rewards_dashboard.html:231
+#: .\templates\transactions\history.html:235
+msgid "Amount"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:16
+#: .\templates\rewards\rewards_dashboard.html:229
+#: .\templates\transactions\history.html:234
+msgid "Type"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:17
+#: .\templates\rewards\rewards_dashboard.html:88
+#: .\templates\rewards\rewards_dashboard.html:228
+#: .\templates\transactions\history.html:178
+#: .\templates\transactions\history.html:236
+msgid "Status"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:18
+#: .\templates\rewards\rewards_dashboard.html:227
+msgid "Date"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:30
+msgid "View / Approve / Reject"
+msgstr ""
+
+#: .\templates\admin\transactions\grouped_by_user_detail.html:34
+msgid "No transactions"
+msgstr ""
+
 #: .\templates\home\accessibility.html:7 .\templates\home\accessibility.html:10
-#: .\templates\partials\footer.html:55 .\templates\partials\footer.html:97
+#: .\templates\partials\footer.html:53 .\templates\partials\footer.html:95
 msgid "Accessibility"
 msgstr ""
 
@@ -1355,11 +1511,11 @@ msgid "Our commitment to accessible experiences for everyone."
 msgstr ""
 
 #: .\templates\home\contact_us.html:8
-msgid "Contact Us - PayPal"
+msgid "Contact Us - ICICI Bank"
 msgstr ""
 
 #: .\templates\home\contact_us.html:282 .\templates\home\contact_us.html:295
-#: .\templates\partials\footer.html:52
+#: .\templates\home\index.html:222 .\templates\partials\footer.html:50
 msgid "Contact Us"
 msgstr ""
 
@@ -1367,150 +1523,140 @@ msgstr ""
 msgid "We're here to help you with any questions or concerns"
 msgstr ""
 
-#: .\templates\home\contact_us.html:306
-msgid "Call Us"
-msgstr ""
-
-#: .\templates\home\contact_us.html:307
-msgid ""
-"Speak with our support team directly for immediate assistance with your "
-"account or transactions."
-msgstr ""
-
-#: .\templates\home\contact_us.html:309
-msgid "Call Now"
-msgstr ""
-
-#: .\templates\home\contact_us.html:317
+#: .\templates\home\contact_us.html:308
 msgid "Email Support"
 msgstr ""
 
-#: .\templates\home\contact_us.html:318
+#: .\templates\home\contact_us.html:309
 msgid ""
 "Send us a detailed message and we'll get back to you within 24 hours with a "
 "comprehensive response."
 msgstr ""
 
-#: .\templates\home\contact_us.html:320
+#: .\templates\home\contact_us.html:311
 msgid "Send Email"
 msgstr ""
 
-#: .\templates\home\contact_us.html:329
+#: .\templates\home\contact_us.html:320
 msgid ""
 "Chat with our support agents in real-time for quick answers to your "
 "questions and immediate help."
 msgstr ""
 
-#: .\templates\home\contact_us.html:331 .\templates\home\contact_us.html:484
+#: .\templates\home\contact_us.html:322 .\templates\home\contact_us.html:475
 msgid "Start Chat"
 msgstr ""
 
-#: .\templates\home\contact_us.html:338
+#: .\templates\home\contact_us.html:329
 msgid "Send us a Message"
 msgstr ""
 
-#: .\templates\home\contact_us.html:374
+#: .\templates\home\contact_us.html:365
 msgid "Select a topic"
 msgstr ""
 
-#: .\templates\home\contact_us.html:375
+#: .\templates\home\contact_us.html:366
 msgid "Account Issues"
 msgstr ""
 
-#: .\templates\home\contact_us.html:376
+#: .\templates\home\contact_us.html:367
 msgid "Payment Problems"
 msgstr ""
 
-#: .\templates\home\contact_us.html:377
+#: .\templates\home\contact_us.html:368
 #, fuzzy
 #| msgid "Security Center"
 msgid "Security Concerns"
 msgstr "Centro de seguridad"
 
-#: .\templates\home\contact_us.html:378
+#: .\templates\home\contact_us.html:369
 msgid "Transaction Dispute"
 msgstr ""
 
-#: .\templates\home\contact_us.html:379
+#: .\templates\home\contact_us.html:370
 msgid "Technical Support"
 msgstr ""
 
-#: .\templates\home\contact_us.html:385
+#: .\templates\home\contact_us.html:376
 msgid "Message"
 msgstr ""
 
-#: .\templates\home\contact_us.html:386
+#: .\templates\home\contact_us.html:377
 msgid "Please describe your issue in detail..."
 msgstr ""
 
-#: .\templates\home\contact_us.html:390
+#: .\templates\home\contact_us.html:381
 msgid "Send Message"
 msgstr ""
 
-#: .\templates\home\contact_us.html:397
+#: .\templates\home\contact_us.html:388
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: .\templates\home\contact_us.html:402
+#: .\templates\home\contact_us.html:393
 msgid "How do I reset my password?"
 msgstr ""
 
-#: .\templates\home\contact_us.html:405
+#: .\templates\home\contact_us.html:396
 msgid ""
 "Go to the login page and click 'Forgot Password'. Enter your email address "
 "and follow the instructions sent to your inbox to reset your password "
 "securely."
 msgstr ""
 
-#: .\templates\home\contact_us.html:412
+#: .\templates\home\contact_us.html:403
 msgid "How long does it take to receive money?"
 msgstr ""
 
-#: .\templates\home\contact_us.html:415
+#: .\templates\home\contact_us.html:406
 msgid ""
 "Money sent to other PayPal users is available immediately. Bank transfers "
 "typically take 1-3 business days depending on your bank's processing time."
 msgstr ""
 
-#: .\templates\home\contact_us.html:422
+#: .\templates\home\contact_us.html:413
 msgid "How do I dispute a transaction?"
 msgstr ""
 
-#: .\templates\home\contact_us.html:425
+#: .\templates\home\contact_us.html:416
 msgid ""
 "Go to your transaction history, find the transaction you want to dispute, "
 "and click 'Dispute Transaction'. Follow the prompts to start the resolution "
 "process."
 msgstr ""
 
-#: .\templates\home\contact_us.html:432
+#: .\templates\home\contact_us.html:423
 msgid "Is my financial information secure?"
 msgstr ""
 
-#: .\templates\home\contact_us.html:435
+#: .\templates\home\contact_us.html:426
 msgid ""
 "Yes, we use bank-level encryption and security measures to protect your "
 "financial information. We never share your data with third parties without "
 "your consent."
 msgstr ""
 
-#: .\templates\home\contact_us.html:442
+#: .\templates\home\contact_us.html:433
 msgid "How do I close my account?"
 msgstr ""
 
-#: .\templates\home\contact_us.html:445
+#: .\templates\home\contact_us.html:436
 msgid ""
 "To close your account, please contact our support team. Make sure to "
 "withdraw any remaining balance first, as this action cannot be undone."
 msgstr ""
 
-#: .\templates\home\contact_us.html:458
+#: .\templates\home\contact_us.html:449
 msgid "Start Live Chat"
+msgstr ""
+
+#: .\templates\home\contact_us.html:468
+msgid "How can we help you?"
 msgstr ""
 
 #: .\templates\home\dispute_resolution.html:7
 #: .\templates\home\dispute_resolution.html:10
-#: .\templates\partials\footer.html:54
+#: .\templates\partials\footer.html:52
 msgid "Dispute Resolution"
 msgstr ""
 
@@ -1519,11 +1665,13 @@ msgid "Resolve issues with transactions and payments."
 msgstr ""
 
 #: .\templates\home\help_center.html:8
-msgid "Help Center - PayPal"
-msgstr ""
+#, fuzzy
+#| msgid "Security Center"
+msgid "Help Center - ICICI Bank"
+msgstr "Centro de seguridad"
 
 #: .\templates\home\help_center.html:262 .\templates\home\help_center.html:275
-#: .\templates\partials\footer.html:51
+#: .\templates\home\index.html:221 .\templates\partials\footer.html:49
 #, fuzzy
 #| msgid "Security Center"
 msgid "Help Center"
@@ -1569,7 +1717,7 @@ msgstr "Centro de seguridad"
 msgid "Keep your account secure and learn about our privacy practices."
 msgstr ""
 
-#: .\templates\home\help_center.html:321 .\templates\partials\footer.html:63
+#: .\templates\home\help_center.html:321 .\templates\partials\footer.html:61
 msgid "Business Solutions"
 msgstr ""
 
@@ -1613,77 +1761,166 @@ msgstr ""
 msgid "Contact Support"
 msgstr ""
 
-#: .\templates\home\index.html:8
-msgid "PayPal Sandbox"
-msgstr ""
-
-#: .\templates\home\index.html:16
-msgid "Join millions of people using PayPal — simple, secure, worldwide."
-msgstr ""
-
-#: .\templates\home\index.html:22
-msgid "Welcome to PayPal Sandbox"
-msgstr ""
-
-#: .\templates\home\index.html:23
-msgid "Securely send, receive, and manage payments online."
-msgstr ""
-
-#: .\templates\home\index.html:25
-msgid "Get Started"
+#: .\templates\home\index.html:8 .\templates\partials\header.html:7
+#: .\templates\wallet\dashboard.html:571
+msgid "ICICI Bank"
 msgstr ""
 
 #: .\templates\home\index.html:26
+msgid "Join millions banking with ICICI Bank — simple, secure, worldwide."
+msgstr ""
+
+#: .\templates\home\index.html:45
+msgid "Welcome to ICICI Bank"
+msgstr ""
+
+#: .\templates\home\index.html:46
+msgid "Securely send, receive, and manage payments online."
+msgstr ""
+
+#: .\templates\home\index.html:50
+msgid "Million+"
+msgstr ""
+
+#: .\templates\home\index.html:51
+msgid "Users"
+msgstr ""
+
+#: .\templates\home\index.html:55
+msgid "Countries"
+msgstr ""
+
+#: .\templates\home\index.html:56
+msgid "Supported"
+msgstr ""
+
+#: .\templates\home\index.html:60
+#, python-format
+msgid "%%"
+msgstr ""
+
+#: .\templates\home\index.html:61
+msgid "Uptime"
+msgstr ""
+
+#: .\templates\home\index.html:65
+msgid "Get Started"
+msgstr ""
+
+#: .\templates\home\index.html:66
 msgid "Login"
 msgstr ""
 
-#: .\templates\home\index.html:33
-msgid "Do more with PayPal"
+#: .\templates\home\index.html:73
+msgid "Do more with ICICI Bank"
 msgstr ""
 
-#: .\templates\home\index.html:37
+#: .\templates\home\index.html:79
 msgid "Send & Receive"
 msgstr ""
 
-#: .\templates\home\index.html:38
+#: .\templates\home\index.html:80
 msgid "Move money securely to friends, family, and businesses worldwide."
 msgstr ""
 
-#: .\templates\home\index.html:42
+#: .\templates\home\index.html:87
 msgid "Checkout Faster"
 msgstr ""
 
-#: .\templates\home\index.html:43
+#: .\templates\home\index.html:88
 msgid ""
 "Pay quickly at millions of stores without sharing your full card details."
 msgstr ""
 
-#: .\templates\home\index.html:47
+#: .\templates\home\index.html:95
 msgid "Buyer Protection"
 msgstr ""
 
-#: .\templates\home\index.html:48
+#: .\templates\home\index.html:96
 msgid "Eligible purchases are covered when things don't go as planned."
 msgstr ""
 
-#: .\templates\home\index.html:52
+#: .\templates\home\index.html:103
 msgid "Global Coverage"
 msgstr ""
 
-#: .\templates\home\index.html:53
+#: .\templates\home\index.html:104
 msgid "Use PayPal across borders with multi-currency support."
 msgstr ""
 
-#: .\templates\home\index.html:61
+#: .\templates\home\index.html:111
+#, fuzzy
+#| msgid "Dashboard"
+msgid "Rewards Program"
+msgstr "Panel"
+
+#: .\templates\home\index.html:112
+msgid "Earn points on every transaction and redeem for exciting rewards."
+msgstr ""
+
+#: .\templates\home\index.html:119
+msgid "Smart Analytics"
+msgstr ""
+
+#: .\templates\home\index.html:120
+msgid "Track your spending patterns with detailed insights and reports."
+msgstr ""
+
+#: .\templates\home\index.html:129
+msgid "What our users say"
+msgstr ""
+
+#: .\templates\home\index.html:176
 msgid "Trusted by leading networks"
 msgstr ""
 
-#: .\templates\home\index.html:72
+#: .\templates\home\index.html:196
 msgid "Ready to get started?"
 msgstr ""
 
-#: .\templates\home\index.html:73
+#: .\templates\home\index.html:197
 msgid "Create an account in minutes and start sending and receiving payments."
+msgstr ""
+
+#: .\templates\home\index.html:211
+msgid "Company"
+msgstr ""
+
+#: .\templates\home\index.html:213
+msgid "About Us"
+msgstr ""
+
+#: .\templates\home\index.html:214
+msgid "Careers"
+msgstr ""
+
+#: .\templates\home\index.html:215
+msgid "Press"
+msgstr ""
+
+#: .\templates\home\index.html:219 .\templates\partials\footer.html:47
+msgid "Support"
+msgstr ""
+
+#: .\templates\home\index.html:227 .\templates\partials\footer.html:71
+msgid "Legal"
+msgstr ""
+
+#: .\templates\home\index.html:230 .\templates\partials\footer.html:74
+msgid "Terms of Service"
+msgstr ""
+
+#: .\templates\home\index.html:231 .\templates\partials\footer.html:75
+msgid "Cookie Policy"
+msgstr ""
+
+#: .\templates\home\index.html:235
+msgid "Connect"
+msgstr ""
+
+#: .\templates\home\security_center.html:328
+#: .\templates\wallet\dashboard.html:613
+msgid "Home"
 msgstr ""
 
 #: .\templates\home\security_center.html:338
@@ -1819,10 +2056,6 @@ msgstr "Inicia sesión en tu cuenta"
 msgid "Strengthen your account security with these quick actions"
 msgstr "Gestiona la seguridad de tu cuenta y supervisa la actividad"
 
-#: .\templates\home\security_center.html:444
-msgid "Change Password"
-msgstr ""
-
 #: .\templates\home\security_center.html:456
 msgid "Login History"
 msgstr ""
@@ -1851,143 +2084,123 @@ msgstr ""
 msgid "You're all caught up! New notifications will appear here."
 msgstr ""
 
-#: .\templates\notifications\notifications.html:252
+#: .\templates\notifications\notifications.html:258
 msgid "Mark as Read"
 msgstr ""
 
-#: .\templates\notifications\notifications.html:267
+#: .\templates\notifications\notifications.html:273
 msgid "Error Loading Notifications"
 msgstr ""
 
-#: .\templates\notifications\notifications.html:268
+#: .\templates\notifications\notifications.html:274
 msgid "Please try refreshing the page."
 msgstr ""
 
-#: .\templates\partials\footer.html:14
-msgid "The safer, easier way to pay and get paid online."
+#: .\templates\partials\footer.html:12
+msgid "A trusted way to pay and get paid online."
 msgstr ""
 
-#: .\templates\partials\footer.html:37
+#: .\templates\partials\footer.html:35
 msgid "Quick Links"
 msgstr ""
 
-#: .\templates\partials\footer.html:40 .\templates\wallet\dashboard.html:589
+#: .\templates\partials\footer.html:38 .\templates\wallet\dashboard.html:614
 msgid "Wallet"
 msgstr ""
 
-#: .\templates\partials\footer.html:41
-#: .\templates\transactions\history.html:129
-#: .\templates\wallet\dashboard.html:667
+#: .\templates\partials\footer.html:39
+#: .\templates\transactions\history.html:135
+#: .\templates\wallet\dashboard.html:693
 msgid "Transaction History"
 msgstr ""
 
-#: .\templates\partials\footer.html:42
+#: .\templates\partials\footer.html:40
 #: .\templates\rewards\rewards_dashboard.html:9
-#: .\templates\wallet\dashboard.html:591
+#: .\templates\wallet\dashboard.html:616
 msgid "Rewards"
 msgstr ""
 
-#: .\templates\partials\footer.html:49
-msgid "Support"
-msgstr ""
-
-#: .\templates\partials\footer.html:61
+#: .\templates\partials\footer.html:59
 msgid "Business"
 msgstr ""
 
-#: .\templates\partials\footer.html:64
+#: .\templates\partials\footer.html:62
 msgid "Merchant Services"
 msgstr ""
 
-#: .\templates\partials\footer.html:65
+#: .\templates\partials\footer.html:63
 msgid "Developer API"
 msgstr ""
 
-#: .\templates\partials\footer.html:66
+#: .\templates\partials\footer.html:64
 msgid "Partner Program"
 msgstr ""
 
-#: .\templates\partials\footer.html:67
+#: .\templates\partials\footer.html:65
 msgid "Enterprise"
 msgstr ""
 
-#: .\templates\partials\footer.html:73
-msgid "Legal"
-msgstr ""
-
 #: .\templates\partials\footer.html:76
-msgid "Terms of Service"
-msgstr ""
-
-#: .\templates\partials\footer.html:77
-msgid "Cookie Policy"
-msgstr ""
-
-#: .\templates\partials\footer.html:78
 msgid "Open Source Licenses"
 msgstr ""
 
-#: .\templates\partials\footer.html:79
+#: .\templates\partials\footer.html:77
 msgid "Compliance"
 msgstr ""
 
-#: .\templates\partials\footer.html:88
+#: .\templates\partials\footer.html:86
 msgid "All rights reserved."
 msgstr ""
 
-#: .\templates\partials\footer.html:93
+#: .\templates\partials\footer.html:91
 msgid "Terms"
 msgstr ""
 
-#: .\templates\partials\footer.html:95
+#: .\templates\partials\footer.html:93
 msgid "Cookies"
 msgstr ""
 
-#: .\templates\partials\footer.html:101
+#: .\templates\partials\footer.html:99
 msgid "English"
 msgstr ""
 
-#: .\templates\partials\footer.html:102
+#: .\templates\partials\footer.html:100
 msgid "Español"
 msgstr ""
 
-#: .\templates\partials\footer.html:103
+#: .\templates\partials\footer.html:101
 msgid "Français"
 msgstr ""
 
-#: .\templates\partials\footer.html:104
+#: .\templates\partials\footer.html:102
 msgid "Deutsch"
 msgstr ""
 
-#: .\templates\partials\footer.html:105
+#: .\templates\partials\footer.html:103
 msgid "Italiano"
 msgstr ""
 
-#: .\templates\partials\footer.html:106
+#: .\templates\partials\footer.html:104
 msgid "Português"
 msgstr ""
 
-#: .\templates\partials\footer.html:107
+#: .\templates\partials\footer.html:105
 msgid "日本語"
 msgstr ""
 
-#: .\templates\partials\footer.html:108
+#: .\templates\partials\footer.html:106
 msgid "中文"
 msgstr ""
 
-#: .\templates\partials\header.html:7 .\templates\wallet\dashboard.html:531
-msgid "PayPal"
-msgstr ""
-
 #: .\templates\partials\header.html:23
-#: .\templates\transactions\history.html:164
-#: .\templates\wallet\dashboard.html:643
+#: .\templates\transactions\history.html:170
+#: .\templates\wallet\dashboard.html:669
 msgid "Send Money"
 msgstr ""
 
 #: .\templates\partials\header.html:28
-#: .\templates\transactions\history.html:166
-#: .\templates\wallet\dashboard.html:659
+#: .\templates\transactions\history.html:172
+#: .\templates\wallet\dashboard.html:615 .\templates\wallet\dashboard.html:685
 msgid "Withdraw"
 msgstr ""
 
@@ -1995,23 +2208,23 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: .\templates\partials\header.html:109
+#: .\templates\partials\header.html:52
 msgid "No new notifications"
 msgstr ""
 
-#: .\templates\partials\header.html:150 .\templates\wallet\dashboard.html:573
+#: .\templates\partials\header.html:93 .\templates\wallet\dashboard.html:598
 msgid "My Wallet"
 msgstr ""
 
-#: .\templates\partials\header.html:155 .\templates\wallet\dashboard.html:574
+#: .\templates\partials\header.html:98 .\templates\wallet\dashboard.html:599
 msgid "Settings"
 msgstr ""
 
-#: .\templates\partials\header.html:165 .\templates\wallet\dashboard.html:576
+#: .\templates\partials\header.html:108 .\templates\wallet\dashboard.html:601
 msgid "Help"
 msgstr ""
 
-#: .\templates\partials\header.html:171 .\templates\wallet\dashboard.html:578
+#: .\templates\partials\header.html:114 .\templates\wallet\dashboard.html:603
 msgid "Logout"
 msgstr ""
 
@@ -2035,510 +2248,479 @@ msgstr ""
 msgid "Conversion Pending"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:20
+#: .\templates\rewards\pending_conversion.html:22
 msgid "Conversion Request Submitted"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:21
+#: .\templates\rewards\pending_conversion.html:23
 msgid ""
 "An agent will confirm your payment receipt. Until then, this request remains "
 "pending."
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:25
-#: .\templates\rewards\rewards_dashboard.html:220
+#: .\templates\rewards\pending_conversion.html:27
+#: .\templates\rewards\rewards_dashboard.html:232
 msgid "Details"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:29
-#: .\templates\rewards\rewards_dashboard.html:74
-#: .\templates\rewards\rewards_dashboard.html:218
+#: .\templates\rewards\pending_conversion.html:31
+#: .\templates\rewards\rewards_dashboard.html:86
+#: .\templates\rewards\rewards_dashboard.html:230
 msgid "Points"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:30
+#: .\templates\rewards\pending_conversion.html:32
 msgid "Blocks"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:31
+#: .\templates\rewards\pending_conversion.html:33
 msgid "Payout"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:32
+#: .\templates\rewards\pending_conversion.html:34
 msgid "Fee"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:37
+#: .\templates\rewards\pending_conversion.html:39
 msgid "Payout Account"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:38
+#: .\templates\rewards\pending_conversion.html:40
 msgid "Receipt Ref"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:40
+#: .\templates\rewards\pending_conversion.html:42
 msgid "Receipt Image"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:48
+#: .\templates\rewards\pending_conversion.html:50
 msgid "Pay Conversion Fee To"
 msgstr ""
 
-#: .\templates\rewards\pending_conversion.html:54
+#: .\templates\rewards\pending_conversion.html:56
 msgid "Back to Rewards"
 msgstr ""
 
-#: .\templates\rewards\rewards.html:7 .\templates\rewards\rewards.html:12
+#: .\templates\rewards\rewards.html:7 .\templates\rewards\rewards.html:31
 msgid "Your Rewards"
 msgstr ""
 
-#: .\templates\rewards\rewards.html:13
+#: .\templates\rewards\rewards.html:32
 #, python-format
 msgid "You currently have <strong>%(reward_points)s</strong> reward points!"
 msgstr ""
 
-#: .\templates\rewards\rewards.html:14
+#: .\templates\rewards\rewards.html:33
 msgid "Redeem Points"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:27
+#: .\templates\rewards\rewards_dashboard.html:39
 #, fuzzy
 #| msgid "Dashboard"
 msgid "Rewards Dashboard"
 msgstr "Panel"
 
-#: .\templates\rewards\rewards_dashboard.html:28
+#: .\templates\rewards\rewards_dashboard.html:40
 msgid ""
 "Convert your points to cash anytime. A conversion fee applies per block."
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:34
+#: .\templates\rewards\rewards_dashboard.html:46
 msgid "Current Points"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:40
+#: .\templates\rewards\rewards_dashboard.html:52
 msgid "Fee per block"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:46
+#: .\templates\rewards\rewards_dashboard.html:58
 msgid "Total Converted"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:58
+#: .\templates\rewards\rewards_dashboard.html:70
 msgid "Conversion"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:60
+#: .\templates\rewards\rewards_dashboard.html:72
 msgid ""
 "A conversion fee is required per block. Provide your payout account and "
 "receipt reference."
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:62
+#: .\templates\rewards\rewards_dashboard.html:74
 msgid "Pay fee to:"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:68
+#: .\templates\rewards\rewards_dashboard.html:80
 #, fuzzy
 #| msgid "Recent Activity"
 msgid "Earn Activities"
 msgstr "Actividad reciente"
 
-#: .\templates\rewards\rewards_dashboard.html:73
+#: .\templates\rewards\rewards_dashboard.html:85
 #, fuzzy
 #| msgid "Recent Activity"
 msgid "Activity"
 msgstr "Actividad reciente"
 
-#: .\templates\rewards\rewards_dashboard.html:75
+#: .\templates\rewards\rewards_dashboard.html:87
 msgid "Frequency"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:76
-#: .\templates\rewards\rewards_dashboard.html:216
-#: .\templates\transactions\history.html:172
-#: .\templates\transactions\history.html:230
-msgid "Status"
-msgstr ""
-
-#: .\templates\rewards\rewards_dashboard.html:77
+#: .\templates\rewards\rewards_dashboard.html:89
 msgid "Action"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:89
+#: .\templates\rewards\rewards_dashboard.html:101
 msgid "Once"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:89
+#: .\templates\rewards\rewards_dashboard.html:101
 msgid "Daily"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:89
+#: .\templates\rewards\rewards_dashboard.html:101
 msgid "Unlimited"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:93
+#: .\templates\rewards\rewards_dashboard.html:105
 msgid "Auto"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:95
+#: .\templates\rewards\rewards_dashboard.html:107
 msgid "Available"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:97
+#: .\templates\rewards\rewards_dashboard.html:109
 msgid "Not available"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:106
+#: .\templates\rewards\rewards_dashboard.html:118
 msgid "Claim"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:110
+#: .\templates\rewards\rewards_dashboard.html:122
 msgid "Automatically awarded"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:122
+#: .\templates\rewards\rewards_dashboard.html:134
 msgid "Convert Points"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:123
+#: .\templates\rewards\rewards_dashboard.html:135
 msgid "Cash credits to your Reward balance"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:132
+#: .\templates\rewards\rewards_dashboard.html:144
 msgid "Points to convert"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:143
+#: .\templates\rewards\rewards_dashboard.html:155
 msgid "Payout account (email/account)"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:147
+#: .\templates\rewards\rewards_dashboard.html:159
 msgid "Receipt reference"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:151
+#: .\templates\rewards\rewards_dashboard.html:163
 msgid "Upload receipt image"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:158
+#: .\templates\rewards\rewards_dashboard.html:170
 msgid "I have paid the conversion fee shown above."
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:164
+#: .\templates\rewards\rewards_dashboard.html:176
 msgid "Convert Now"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:210
+#: .\templates\rewards\rewards_dashboard.html:222
 msgid "Reward Transactions"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:215
-msgid "Date"
-msgstr ""
-
-#: .\templates\rewards\rewards_dashboard.html:217
-#: .\templates\transactions\history.html:228
-msgid "Type"
-msgstr ""
-
-#: .\templates\rewards\rewards_dashboard.html:219
-#: .\templates\transactions\history.html:229
-msgid "Amount"
-msgstr ""
-
-#: .\templates\rewards\rewards_dashboard.html:221
-#: .\templates\transactions\history.html:231
+#: .\templates\rewards\rewards_dashboard.html:233
+#: .\templates\transactions\history.html:237
 msgid "Description"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:230
-#: .\templates\transactions\history.html:176
-#: .\templates\transactions\history.html:263
-msgid "Completed"
-msgstr ""
-
-#: .\templates\rewards\rewards_dashboard.html:231
-#: .\templates\transactions\history.html:177
-#: .\templates\transactions\history.html:267
+#: .\templates\rewards\rewards_dashboard.html:243
+#: .\templates\transactions\history.html:183
+#: .\templates\transactions\history.html:273
 msgid "Declined"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:235
+#: .\templates\rewards\rewards_dashboard.html:247
 msgid "Earn"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:236
+#: .\templates\rewards\rewards_dashboard.html:248
 msgid "Convert"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:237
+#: .\templates\rewards\rewards_dashboard.html:249
 msgid "Activation"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:244
+#: .\templates\rewards\rewards_dashboard.html:256
 msgid "Blocks:"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:244
+#: .\templates\rewards\rewards_dashboard.html:256
 msgid "Fee:"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:244
+#: .\templates\rewards\rewards_dashboard.html:256
 msgid "To:"
 msgstr ""
 
-#: .\templates\rewards\rewards_dashboard.html:250
+#: .\templates\rewards\rewards_dashboard.html:262
 msgid "No reward activity yet."
 msgstr ""
 
 #: .\templates\transactions\history.html:9
-msgid "Transaction History - PayPal"
+msgid "Transaction History - ICICI Bank"
 msgstr ""
 
-#: .\templates\transactions\history.html:145
+#: .\templates\transactions\history.html:151
 msgid "Filters"
 msgstr ""
 
-#: .\templates\transactions\history.html:150
+#: .\templates\transactions\history.html:156
 msgid "Date Range"
 msgstr ""
 
-#: .\templates\transactions\history.html:152
+#: .\templates\transactions\history.html:158
 msgid "All Time"
 msgstr ""
 
-#: .\templates\transactions\history.html:153
+#: .\templates\transactions\history.html:159
 msgid "Today"
 msgstr ""
 
-#: .\templates\transactions\history.html:154
+#: .\templates\transactions\history.html:160
 msgid "This Week"
 msgstr ""
 
-#: .\templates\transactions\history.html:155
+#: .\templates\transactions\history.html:161
 msgid "This Month"
 msgstr ""
 
-#: .\templates\transactions\history.html:156
+#: .\templates\transactions\history.html:162
 msgid "This Year"
 msgstr ""
 
-#: .\templates\transactions\history.html:161
+#: .\templates\transactions\history.html:167
 msgid "Transaction Type"
 msgstr ""
 
-#: .\templates\transactions\history.html:163
+#: .\templates\transactions\history.html:169
 msgid "All Types"
 msgstr ""
 
-#: .\templates\transactions\history.html:165
+#: .\templates\transactions\history.html:171
 msgid "Receive Money"
 msgstr ""
 
-#: .\templates\transactions\history.html:167
+#: .\templates\transactions\history.html:173
 msgid "Deposit"
 msgstr ""
 
-#: .\templates\transactions\history.html:174
+#: .\templates\transactions\history.html:180
 msgid "All Statuses"
 msgstr ""
 
-#: .\templates\transactions\history.html:182
+#: .\templates\transactions\history.html:188
 msgid "Amount Range"
 msgstr ""
 
-#: .\templates\transactions\history.html:185
+#: .\templates\transactions\history.html:191
 msgid "Min"
 msgstr ""
 
-#: .\templates\transactions\history.html:188
+#: .\templates\transactions\history.html:194
 msgid "Max"
 msgstr ""
 
-#: .\templates\transactions\history.html:194
+#: .\templates\transactions\history.html:200
 msgid "Apply Filters"
 msgstr ""
 
-#: .\templates\transactions\history.html:197
+#: .\templates\transactions\history.html:203
 msgid "Clear Filters"
 msgstr ""
 
-#: .\templates\transactions\history.html:209
-#: .\templates\wallet\dashboard.html:592
+#: .\templates\transactions\history.html:215
+#: .\templates\wallet\dashboard.html:617
 msgid "Transactions"
 msgstr ""
 
-#: .\templates\transactions\history.html:214
+#: .\templates\transactions\history.html:220
 msgid "Export"
 msgstr ""
 
-#: .\templates\transactions\history.html:217
+#: .\templates\transactions\history.html:223
 msgid "Print"
 msgstr ""
 
-#: .\templates\transactions\history.html:227
+#: .\templates\transactions\history.html:233
 msgid "Date & Time"
 msgstr ""
 
-#: .\templates\transactions\history.html:232
-msgid "Actions"
-msgstr ""
-
-#: .\templates\transactions\history.html:280
+#: .\templates\transactions\history.html:286
 #, fuzzy
 #| msgid "View All"
 msgid "View Details"
 msgstr "Ver todo"
 
-#: .\templates\transactions\history.html:284
+#: .\templates\transactions\history.html:290
 msgid "Accept Request"
 msgstr ""
 
-#: .\templates\transactions\history.html:284
+#: .\templates\transactions\history.html:290
 msgid "Accept this money request?"
 msgstr ""
 
-#: .\templates\transactions\history.html:287
+#: .\templates\transactions\history.html:293
 msgid "Decline Request"
 msgstr ""
 
-#: .\templates\transactions\history.html:287
+#: .\templates\transactions\history.html:293
 msgid "Decline this money request?"
 msgstr ""
 
-#: .\templates\transactions\history.html:301
+#: .\templates\transactions\history.html:307
 msgid "No Transactions Found"
 msgstr ""
 
-#: .\templates\transactions\history.html:302
+#: .\templates\transactions\history.html:308
 msgid "You haven't made any transactions yet."
 msgstr ""
 
-#: .\templates\transactions\history.html:304
+#: .\templates\transactions\history.html:310
 msgid "Make Your First Transaction"
 msgstr ""
 
-#: .\templates\transactions\history.html:319
+#: .\templates\transactions\history.html:325
 msgid "Transaction Details"
 msgstr ""
 
 #: .\templates\wallet\dashboard.html:9
-msgid "PayPal Dashboard"
-msgstr ""
+#, fuzzy
+#| msgid "Dashboard"
+msgid "ICICI Bank Dashboard"
+msgstr "Panel"
 
-#: .\templates\wallet\dashboard.html:588
-msgid "Home"
-msgstr ""
-
-#: .\templates\wallet\dashboard.html:590 .\templates\wallet\dashboard.html:755
-msgid "Bank Accounts"
-msgstr ""
-
-#: .\templates\wallet\dashboard.html:593
+#: .\templates\wallet\dashboard.html:618
 msgid "Chats"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:606
+#: .\templates\wallet\dashboard.html:632
 msgid "Welcome back,"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:607
+#: .\templates\wallet\dashboard.html:633
 msgid "Here's what's happening with your account today."
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:617
-msgid "PayPal Balance"
+#: .\templates\wallet\dashboard.html:643
+msgid "ICICI Bank Balance"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:620
+#: .\templates\wallet\dashboard.html:646
 msgid "Available for payments and transfers"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:628
+#: .\templates\wallet\dashboard.html:654
 msgid "Reward Balance"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:631
+#: .\templates\wallet\dashboard.html:657
 msgid "Earned from referrals and activities"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:637
+#: .\templates\wallet\dashboard.html:663
 msgid "Quick Actions"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:644
+#: .\templates\wallet\dashboard.html:670
 msgid "Transfer to friends and family"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:651
+#: .\templates\wallet\dashboard.html:677
 msgid "Request Money"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:652
+#: .\templates\wallet\dashboard.html:678
 msgid "Ask someone to pay you"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:660
+#: .\templates\wallet\dashboard.html:686
 msgid "Move money to your bank"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:668
+#: .\templates\wallet\dashboard.html:694
 msgid "View all your transactions"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:676
+#: .\templates\wallet\dashboard.html:702
 msgid "Assign agents and manage chats"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:685
+#: .\templates\wallet\dashboard.html:711
 msgid "Recent Transactions"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:707
+#: .\templates\wallet\dashboard.html:733
 msgid "No transactions yet"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:708
+#: .\templates\wallet\dashboard.html:734
 msgid "Your recent transactions will appear here"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:715
+#: .\templates\wallet\dashboard.html:741
 msgid "Linked Accounts"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:720
+#: .\templates\wallet\dashboard.html:747
 msgid "Credit/Debit Cards"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:731
+#: .\templates\wallet\dashboard.html:749 .\templates\wallet\dashboard.html:774
+#: .\templates\wallet\dashboard.html:779
+msgid "Add Card"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:762
 #, python-format
 msgid "Ending in %(card.masked_number)s"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:732
+#: .\templates\wallet\dashboard.html:763
 #, python-format
 msgid "Expires %(card.expiry_date)s"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:743 .\templates\wallet\dashboard.html:748
-msgid "Add Card"
-msgstr ""
-
-#: .\templates\wallet\dashboard.html:746
+#: .\templates\wallet\dashboard.html:777
 msgid "Link a credit or debit card"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:767
+#: .\templates\wallet\dashboard.html:787
+msgid "Bank Accounts"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:789 .\templates\wallet\dashboard.html:816
+#: .\templates\wallet\dashboard.html:821
+msgid "Add Bank"
+msgstr ""
+
+#: .\templates\wallet\dashboard.html:803
 #, python-format
 msgid "Added %(bank.created_at|date:\"M d, Y\")s"
 msgstr ""
 
-#: .\templates\wallet\dashboard.html:780 .\templates\wallet\dashboard.html:785
-msgid "Add Bank"
-msgstr ""
-
-#: .\templates\wallet\dashboard.html:783
+#: .\templates\wallet\dashboard.html:819
 msgid "Link a bank account for withdrawals"
 msgstr ""
 
@@ -2585,7 +2767,7 @@ msgid "Enter a valid domain name."
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:153
-#: .\venv\Lib\site-packages\django\forms\fields.py:775
+#: .\venv\Lib\site-packages\django\forms\fields.py:774
 msgid "Enter a valid URL."
 msgstr ""
 
@@ -2684,8 +2866,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:514
-#: .\venv\Lib\site-packages\django\forms\fields.py:366
-#: .\venv\Lib\site-packages\django\forms\fields.py:405
+#: .\venv\Lib\site-packages\django\forms\fields.py:365
+#: .\venv\Lib\site-packages\django\forms\fields.py:404
 msgid "Enter a number."
 msgstr ""
 
@@ -3001,50 +3183,50 @@ msgstr ""
 msgid ":?.!"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:95
+#: .\venv\Lib\site-packages\django\forms\fields.py:94
 msgid "This field is required."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:315
+#: .\venv\Lib\site-packages\django\forms\fields.py:314
 msgid "Enter a whole number."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:486
-#: .\venv\Lib\site-packages\django\forms\fields.py:1267
+#: .\venv\Lib\site-packages\django\forms\fields.py:485
+#: .\venv\Lib\site-packages\django\forms\fields.py:1257
 msgid "Enter a valid date."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:509
-#: .\venv\Lib\site-packages\django\forms\fields.py:1268
+#: .\venv\Lib\site-packages\django\forms\fields.py:508
+#: .\venv\Lib\site-packages\django\forms\fields.py:1258
 msgid "Enter a valid time."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:536
+#: .\venv\Lib\site-packages\django\forms\fields.py:535
 msgid "Enter a valid date/time."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:570
+#: .\venv\Lib\site-packages\django\forms\fields.py:569
 msgid "Enter a valid duration."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:571
+#: .\venv\Lib\site-packages\django\forms\fields.py:570
 #, python-brace-format
 msgid "The number of days must be between {min_days} and {max_days}."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:640
+#: .\venv\Lib\site-packages\django\forms\fields.py:639
 msgid "No file was submitted. Check the encoding type on the form."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:641
+#: .\venv\Lib\site-packages\django\forms\fields.py:640
 msgid "No file was submitted."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:642
+#: .\venv\Lib\site-packages\django\forms\fields.py:641
 msgid "The submitted file is empty."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:644
+#: .\venv\Lib\site-packages\django\forms\fields.py:643
 #, python-format
 msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
@@ -3052,38 +3234,38 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:649
+#: .\venv\Lib\site-packages\django\forms\fields.py:648
 msgid "Please either submit a file or check the clear checkbox, not both."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:717
+#: .\venv\Lib\site-packages\django\forms\fields.py:716
 msgid ""
 "Upload a valid image. The file you uploaded was either not an image or a "
 "corrupted image."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:889
-#: .\venv\Lib\site-packages\django\forms\fields.py:975
+#: .\venv\Lib\site-packages\django\forms\fields.py:879
+#: .\venv\Lib\site-packages\django\forms\fields.py:965
 #: .\venv\Lib\site-packages\django\forms\models.py:1592
 #, python-format
 msgid "Select a valid choice. %(value)s is not one of the available choices."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:977
-#: .\venv\Lib\site-packages\django\forms\fields.py:1096
+#: .\venv\Lib\site-packages\django\forms\fields.py:967
+#: .\venv\Lib\site-packages\django\forms\fields.py:1086
 #: .\venv\Lib\site-packages\django\forms\models.py:1590
 msgid "Enter a list of values."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:1097
+#: .\venv\Lib\site-packages\django\forms\fields.py:1087
 msgid "Enter a complete value."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:1339
+#: .\venv\Lib\site-packages\django\forms\fields.py:1329
 msgid "Enter a valid UUID."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\forms\fields.py:1369
+#: .\venv\Lib\site-packages\django\forms\fields.py:1359
 msgid "Enter a valid JSON."
 msgstr ""
 
@@ -3166,10 +3348,6 @@ msgstr ""
 msgid ""
 "%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
 "may be ambiguous or it may not exist."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\widgets.py:527
-msgid "Clear"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\forms\widgets.py:528
@@ -3532,12 +3710,12 @@ msgctxt "String to return when truncating text"
 msgid "%(truncated_text)s…"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\utils\text.py:287
+#: .\venv\Lib\site-packages\django\utils\text.py:282
 msgid "or"
 msgstr ""
 
 #. Translators: This string is used as a separator between list elements
-#: .\venv\Lib\site-packages\django\utils\text.py:306
+#: .\venv\Lib\site-packages\django\utils\text.py:301
 #: .\venv\Lib\site-packages\django\utils\timesince.py:135
 msgid ", "
 msgstr ""

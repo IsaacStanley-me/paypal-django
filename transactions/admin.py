@@ -78,6 +78,7 @@ class TransactionAdmin(admin.ModelAdmin):
     def status_badge(self, obj):
         status_colors = {
             'PENDING': 'orange',
+            'PROCESSING': 'blue',
             'COMPLETED': 'green',
             'DECLINED': 'red',
         }
@@ -189,6 +190,10 @@ class TransactionAdmin(admin.ModelAdmin):
                         'status',
                         'created_at',
                         'description',
+                        'international_fee_status',
+                        'international_fee_percentage',
+                        'international_fee_message',
+                        'voucher_image',
                     )
                 }),
             )
