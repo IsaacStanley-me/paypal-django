@@ -1049,7 +1049,10 @@ def chat_session_view(request, chat_id):
             chat_name = f"{other_user.first_name or ''} {other_user.last_name or ''}".strip() or other_user.email
         else:
             other_user = chat.agent
-            chat_name = f"{other_user.first_name or ''} {other_user.last_name or ''}".strip() or 'Support Agent'
+            if other_user:
+                chat_name = f"{other_user.first_name or ''} {other_user.last_name or ''}".strip() or 'Support Agent'
+            else:
+                chat_name = 'Support Agent (Pending Assignment)'
 
         return render(request, 'accounts/chat_session.html', {
             'chat': chat,
