@@ -344,12 +344,17 @@
             padding: 0.85rem 1.2rem;
             font-size: 0.95rem;
             outline: none;
-            background: #f8f9fa;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .chat-input input::placeholder {
+            color: #888;
         }
 
         .chat-input input:focus {
             border-color: #ff7a00;
-            background: white;
+            background: #1a1a1a;
             box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.15);
         }
 
@@ -429,21 +434,12 @@
             background: #dc3545;
         }
 
-        .message-actions {
-            position: absolute;
-            top: -30px;
-            right: 0;
-            display: none;
-            gap: 0.5rem;
+        .message-content {
+            cursor: pointer;
         }
 
-        .message:hover .message-actions {
-            display: flex;
-        }
-
-        .message.own .message-actions {
-            right: auto;
-            left: 0;
+        .message-content:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -453,7 +449,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'accounts:chat_page' %}">
                 <i class="fas fa-arrow-left me-2"></i>
-                {{ chat_name }}
+                {% if other_user %}{{ chat_name }}{% endif %}
             </a>
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="{% url 'wallet:dashboard' %}">
@@ -492,9 +488,9 @@
                     <button class="voice-recorder-btn" id="voiceRecorderBtn" onclick="toggleVoiceRecording()">
                         <i class="fas fa-microphone"></i>
                     </button>
-                    <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                    <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)" oninput="handleInputChange()">
                 </div>
-                <button class="send-btn" onclick="sendMessage()">
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()" style="display: none;">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
@@ -574,28 +570,11 @@
                     });
                 }
 
-                // Add action buttons for own messages
-                let actionsHtml = '';
-                if (message.is_own) {
-                    const escapedMessage = message.message.replace(/'/g, "\\'").replace(/"/g, '\\"');
-                    actionsHtml = `
-                        <div class="message-actions">
-                            <button class="action-btn edit" onclick="editMessage(${message.id}, '${escapedMessage}')">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="action-btn delete" onclick="deleteMessage(${message.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    `;
-                }
-
                 messageDiv.innerHTML = `
                     <div class="message-avatar" style="background-color: ${avatarColor};">${initials}</div>
-                    <div class="message-content">
+                    <div class="message-content" onclick="selectMessage(${message.id}, ${message.is_own}, '${message.message.replace(/'/g, "\\'").replace(/"/g, '\\"')}')">
                         ${contentHtml}
                         <div class="message-time">${message.timestamp}</div>
-                        ${actionsHtml}
                     </div>
                 `;
 
@@ -638,6 +617,7 @@
                     messageInput.value = '';
                     removeImage();
                     removeAudio();
+                    handleInputChange(); // Reset button states
                     loadMessages();
                 }
             })
@@ -649,6 +629,31 @@
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 sendMessage();
+            }
+        }
+
+        function handleInputChange() {
+            const messageInput = document.getElementById('messageInput');
+            const voiceBtn = document.getElementById('voiceRecorderBtn');
+            const sendBtn = document.getElementById('sendBtn');
+
+            if (messageInput.value.trim().length > 0) {
+                voiceBtn.style.display = 'none';
+                sendBtn.style.display = 'flex';
+            } else {
+                voiceBtn.style.display = 'flex';
+                sendBtn.style.display = 'none';
+            }
+        }
+
+        function selectMessage(messageId, isOwn, messageText) {
+            if (isOwn) {
+                const action = prompt('Select action:\n1. Edit\n2. Delete\n\nEnter 1 or 2:');
+                if (action === '1') {
+                    editMessage(messageId, messageText);
+                } else if (action === '2') {
+                    deleteMessage(messageId);
+                }
             }
         }
 
