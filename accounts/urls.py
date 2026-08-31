@@ -28,8 +28,11 @@ urlpatterns = [
     path('start-live-chat/', views.start_live_chat, name='start_live_chat'),
     path('admin/chat-management/', views.admin_chat_management, name='admin_chat_management'),
     path('chat/', views.chat_page, name='chat_page'),
+    path('chat/<int:chat_id>/', views.chat_session_view, name='chat_session'),
     path('chat/send-message/', views.send_chat_message, name='send_chat_message'),
     path('chat/messages/<int:chat_id>/', views.get_chat_messages, name='get_chat_messages'),
+    path('chat/messages/<int:message_id>/edit/', views.edit_chat_message, name='edit_chat_message'),
+    path('chat/messages/<int:message_id>/delete/', views.delete_chat_message, name='delete_chat_message'),
     path('chat/agent-join/<int:chat_id>/', views.agent_join_chat, name='agent_join_chat'),
     path('set-language/<str:language_code>/', views.set_language, name='set_language'),
 ]

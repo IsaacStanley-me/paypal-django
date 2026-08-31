@@ -1,0 +1,815 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - PayPal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #cc5a00 0%, #ff7a00 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #ff7a00 0%, #cc5a00 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #28a745;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        .message.own {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            max-width: 70%;
+            background: white;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .message.own .message-content {
+            background: #dcf8c6;
+            color: #000;
+        }
+
+        .message-text {
+            margin: 0;
+            word-wrap: break-word;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #666;
+            text-align: right;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.25rem;
+        }
+
+        .message-time::before {
+            content: '✓✓';
+            font-size: 0.65rem;
+            color: #53bdeb;
+        }
+
+        .message-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            display: none;
+            position: relative;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-preview.active {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .image-preview .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .voice-recorder-btn {
+            background: #f8f9fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .voice-recorder-btn:hover {
+            background: #e9ecef;
+            color: #ff7a00;
+        }
+
+        .voice-recorder-btn.recording {
+            background: #dc3545;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .audio-preview {
+            display: none;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .audio-preview.active {
+            display: flex;
+        }
+
+        .audio-preview audio {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .audio-preview .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .message-audio {
+            max-width: 300px;
+            margin-top: 0.5rem;
+        }
+
+        .message-audio audio {
+            width: 100%;
+        }
+
+        .chat-input {
+            padding: 1rem 1.5rem;
+            background: white;
+            border-top: 1px solid #e1e5e9;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .image-upload-btn {
+            background: #f8f9fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .image-upload-btn:hover {
+            background: #e9ecef;
+            color: #ff7a00;
+        }
+
+        .image-upload-btn input {
+            display: none;
+        }
+
+        .chat-input input {
+            flex: 1;
+            border: 1px solid #e1e5e9;
+            border-radius: 24px;
+            padding: 0.85rem 1.2rem;
+            font-size: 0.95rem;
+            outline: none;
+            background: #f8f9fa;
+        }
+
+        .chat-input input:focus {
+            border-color: #ff7a00;
+            background: white;
+            box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.15);
+        }
+
+        .send-btn {
+            background: #ff7a00;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .send-btn:hover {
+            background: #e56d00;
+        }
+
+        .send-btn:active {
+            transform: scale(0.95);
+        }
+
+        .no-chats {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .no-chats i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        .message-actions {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            display: none;
+            gap: 0.5rem;
+        }
+
+        .message:hover .message-actions {
+            display: flex;
+        }
+
+        .message.own .message-actions {
+            right: auto;
+            left: 0;
+        }
+
+        .action-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #5a6268;
+        }
+
+        .action-btn.edit {
+            background: #007bff;
+        }
+
+        .action-btn.delete {
+            background: #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+
+            .chat-container {
+                height: 60vh;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .chat-input {
+                padding: 0.85rem 1rem;
+                gap: 0.85rem;
+            }
+
+            .chat-input-wrapper {
+                gap: 0.65rem;
+            }
+
+            .image-upload-btn {
+                width: 42px;
+                height: 42px;
+            }
+
+            .voice-recorder-btn {
+                width: 42px;
+                height: 42px;
+            }
+
+            .send-btn {
+                width: 48px;
+                height: 48px;
+                min-width: 48px;
+                min-height: 48px;
+            }
+
+            .chat-input input {
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+                border-radius: 24px;
+            }
+
+            .message-actions {
+                position: static;
+                display: flex;
+                margin-top: 0.5rem;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'accounts:chat_page' %}">
+                <i class="fas fa-arrow-left me-2"></i>
+                {{ chat_name }}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'wallet:dashboard' %}">
+                    <i class="fas fa-home me-1"></i> Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <form style="display:none;">{% csrf_token %}</form>
+        <div class="chat-container">
+            <div class="chat-header">
+                <div>
+                    <h3>{{ chat_name }}</h3>
+                    <div class="chat-status">
+                        <div class="status-dot"></div>
+                        <span id="chatStatus">Online</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="no-chats">
+                    <i class="fas fa-comments"></i>
+                    <h4>Loading messages...</h4>
+                </div>
+            </div>
+
+            <div class="chat-input" id="chatInput">
+                <div class="chat-input-wrapper">
+                    <label class="image-upload-btn">
+                        <i class="fas fa-image"></i>
+                        <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)">
+                    </label>
+                    <button class="voice-recorder-btn" id="voiceRecorderBtn" onclick="toggleVoiceRecording()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                </div>
+                <button class="send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="image-preview" id="imagePreview">
+                <img id="previewImg" src="" alt="Preview">
+                <button class="remove-btn" onclick="removeImage()">×</button>
+            </div>
+            <div class="audio-preview" id="audioPreview">
+                <audio id="previewAudio" controls></audio>
+                <button class="remove-btn" onclick="removeAudio()">×</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const currentChatId = {{ chat.id }};
+        let selectedImage = null;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+
+        function getCsrfToken(){
+            const el = document.querySelector('[name=csrfmiddlewaretoken]');
+            if (el) return el.value;
+            const m = document.cookie.match(/csrftoken=([^;]+)/);
+            return m ? m[1] : '';
+        }
+
+        function loadMessages() {
+            fetch(`{% url 'accounts:get_chat_messages' 0 %}`.replace('0', currentChatId))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        displayMessages(data.messages);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading messages:', error);
+                });
+        }
+
+        function displayMessages(messages) {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = '';
+
+            if (messages.length === 0) {
+                messagesContainer.innerHTML = '<div class="no-chats"><i class="fas fa-comment"></i><h4>No messages yet</h4><p>Start the conversation!</p></div>';
+                return;
+            }
+
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${message.is_own ? 'own' : ''}`;
+
+                const avatarColor = message.is_own ? '#0070ba' : '#28a745';
+                const initials = message.sender.charAt(0).toUpperCase();
+
+                let contentHtml = '';
+
+                // Add text message if present
+                if (message.message) {
+                    contentHtml += `<p class="message-text">${message.message}</p>`;
+                }
+
+                // Add images if present
+                if (message.images && message.images.length > 0) {
+                    message.images.forEach(img => {
+                        contentHtml += `<img src="${img.url}" class="message-image" alt="Shared image">`;
+                    });
+                }
+
+                // Add audio if present
+                if (message.audio && message.audio.length > 0) {
+                    message.audio.forEach(audio => {
+                        contentHtml += `<audio src="${audio.url}" controls class="message-audio"></audio>`;
+                    });
+                }
+
+                // Add action buttons for own messages
+                let actionsHtml = '';
+                if (message.is_own) {
+                    const escapedMessage = message.message.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                    actionsHtml = `
+                        <div class="message-actions">
+                            <button class="action-btn edit" onclick="editMessage(${message.id}, '${escapedMessage}')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete" onclick="deleteMessage(${message.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    `;
+                }
+
+                messageDiv.innerHTML = `
+                    <div class="message-avatar" style="background-color: ${avatarColor};">${initials}</div>
+                    <div class="message-content">
+                        ${contentHtml}
+                        <div class="message-time">${message.timestamp}</div>
+                        ${actionsHtml}
+                    </div>
+                `;
+
+                messagesContainer.appendChild(messageDiv);
+            });
+
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+
+            if (!message && !selectedImage && audioChunks.length === 0) return;
+
+            const formData = new FormData();
+            formData.append('chat_id', currentChatId);
+            formData.append('message', message);
+
+            if (selectedImage) {
+                formData.append('image', selectedImage);
+            }
+
+            if (audioChunks.length > 0) {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                formData.append('audio', audioBlob);
+            }
+
+            fetch('{% url "accounts:send_chat_message" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': getCsrfToken(),
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    messageInput.value = '';
+                    removeImage();
+                    removeAudio();
+                    loadMessages();
+                }
+            })
+            .catch(error => {
+                console.error('Error sending message:', error);
+            });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function editMessage(messageId, currentMessage) {
+            const newMessage = prompt('Edit your message:', currentMessage);
+            if (newMessage !== null && newMessage !== currentMessage) {
+                const formData = new FormData();
+                formData.append('message', newMessage);
+
+                fetch(`{% url 'accounts:edit_chat_message' 0 %}`.replace('0', messageId), {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': getCsrfToken(),
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        loadMessages();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error editing message:', error);
+                });
+            }
+        }
+
+        function deleteMessage(messageId) {
+            if (confirm('Are you sure you want to delete this message?')) {
+                fetch(`{% url 'accounts:delete_chat_message' 0 %}`.replace('0', messageId), {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCsrfToken(),
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        loadMessages();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting message:', error);
+                });
+            }
+        }
+
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Compress image
+                compressImage(file, (compressedFile) => {
+                    selectedImage = compressedFile;
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('previewImg').src = e.target.result;
+                        document.getElementById('imagePreview').style.display = 'flex';
+                    };
+                    reader.readAsDataURL(compressedFile);
+                });
+            }
+        }
+
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    // Calculate new dimensions (max 1200px)
+                    const maxWidth = 1200;
+                    const maxHeight = 1200;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    // Draw and compress
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Convert to WebP with 0.75 quality
+                    canvas.toBlob(function(blob) {
+                        const compressedFile = new File([blob], file.name, {
+                            type: 'image/webp',
+                            lastModified: Date.now()
+                        });
+                        callback(compressedFile);
+                    }, 'image/webp', 0.75);
+                };
+            };
+        }
+
+        function removeImage() {
+            selectedImage = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('previewImg').src = '';
+        }
+
+        async function toggleVoiceRecording() {
+            const btn = document.getElementById('voiceRecorderBtn');
+
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        document.getElementById('previewAudio').src = audioUrl;
+                        document.getElementById('audioPreview').style.display = 'flex';
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    btn.innerHTML = '<i class="fas fa-stop"></i>';
+                    btn.style.backgroundColor = '#dc3545';
+                } catch (err) {
+                    console.error('Error accessing microphone:', err);
+                    alert('Could not access microphone. Please allow microphone access.');
+                }
+            } else {
+                mediaRecorder.stop();
+                isRecording = false;
+                btn.innerHTML = '<i class="fas fa-microphone"></i>';
+                btn.style.backgroundColor = '';
+            }
+        }
+
+        function removeAudio() {
+            document.getElementById('audioPreview').style.display = 'none';
+            document.getElementById('previewAudio').src = '';
+            audioChunks = [];
+        }
+
+        // Load messages on page load
+        document.addEventListener('DOMContentLoaded', function(){
+            loadMessages();
+        });
+
+        // Auto-refresh messages every 5 seconds
+        setInterval(() => {
+            loadMessages();
+        }, 5000);
+    </script>
+</body>
+</html>

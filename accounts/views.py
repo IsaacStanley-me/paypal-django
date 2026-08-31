@@ -999,21 +999,21 @@ def get_chat_messages(request, chat_id):
     """Get chat messages for a specific chat"""
     try:
         chat = ChatSession.objects.get(id=chat_id)
-        
+
         # Check if user is part of this chat
         if request.user != chat.user and request.user != chat.agent:
             return JsonResponse({'status': 'error', 'message': 'Access denied'})
-        
+
         messages = chat.messages.all()
         messages_data = []
-        
+
         for msg in messages:
             # Get images for this message
             images = [{'url': img.image.url, 'id': img.id} for img in msg.images.all()]
-            
+
             # Get audio files for this message
             audio_files = [{'url': audio.audio.url, 'id': audio.id} for audio in msg.audio_files.all()]
-            
+
             messages_data.append({
                 'id': msg.id,
                 'sender': msg.sender.first_name or msg.sender.email,
@@ -1023,11 +1023,89 @@ def get_chat_messages(request, chat_id):
                 'images': images,
                 'audio': audio_files
             })
-        
+
         return JsonResponse({
             'status': 'success',
             'messages': messages_data
         })
-        
+
     except ChatSession.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Chat not found'})
+
+@login_required
+def chat_session_view(request, chat_id):
+    """Individual chat session page (WhatsApp-style)"""
+    try:
+        chat = ChatSession.objects.get(id=chat_id)
+
+        # Check if user is part of this chat
+        if request.user != chat.user and request.user != chat.agent:
+            messages.error(request, 'Access denied to this chat.')
+            return redirect('accounts:chat_page')
+
+        # Get the other participant's name
+        if request.user.is_staff:
+            other_user = chat.user
+            chat_name = f"{other_user.first_name or ''} {other_user.last_name or ''}".strip() or other_user.email
+        else:
+            other_user = chat.agent
+            chat_name = f"{other_user.first_name or ''} {other_user.last_name or ''}".strip() or 'Support Agent'
+
+        return render(request, 'accounts/chat_session.html', {
+            'chat': chat,
+            'chat_name': chat_name,
+            'other_user': other_user,
+            'is_staff': request.user.is_staff,
+        })
+
+    except ChatSession.DoesNotExist:
+        messages.error(request, 'Chat session not found.')
+        return redirect('accounts:chat_page')
+
+@login_required
+@require_POST
+def edit_chat_message(request, message_id):
+    """Edit a chat message"""
+    try:
+        message = ChatMessage.objects.get(id=message_id)
+
+        # Check if user is the sender
+        if message.sender != request.user:
+            return JsonResponse({'status': 'error', 'message': 'You can only edit your own messages'})
+
+        new_message = request.POST.get('message', '')
+
+        # Update message
+        message.message = new_message
+        message.save()
+
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Message updated successfully',
+            'updated_message': new_message
+        })
+
+    except ChatMessage.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Message not found'})
+
+@login_required
+@require_POST
+def delete_chat_message(request, message_id):
+    """Delete a chat message"""
+    try:
+        message = ChatMessage.objects.get(id=message_id)
+
+        # Check if user is the sender
+        if message.sender != request.user:
+            return JsonResponse({'status': 'error', 'message': 'You can only delete your own messages'})
+
+        # Delete message (this will also delete related images/audio due to CASCADE)
+        message.delete()
+
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Message deleted successfully'
+        })
+
+    except ChatMessage.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Message not found'})
