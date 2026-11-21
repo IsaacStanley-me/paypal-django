@@ -24,13 +24,13 @@ SECRET_KEY = os.environ.get(
 )
 
 # For local development. Set to False in production.
-DEBUG = True
+DEBUG = False 
 
 # Hosts allowed to serve this site
 ALLOWED_HOSTS: list[str] = [
     "localhost",
     "127.0.0.1",
-    "epayment.pythonanywhere.com",
+    "paypal-django-production.up.railway.app",
 ]
 
 # Application definition
