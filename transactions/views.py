@@ -503,5 +503,226 @@ def accept_money_request(request, tx_id):
         user=transaction.user,
         message=f" {request.user.email} accepted your money request of ${transaction.amount:.2f}."
     )
+    messages.success(request, f"Successfully sent ${transaction.amount:.2f} to {transaction.user.email}.")
+    return redirect('transactions:transaction_history')
+
+@login_required
+def decline_money_request(request, tx_id):
+    """Decline a money request"""
+    transaction = get_object_or_404(Transaction, id=tx_id, tx_type='REQUEST', status='PENDING')
     
-    messages.success(request, f"Successfully sent ${transaction.am
+    # Current user must be the requested counterparty
+    if transaction.counterparty_id != request.user.id:
+        messages.error(request, "You can only decline requests sent to you.")
+        return redirect('transactions:transaction_history')
+    
+    # Mark original request as declined
+    transaction.status = 'DECLINED'
+    transaction.description = f"Money request declined by {request.user.email}"
+    transaction.save()
+    
+    # Notify requester
+    Notification.objects.create(
+        user=transaction.user,
+        message=f" {request.user.email} declined your money request of ${transaction.amount:.2f}."
+    )
+    
+    messages.info(request, f"Declined money request from {transaction.user.email}.")
+    return redirect('transactions:transaction_history')
+
+@login_required
+def transfer_success(request, amount, email):
+    """Transfer success page"""
+    return render(request, 'transactions/transfer_success.html', {
+        'amount': amount,
+        'email': email
+    })
+
+@login_required
+def withdrawal_pending(request, tx_id):
+    """Withdrawal pending page"""
+    transaction = get_object_or_404(Transaction, id=tx_id, user=request.user)
+    if request.method == 'POST':
+        file = request.FILES.get('voucher_image')
+        if file:
+            transaction.voucher_image = file
+            transaction.save(update_fields=['voucher_image'])
+            messages.success(request, 'Voucher proof uploaded successfully. We will review and update your status shortly.')
+        else:
+            messages.warning(request, 'Please select a voucher image to upload.')
+    return render(request, 'transactions/withdrawal_pending.html', {
+        'transaction': transaction
+    })
+
+
+@login_required
+def international_fee_page(request, tx_id):
+    """International Fee Payment Page"""
+    from django.shortcuts import get_object_or_404, redirect
+    from .models import TransactionFeeNote
+    from django.conf import settings
+    import os
+    from pathlib import Path
+    
+    tx = get_object_or_404(Transaction, id=tx_id, user=request.user)
+    
+    # Create media/vouchers directory if it doesn't exist
+    os.makedirs(os.path.join(settings.MEDIA_ROOT, 'vouchers'), exist_ok=True)
+    
+    if request.method == 'POST':
+        file = request.FILES.get('voucher_image')
+        if file:
+            try:
+                # Ensure the file is an image or PDF
+                valid_extensions = ['.jpg', '.jpeg', '.png', '.pdf']
+                file_extension = os.path.splitext(file.name)[1].lower()
+                if file_extension not in valid_extensions:
+                    messages.error(request, 'Invalid file type. Please upload a JPG, PNG, or PDF file.')
+                    return redirect('transactions:international_fee', tx_id=tx_id)
+                
+                # Delete old file if it exists
+                if tx.voucher_image:
+                    try:
+                        old_file_path = os.path.join(settings.MEDIA_ROOT, str(tx.voucher_image))
+                        if os.path.isfile(old_file_path):
+                            os.remove(old_file_path)
+                    except Exception as e:
+                        print(f"Error removing old file: {e}")
+                
+                # Generate a unique filename
+                file_name = f'tx_{tx_id}_voucher_{int(timezone.now().timestamp())}{file_extension}'
+                relative_path = f'vouchers/{file_name}'
+                file_path = os.path.join(settings.MEDIA_ROOT, relative_path)
+                
+                # Ensure the directory exists
+                os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                
+                # Save the file
+                with open(file_path, 'wb+') as destination:
+                    for chunk in file.chunks():
+                        destination.write(chunk)
+                
+                # Update the transaction
+                tx.voucher_image = relative_path
+                tx.international_fee_status = 'PENDING'
+                tx.save(update_fields=['voucher_image', 'international_fee_status'])
+                
+                # Create a note about the upload
+                TransactionFeeNote.objects.create(
+                    transaction=tx,
+                    message=f"User uploaded voucher/proof on {timezone.now().strftime('%Y-%m-%d %H:%M')}"
+                )
+                
+                messages.success(request, 'Voucher uploaded successfully. We will review your submission and update the status shortly.')
+                return redirect('transactions:transaction_detail', tx_id=tx.id)
+                
+            except Exception as e:
+                import traceback
+                error_msg = str(e)
+                print(f"Error in international_fee_page: {error_msg}\n{traceback.format_exc()}")
+                
+                # More specific error messages
+                if 'permission' in error_msg.lower():
+                    messages.error(request, 'Permission error when saving the file. Please check server permissions.')
+                elif 'disk full' in error_msg.lower():
+                    messages.error(request, 'Server storage is full. Please contact support.')
+                else:
+                    messages.error(request, f'Error uploading file: {error_msg}')
+        else:
+            messages.error(request, 'Please select a file to upload.')
+            return redirect('transactions:international_fee', tx_id=tx_id)
+    
+    # For GET requests, render the upload form
+    percentage = tx.international_fee_percentage or 0
+    message = tx.international_fee_message or ''
+    fee_notes = getattr(tx, 'fee_notes', None)
+    ordered_notes = fee_notes.order_by('-created_at') if fee_notes is not None else []
+    
+    return render(request, 'transactions/international_fee.html', {
+        'transaction': tx,
+        'percentage': percentage,
+        'admin_message': message,
+        'fee_notes': ordered_notes,
+    })
+
+
+@login_required
+def international_fee_status(request, tx_id):
+    """Lightweight status polling endpoint to allow the fee page to update."""
+    from django.http import JsonResponse
+    from django.shortcuts import get_object_or_404
+    tx = get_object_or_404(Transaction, id=tx_id, user=request.user)
+    return JsonResponse({
+        'status': tx.international_fee_status,
+        'percentage': str(tx.international_fee_percentage) if tx.international_fee_percentage is not None else None,
+        'message': tx.international_fee_message or '',
+        'tx_status': tx.status,
+    })
+
+
+@login_required
+def fee_payment_status(request, tx_id):
+    """Show the status of the international fee payment with progress."""
+    from django.shortcuts import get_object_or_404
+    from django.db.models import Q
+    
+    # Get the transaction, ensuring the user has permission to view it
+    tx = get_object_or_404(
+        Transaction.objects.select_related('user'),
+        Q(id=tx_id) & (Q(user=request.user) | Q(counterparty=request.user))
+    )
+    
+    # If this is a POST request, it might be an admin updating the status
+    if request.method == 'POST' and request.user.is_staff:
+        if 'update_status' in request.POST:
+            new_status = request.POST.get('status')
+            message = request.POST.get('message', '').strip()
+            percentage = request.POST.get('percentage')
+            
+            if new_status in dict(Transaction.FEE_STATUS_CHOICES):
+                tx.international_fee_status = new_status
+                
+                if percentage and percentage.isdigit():
+                    tx.international_fee_percentage = min(100, max(0, int(percentage)))
+                
+                if message:
+                    tx.international_fee_message = message
+                    # Create a new note for this update
+                    from .models import TransactionFeeNote
+                    TransactionFeeNote.objects.create(
+                        transaction=tx,
+                        message=f"Admin update ({new_status}): {message}"
+                    )
+                
+                tx.save()
+                messages.success(request, 'Status updated successfully.')
+            else:
+                messages.error(request, 'Invalid status provided.')
+            
+            return redirect('transactions:fee_payment_status', tx_id=tx.id)
+    
+    # Get all fee notes for this transaction
+    fee_notes = tx.fee_notes.all().order_by('-created_at')
+    
+    return render(request, 'transactions/fee_payment_status.html', {
+        'transaction': tx,
+        'fee_notes': fee_notes,
+    })
+
+
+@login_required
+def test_email(request):
+    """Send a quick Gmail test message to confirm SMTP works."""
+    from django.http import JsonResponse
+    from django.conf import settings
+    from django.core.mail import send_mail
+    try:
+        subject = "ICICI Mail Test"
+        message = "This is a test message from Django email setup."
+        recipients = ["icicibankweb@gmail.com"]
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
+        sent = send_mail(subject, message, from_email, recipients)
+        return JsonResponse({"ok": True, "sent": sent, "from": from_email, "to": recipients})
+    except Exception as e:
+        return JsonResponse({"ok": False, "error": str(e)}, status=500)
+    
