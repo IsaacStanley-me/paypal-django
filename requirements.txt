@@ -3,3 +3,4 @@ djangorestframework
 pillow
 gunicorn
 whitenoise
+pytz
