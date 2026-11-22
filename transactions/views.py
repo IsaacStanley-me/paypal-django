@@ -24,7 +24,7 @@ def test_email(request):
 
 @login_required
 def withdraw_view(request):
-    wallet, _ = Wallet.objects.get_or_create(user=request.user)
+    wallet, _ = _wallet_get_or_create(user=request.user)
     return render(request, 'transactions/withdraw.html', {'wallet': wallet})
 
 
@@ -40,12 +40,22 @@ from django.contrib import messages
 from wallet.models import Wallet
 from .models import Transaction
 from .forms import BankWithdrawForm
-from decimal import Decimal 
+from decimal import Decimal
+
+
+def _wallet_get_or_create(**kwargs):
+    """Get or create a wallet. A newly created wallet is reloaded from the
+    database so its balances are Decimal values (not floats), which makes
+    math with Decimal amounts work."""
+    wallet, created = Wallet.objects.get_or_create(**kwargs)
+    if created:
+        wallet.refresh_from_db()
+    return wallet, created
 
 @login_required
 def withdraw_bank(request):
     user = request.user
-    wallet, _ = Wallet.objects.get_or_create(user=user)
+    wallet, _ = _wallet_get_or_create(user=user)
 
     if request.method == "POST":
         form = BankWithdrawForm(request.POST)
@@ -86,7 +96,7 @@ def withdraw_bank(request):
 @login_required
 def withdraw_card(request):
     user = request.user
-    wallet, _ = Wallet.objects.get_or_create(user=user)
+    wallet, _ = _wallet_get_or_create(user=user)
 
     if request.method == "POST":
         form = CardWithdrawForm(request.POST)
@@ -132,7 +142,7 @@ from transactions.models import Transaction, Notification
 
 @login_required
 def withdraw_user(request):
-    wallet, _ = Wallet.objects.get_or_create(user=request.user)
+    wallet, _ = _wallet_get_or_create(user=request.user)
     
     # Pass wallet to template
     context = {'wallet': wallet}
@@ -173,7 +183,7 @@ def withdraw_user(request):
         
         wallet.save()
 
-        recipient_wallet, _ = Wallet.objects.get_or_create(user=recipient)
+        recipient_wallet, _ = _wallet_get_or_create(user=recipient)
         recipient_wallet.icici_balance += amount
         recipient_wallet.save()
 
@@ -381,8 +391,6 @@ def request_money(request):
         return redirect('transactions:transaction_history')
 
     return render(request, 'transactions/request.html')
-
-
 @login_required
 def notifications_list(request):
     """AJAX endpoint to get notifications for the current user"""
@@ -464,7 +472,7 @@ def accept_money_request(request, tx_id):
         messages.error(request, "You can only accept requests sent to you.")
         return redirect('transactions:transaction_history')
     
-    payer_wallet, _ = Wallet.objects.get_or_create(user=request.user)
+    payer_wallet, _ = _wallet_get_or_create(user=request.user)
     if payer_wallet.icici_balance < transaction.amount:
         messages.error(request, "Insufficient balance to fulfill this request.")
         return redirect('transactions:transaction_history')
@@ -473,7 +481,7 @@ def accept_money_request(request, tx_id):
     payer_wallet.icici_balance -= transaction.amount
     payer_wallet.save()
     
-    requester_wallet, _ = Wallet.objects.get_or_create(user=transaction.user)
+    requester_wallet, _ = _wallet_get_or_create(user=transaction.user)
     requester_wallet.icici_balance += transaction.amount
     requester_wallet.save()
     
@@ -503,6 +511,7 @@ def accept_money_request(request, tx_id):
         user=transaction.user,
         message=f" {request.user.email} accepted your money request of ${transaction.amount:.2f}."
     )
+    
     messages.success(request, f"Successfully sent ${transaction.amount:.2f} to {transaction.user.email}.")
     return redirect('transactions:transaction_history')
 
@@ -725,4 +734,3 @@ def test_email(request):
         return JsonResponse({"ok": True, "sent": sent, "from": from_email, "to": recipients})
     except Exception as e:
         return JsonResponse({"ok": False, "error": str(e)}, status=500)
-    
