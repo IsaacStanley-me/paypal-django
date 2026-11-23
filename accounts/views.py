@@ -477,7 +477,7 @@ def signup_profile_picture(request):
     if request.method == "POST":
         profile_picture = request.FILES.get('profile_picture')
         # Do NOT store file objects in session (not JSON serializable). Pass directly.
-        return create_user_account(reques, profile_picture=profile_picture)
+        return create_user_account(request, profile_picture=profile_picture)
     
     return render(request, 'accounts/signup_profile_picture.html')
 
