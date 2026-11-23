@@ -36,12 +36,16 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "paypal-django-production.up.railway.app",
+    "evercrestpay.com",
+    "www.evercrestpay.com",
 ]
 
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
     "https://paypal-django-production.up.railway.app",
+    "https://evercrestpay.com",
+    "https://www.evercrestpay.com",
 ]
 
 
