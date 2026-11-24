@@ -204,7 +204,9 @@ STORAGES = {
 
 # Media files
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+# On Railway, attach a Volume mounted at /data so uploads survive redeploys.
+# Locally (no /data folder) it falls back to the "media" folder in the project.
+MEDIA_ROOT = Path(os.environ.get("MEDIA_ROOT", "/data/media" if Path("/data").exists() else BASE_DIR / "media"))
 
 
 # Custom user model
