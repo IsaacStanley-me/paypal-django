@@ -3,6 +3,8 @@ from django.urls import path, include
 from home import views as home_views
 from django.views.generic.base import RedirectView
 from django.templatetags.static import static
+from django.urls import re_path
+from django.views.static import serve as media_serve
 from django.conf import settings
 from django.conf.urls.static import static as media_static
 
@@ -27,6 +29,8 @@ urlpatterns = [
 
 ]
 
-# Serve media files in development
-if settings.DEBUG:
-    urlpatterns += media_static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve uploaded media files (images, voice notes, receipts).
+# This works with DEBUG=False so uploads show on the live site.
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', media_serve, {'document_root': settings.MEDIA_ROOT}),
+]
